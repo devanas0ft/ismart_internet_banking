@@ -1,0 +1,1 @@
+enum CountersEnums { NEA, Khanepani }
