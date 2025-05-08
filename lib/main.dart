@@ -1,13 +1,14 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:ismart_web/app/app_dev.dart';
-// import 'package:ismart_web/features/auth/ui/screens/login_screen.dart';
 import 'package:ismart_web/features/splash/loader_screen.dart';
 
 import 'common/utils/log.dart';
 
-void main() {
+Future<void> main() async {
+  await EasyLocalization.ensureInitialized();
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();

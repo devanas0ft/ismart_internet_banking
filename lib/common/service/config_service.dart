@@ -36,7 +36,7 @@ class ConfigService {
 
     switch (coopName.toLowerCase()) {
       case 'shubhasandesh':
-        return const CoOperative(
+        return CoOperative(
           coOperativeName: 'shubhasandesh',
           bannerImage: 'assets/images/shubhasandesh_banner.png',
           clientCode: 'JCJY7XP42T',
@@ -44,7 +44,7 @@ class ConfigService {
           primaryColor: Color(0xFF0A1172),
         );
       case 'bhimad':
-        return const CoOperative(
+        return CoOperative(
           coOperativeName: 'bhimad',
           bannerImage: 'assets/images/bhimad_banner.png',
           clientCode: '01O76FM7KC',
@@ -52,7 +52,7 @@ class ConfigService {
           primaryColor: Color(0xFF006837),
         );
       case 'aadarsha':
-        return const CoOperative(
+        return CoOperative(
           coOperativeName: 'aadarsha',
           bannerImage: 'assets/images/aadarsha_banner.png',
           clientCode: '6LDSFON6DI',
@@ -62,14 +62,5 @@ class ConfigService {
       default:
         return CoOperative.defaultConfig();
     }
-
-    // In a real application, you might want to fetch this data from an API
-    // return await _fetchConfigFromApi(coopName);
   }
-
-  // Example method to fetch configuration from an API
-  // Future<CoopConfig> _fetchConfigFromApi(String coopName) async {
-  //   // Implement API call to get coop configuration
-  //   // Return the fetched configuration or default if not found
-  // }
 }

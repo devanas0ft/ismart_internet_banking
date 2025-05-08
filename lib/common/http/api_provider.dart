@@ -1,13 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart' as parse;
+import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/http/custom_exception.dart';
 import 'package:ismart_web/common/http/dio_client.dart';
-import 'package:ismart_web/common/shared_pref.dart';
+import 'package:ismart_web/features/auth/resources/user_repository.dart';
 import 'package:mime/mime.dart';
+
+import '../utils/log.dart';
 
 class ApiProvider {
   final String baseUrl;
@@ -22,10 +27,10 @@ class ApiProvider {
     Map<String, String> header = const {},
   }) async {
     dynamic responseJson;
-    final DioClient dioClient = DioClient(baseUrl: baseUrl);
+    final DioClient _dioClient = DioClient(baseUrl: baseUrl);
 
     try {
-      final Map<String, String> requestHeader = {
+      final Map<String, String> _requestHeader = {
         'Content-Type': 'application/json',
         'accept': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -35,22 +40,22 @@ class ApiProvider {
       };
 
       if (token.isNotEmpty) {
-        requestHeader['Authorization'] = 'Bearer $token';
+        _requestHeader['Authorization'] = 'Bearer ' + token;
       }
-      final dynamic response = await dioClient.post(
+      final dynamic response = await _dioClient.post(
         Uri.parse(url),
         data: body,
-        options: Options(headers: requestHeader),
+        options: Options(headers: _requestHeader),
       );
       responseJson = _response(response, url);
-    } on DioException catch (e) {
+    } on DioError catch (e) {
+      print(e);
       responseJson = await _handleErrorResponse(e);
-      print("this is error response ${e.response}");
-      await SharedPref.setInvalidResponse(e.response.toString());
     }
     return responseJson;
   }
 
+  /* Post request */
   Future<Map<String, dynamic>> postReq(
     String url,
     dynamic body, {
@@ -97,7 +102,7 @@ class ApiProvider {
     String token = '',
     bool isRefreshRequest = false,
   }) async {
-    final DioClient dioClient = DioClient(baseUrl: baseUrl);
+    final DioClient _dioClient = DioClient(baseUrl: baseUrl);
 
     dynamic responseJson;
     try {
@@ -108,15 +113,15 @@ class ApiProvider {
         // // ...await DeviceUtils.deviceInfoHeader,
       };
       if (token.isNotEmpty) {
-        header['Authorization'] = 'Bearer $token';
+        header['Authorization'] = 'Bearer ' + token;
       }
-      final dynamic response = await dioClient.patch(
+      final dynamic response = await _dioClient.patch(
         Uri.parse(url),
         data: body,
         options: Options(headers: header),
       );
       responseJson = _response(response, url);
-    } on DioException catch (e) {
+    } on DioError catch (e) {
       responseJson = await _handleErrorResponse(e);
     }
     return responseJson;
@@ -129,7 +134,7 @@ class ApiProvider {
     String token = '',
     bool isRefreshRequest = false,
   }) async {
-    final DioClient dioClient = DioClient(baseUrl: baseUrl);
+    final DioClient _dioClient = DioClient(baseUrl: baseUrl);
 
     dynamic responseJson;
     try {
@@ -140,15 +145,15 @@ class ApiProvider {
         // ...await DeviceUtils.deviceInfoHeader,
       };
       if (token.isNotEmpty) {
-        header['Authorization'] = 'Bearer $token';
+        header['Authorization'] = 'Bearer ' + token;
       }
-      final dynamic response = await dioClient.put(
+      final dynamic response = await _dioClient.put(
         Uri.parse(url),
         data: body,
         options: Options(headers: header),
       );
       responseJson = _response(response, url);
-    } on DioException catch (e) {
+    } on DioError catch (e) {
       responseJson = await _handleErrorResponse(e);
     }
     return responseJson;
@@ -162,7 +167,7 @@ class ApiProvider {
     int timeOut = 30,
     Map<String, dynamic>? extraHeaders,
   }) async {
-    final DioClient dioClient = DioClient(baseUrl: baseUrl);
+    final DioClient _dioClient = DioClient(baseUrl: baseUrl);
 
     dynamic responseJson;
 
@@ -177,9 +182,9 @@ class ApiProvider {
       };
 
       if (token.isNotEmpty) {
-        header['Authorization'] = 'Bearer $token';
+        header['Authorization'] = 'Bearer ' + token;
       }
-      final dynamic response = await dioClient.get(
+      final dynamic response = await _dioClient.get(
         url,
         options: Options(
           headers: header,
@@ -191,10 +196,10 @@ class ApiProvider {
       );
 
       responseJson = _response(response, url.toString(), cacheResult: true);
-    } on DioException catch (e, s) {
+    } on DioError catch (e, s) {
       responseJson = await _handleErrorResponse(e);
-      // Log.e(e);
-      // Log.d(s);
+      Log.e(e);
+      Log.d(s);
     }
     return responseJson;
   }
@@ -205,7 +210,7 @@ class ApiProvider {
     String token = '',
     dynamic body,
   }) async {
-    final DioClient dio = DioClient(baseUrl: baseUrl);
+    final DioClient _dio = DioClient(baseUrl: baseUrl);
     dynamic responseJson;
     try {
       final Map<String, String> header = {
@@ -215,18 +220,18 @@ class ApiProvider {
         'Access-Control-Allow-Origin': '*',
         // // ...await DeviceUtils.deviceInfoHeader,
       };
-      debugPrint('TOKEN $token');
+      debugPrint('TOKEN ' + token);
       if (token.isNotEmpty) {
-        header['Authorization'] = 'Bearer $token';
+        header['Authorization'] = 'Bearer ' + token;
       }
-      final dynamic response = await dio.delete(
+      final dynamic response = await _dio.delete(
         Uri.parse(url),
         data: body,
         options: Options(headers: header),
       );
       responseJson = await _response(response, url);
       responseJson['status'] = response.statusCode;
-    } on DioException catch (e) {
+    } on DioError catch (e) {
       responseJson = await _handleErrorResponse(e);
     }
     return responseJson;
@@ -237,8 +242,9 @@ class ApiProvider {
     File file, {
     required int? userId,
     String token = '',
+    bool isAudio = false,
   }) async {
-    final DioClient dio = DioClient(baseUrl: baseUrl);
+    final DioClient _dio = DioClient(baseUrl: baseUrl);
     dynamic responseJson;
     try {
       final Map<String, String> header = {
@@ -248,21 +254,32 @@ class ApiProvider {
         // ...await DeviceUtils.deviceInfoHeader,
       };
       if (token.isNotEmpty) {
-        header['Authorization'] = 'Bearer $token';
+        header['Authorization'] = 'Bearer ' + token;
       }
       final String fileName = file.path.split('/').last;
       // final String _extention = file.path.split('.').last;
       // ignore: unused_local_variable
-      final String type = lookupMimeType(file.path)!.split('/').first;
+
+      final String fieldName = isAudio ? 'file' : 'image';
+
+      final parse.MediaType contentType;
+      if (isAudio) {
+        contentType = parse.MediaType('audio', 'wav');
+      } else {
+        final String typeSection =
+            lookupMimeType(file.path)?.split('/').first ?? 'image';
+
+        contentType = parse.MediaType(typeSection, file.path.split('.').last);
+      }
 
       final FormData formData = FormData.fromMap(<String, dynamic>{
-        'image': await MultipartFile.fromFile(
+        fieldName: await MultipartFile.fromFile(
           file.path,
           filename: fileName,
-          contentType: parse.MediaType('image', file.path.split('.').last),
+          contentType: contentType,
         ),
       });
-      final Response<dynamic> response = await dio.post(
+      final Response<dynamic> response = await _dio.post(
         Uri.parse(url),
         data: formData,
         options: Options(headers: header),
@@ -270,9 +287,9 @@ class ApiProvider {
       );
 
       responseJson = _response(response, url);
-    } on DioException catch (e) {
+    } on DioError catch (e) {
       responseJson = await _handleErrorResponse(e);
-      // Log.e(e);
+      Log.e(e);
     }
     return responseJson;
   }
@@ -285,7 +302,7 @@ class ApiProvider {
     String token = '',
     required Function(int, int) onSendProgress,
   }) async {
-    final DioClient dio = DioClient(baseUrl: baseUrl);
+    final DioClient _dio = DioClient(baseUrl: baseUrl);
     dynamic responseJson;
     try {
       // ignore: unused_local_variable
@@ -308,7 +325,7 @@ class ApiProvider {
         ),
       });
 
-      final Response<dynamic> response = await dio.put(
+      final Response<dynamic> response = await _dio.put(
         Uri.parse(url),
         data: file.openRead(),
         options: Options(
@@ -325,9 +342,9 @@ class ApiProvider {
       );
 
       responseJson = _response(response, url);
-    } on DioException catch (e) {
+    } on DioError catch (e) {
       responseJson = await _handleErrorResponse(e);
-      // Log.e(e);
+      Log.e(e);
     }
     return responseJson;
   }
@@ -338,7 +355,7 @@ class ApiProvider {
     required int userId,
     required String token,
   }) async {
-    final DioClient dio = DioClient(baseUrl: baseUrl);
+    final DioClient _dio = DioClient(baseUrl: baseUrl);
     try {
       final Map<String, String> header = {
         'accept': 'application/json',
@@ -347,10 +364,10 @@ class ApiProvider {
       };
 
       if (token.isNotEmpty) {
-        header['Authorization'] = 'Bearer $token';
+        header['Authorization'] = 'Bearer ' + token;
       }
 
-      final Response<dynamic> response = await dio.get(
+      final Response<dynamic> response = await _dio.get(
         Uri.parse(url),
         options: Options(
           responseType: ResponseType.bytes,
@@ -377,17 +394,17 @@ class ApiProvider {
       } else {
         return null;
       }
-    } on DioException catch (e) {
-      // Log.e(e);
+    } on DioError catch (e) {
+      Log.e(e);
 
       return null;
     } catch (e) {
-      // Log.e("Error in downlodng");
+      Log.e("Error in downlodng");
       return null;
     }
   }
 
-  _handleErrorResponse(DioException e) async {
+  _handleErrorResponse(DioError e) async {
     if (e.toString().toLowerCase().contains("socketexception")) {
       throw NoInternetException('No Internet connection', 1000);
     } else {
@@ -434,10 +451,10 @@ class ApiProvider {
       case 201:
         return responseJson;
       case 400:
-        final String responseStatus =
+        final String _responseStatus =
             (responseJson['data']?['status'] ?? "").toString();
 
-        if (responseStatus.toLowerCase() == "FAILURE".toLowerCase()) {
+        if (_responseStatus.toLowerCase() == "FAILURE".toLowerCase()) {
           throw BadRequestException(
             responseJson['data']?['message'] ?? "",
             response.statusCode,
@@ -475,23 +492,24 @@ class ApiProvider {
         //   );
         // }
         // TODOCheck status from Response and Logout only when session is expire
-        final String responseCode =
+        final String _responseCode =
             (responseJson['data']?['code'] ?? "").toString();
-        final String responseStatus =
+        final String _responseStatus =
             (responseJson['data']?['responseStatus'] ?? "").toString();
 
-        if (responseCode == "M0025" ||
-            responseCode == "M0005" ||
-            responseCode == "M0007" ||
-            responseStatus == "UNAUTHORIZED_USER") {
+        if (_responseCode == "M0025" ||
+            _responseCode == "M0005" ||
+            _responseCode == "M0007" ||
+            _responseStatus == "UNAUTHORIZED_USER") {
           throw BadRequestException(
             responseJson['data']?['message'] ?? "",
             response.statusCode,
           );
         } else {
           // await SharedPref.removeBiometricLogin();
-          // RepositoryProvider.of<UserRepository>(NavigationService.context)
-          //     .logout(isSessionExpired: true);
+          RepositoryProvider.of<UserRepository>(
+            NavigationService.context,
+          ).logout(isSessionExpired: true);
           throw UnauthorisedException(
             getErrorMessage(res, 401),
             response.statusCode,

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CoOperative {
-  final String baseUrl;
-  final String clientCode;
-  final String clientSecret;
-  final String coOperativeName;
-  final String bannerImage;
-  final String coOperativeLogo;
-  final String splashImage;
-  final Color primaryColor;
-  final String backgroundImage;
-  final String appStoreID;
-  final String packageName;
-  final String appTitle;
-  final String channelPartner;
-  final bool shouldValidateCooperative;
+  String baseUrl;
+  String clientCode;
+  String clientSecret;
+  String coOperativeName;
+  String bannerImage;
+  String coOperativeLogo;
+  String splashImage;
+  Color primaryColor;
+  String backgroundImage;
+  String appStoreID;
+  String packageName;
+  String appTitle;
+  String channelPartner;
+  bool shouldValidateCooperative;
 
-  const CoOperative({
+  CoOperative({
     required this.clientCode,
     required this.clientSecret,
     required this.coOperativeName,
@@ -34,7 +34,7 @@ class CoOperative {
   });
 
   factory CoOperative.defaultConfig() {
-    return const CoOperative(
+    return CoOperative(
       coOperativeName: 'ismart',
       bannerImage: 'assets/images/ismart_banner.png',
       clientCode: 'EHVNI7CZJ3',

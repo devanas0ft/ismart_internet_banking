@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/service/config_service.dart';
-import 'package:ismart_web/features/auth/ui/screens/login_screen.dart';
+import 'package:ismart_web/features/auth/ui/screens/login_page.dart';
 
 class LoaderScreen extends StatefulWidget {
   const LoaderScreen({Key? key}) : super(key: key);
@@ -64,12 +65,10 @@ class _LoaderScreenState extends State<LoaderScreen> {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             final config = ConfigService().config;
             CustomTheme().initializeTheme(config.primaryColor);
-            Future.delayed(const Duration(seconds: 5), () {
+            Future.delayed(const Duration(seconds: 3), () {
               final config = ConfigService().config;
               CustomTheme().initializeTheme(config.primaryColor);
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-              );
+              NavigationService.pushReplacement(target: LoginPage());
             });
           });
 

@@ -5,10 +5,11 @@ import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/http/custom_exception.dart';
 import 'package:ismart_web/common/http/response.dart';
 import 'package:ismart_web/common/utils/hive_utils.dart';
+
 import 'package:ismart_web/features/auth/resources/user_repository.dart';
 import 'package:ismart_web/features/customerDetail/cubit/customer_detail_cubit.dart';
 import 'package:ismart_web/features/customerDetail/resource/customer_detail_repository.dart';
-import 'package:ismart_web/features/wallet_transfer/model/wallet_model.dart';
+import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_model.dart';
 import 'package:ismart_web/features/wallet_transfer/model/wallet_transfer_model.dart';
 import 'package:ismart_web/features/wallet_transfer/model/wallet_validation_model.dart';
 import 'package:ismart_web/features/wallet_transfer/resoures/wallet_load_api_provider.dart';

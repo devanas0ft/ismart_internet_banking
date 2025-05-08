@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
 import 'package:ismart_web/features/appServiceManagement/model/app_service_management_model.dart';
-import 'package:ismart_web/features/wallet_transfer/model/wallet_model.dart';
+import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_model.dart';
 
 class ServiceHiveUtils {
   static final ServiceHiveUtils _walletHiveUtils = ServiceHiveUtils._internal();

@@ -2,7 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/bloc/data_state.dart';
 import 'package:ismart_web/common/http/response.dart';
 import 'package:ismart_web/common/utils/hive_utils.dart';
-import 'package:ismart_web/features/wallet_transfer/model/wallet_model.dart';
+import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_model.dart';
+
 import 'package:ismart_web/features/wallet_transfer/model/wallet_validation_model.dart';
 import 'package:ismart_web/features/wallet_transfer/resoures/wallet_load_repository.dart';
 
