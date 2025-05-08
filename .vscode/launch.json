@@ -1,14 +1,21 @@
 {
     "version": "0.2.0",
     "configurations": [
-       
         {
-            "name": "Development",
+            "name": "Flutter Web (Chrome)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
             "program": "lib/main.dart",
+            "deviceId": "chrome"
         },
-      
+        {
+            "name": "Flutter Desktop (Windows)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main.dart",
+            "deviceId": "windows"
+        }
     ]
 }

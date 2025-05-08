@@ -19,9 +19,9 @@ class CoopConfig {
     return const CoopConfig(
       coopName: 'ismart',
       bannerImagePath: 'assets/images/ismart_banner.png',
-      clientKey: 'default_client_key',
-      clientSecret: 'default_client_secret',
-      primaryColor: Color(0xFF1976D2),
+      clientKey: 'EHVNI7CZJ3',
+      clientSecret: '126489',
+      primaryColor: Color(0xFF010C80),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ismart_web/common/app/theme.dart';
+import 'package:ismart_web/common/service/config_service.dart';
 
 import 'package:ismart_web/common/utils/size_utils.dart';
 
@@ -47,15 +48,14 @@ class CustomRoundedButtom extends StatefulWidget {
 class CustomRoundedButtomState extends State<CustomRoundedButtom> {
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    print(_theme.primaryColor);
+    final _theme = Theme.of(context); // print(_theme.primaryColor);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
       child: Material(
         color:
             widget.isDisabled
                 ? CustomTheme.lightGray
-                : (widget.color ?? _theme.primaryColor),
+                : (widget.color ?? CustomTheme.primaryColor),
         borderRadius: BorderRadius.circular(15),
         child: InkWell(
           onTap:

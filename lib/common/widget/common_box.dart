@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ismart_web/common/app/theme.dart';
+import 'package:ismart_web/common/service/config_service.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 
 class CommonBox extends StatelessWidget {
@@ -25,7 +26,6 @@ class CommonBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _theme = Theme.of(context);
-
     return InkWell(
       onTap: onContainerPress,
       child: Container(
@@ -34,7 +34,7 @@ class CommonBox extends StatelessWidget {
         margin: margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: _theme.primaryColor.withOpacity(0.05),
+          color: CustomTheme.primaryColor.withOpacity(0.05),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -47,12 +47,12 @@ class CommonBox extends StatelessWidget {
                   isNetworkImage == true
                       ? SvgPicture.network(
                         containerImage,
-                        color: _theme.primaryColor,
+                        color: CustomTheme.primaryColor,
                       )
                       : SvgPicture.asset(
                         containerImage,
                         height: 20,
-                        color: _theme.primaryColor,
+                        color: CustomTheme.primaryColor,
                       ),
             ),
             Expanded(

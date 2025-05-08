@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
+import 'package:ismart_web/common/service/config_service.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 
 class GuthiTopWidget extends StatelessWidget {
@@ -16,6 +17,7 @@ class GuthiTopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _height = SizeUtils.height;
+    final config = ConfigService().config;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,10 +27,7 @@ class GuthiTopWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               // child: Image.asset("assets/Newa_banner.png", height: 60.hp),
-              child: Image.asset(
-                "assets/images/ismart_banner.png",
-                height: 60.hp,
-              ),
+              child: Image.asset(config.bannerImagePath, height: 60.hp),
             ),
           ),
 
@@ -58,6 +57,7 @@ class GuthiTopWidget extends StatelessWidget {
   supportSheet() {
     final _textTheme = Theme.of(NavigationService.context).textTheme;
     final List contactList = ['9812724405'];
+    final config = ConfigService().config;
 
     showModalBottomSheet(
       context: NavigationService.context,
@@ -135,7 +135,7 @@ class GuthiTopWidget extends StatelessWidget {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios,
-                                color: CustomTheme.primaryColor,
+                                color: config.primaryColor,
                               ),
                             ],
                           ),

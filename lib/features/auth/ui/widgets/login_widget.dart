@@ -8,7 +8,6 @@ import 'package:ismart_web/common/widget/custom_text_field.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/common/widget/top_widget.dart';
 import 'package:ismart_web/features/auth/ui/widgets/opt_widget.dart';
-// import 'package:ismart_web/features/Screens/Dashboard/dashboard_widget.dart';
 import 'package:ismart_web/features/auth/ui/widgets/sign_up_widget.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -25,11 +24,16 @@ class _LoginWidgetState extends State<LoginWidget> {
   final TextEditingController passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
     // final _theme = Theme.of(context);
-
+    // final config = ConfigService().config;
     return PageWrapper(
       showAppBar: false,
       backgroundColor: Colors.white,
