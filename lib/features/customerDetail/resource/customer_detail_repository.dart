@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/app/navigation_service.dart';
-import 'package:ismart_web/common/constants/env.dart';
 import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/http/custom_exception.dart';
 import 'package:ismart_web/common/http/response.dart';
@@ -9,6 +8,7 @@ import 'package:ismart_web/features/auth/resources/user_repository.dart';
 import 'package:ismart_web/features/customerDetail/model/customer_detail_model.dart';
 import 'package:ismart_web/features/customerDetail/resource/customer_detail_api_provider.dart';
 import 'package:ismart_web/features/statement/fullStatement/resources/full_statement_repository.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 
 class CustomerDetailRepository {
   final ApiProvider apiProvider;

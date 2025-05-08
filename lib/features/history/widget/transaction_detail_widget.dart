@@ -5,7 +5,7 @@ import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/bloc/data_state.dart';
 import 'package:ismart_web/common/constants/assets.dart';
-import 'package:ismart_web/common/constants/env.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/utils/file_download_utils.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/custom_cached_network_image.dart';

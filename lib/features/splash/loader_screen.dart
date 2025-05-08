@@ -12,7 +12,7 @@ class LoaderScreen extends StatefulWidget {
 }
 
 class _LoaderScreenState extends State<LoaderScreen> {
-  late Future<CoopConfig> _configFuture;
+  late Future<CoOperative> _configFuture;
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _LoaderScreenState extends State<LoaderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<CoopConfig>(
+    return FutureBuilder<CoOperative>(
       future: _configFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

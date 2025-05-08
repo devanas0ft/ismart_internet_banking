@@ -1,4 +1,3 @@
-import 'package:ismart_web/common/constants/env.dart';
 import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/http/custom_exception.dart';
 import 'package:ismart_web/common/http/response.dart';
@@ -6,6 +5,7 @@ import 'package:ismart_web/common/utils/hive_utils.dart';
 import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
 import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/resources/category_api_provider.dart';
 import 'package:ismart_web/features/auth/resources/user_repository.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 
 class CategoryRepository {
   final ApiProvider apiProvider;

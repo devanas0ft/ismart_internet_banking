@@ -27,7 +27,7 @@ class AppDev extends StatelessWidget {
         theme: CustomTheme.lightTheme,
         darkTheme: CustomTheme.lightTheme,
         themeMode: ThemeMode.system,
-        title: "Ismart Web - ${config.coopName}",
+        title: "Ismart Web - ${config.coOperativeName}",
         home: home,
         // onGenerateRoute: RoutesGenerator.generateRoute,
       ),

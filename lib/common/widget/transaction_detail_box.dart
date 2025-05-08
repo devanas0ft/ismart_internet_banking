@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/app/theme.dart';
-import 'package:ismart_web/common/constants/env.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/custom_cached_network_image.dart';
 import 'package:ismart_web/features/history/models/recent_transaction_model.dart';
@@ -10,10 +10,10 @@ class TransactionDetailBox extends StatelessWidget {
   final RecentTransactionModel recentTransactionModel;
   final VoidCallback? onClickAction;
   const TransactionDetailBox({
-    Key? key,
+    super.key,
     this.onClickAction,
     required this.recentTransactionModel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
-import 'package:ismart_web/common/constants/env.dart';
-import 'package:ismart_web/common/constants/slugs.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/common_container.dart';
 import 'package:ismart_web/common/widget/custom_text_field.dart';

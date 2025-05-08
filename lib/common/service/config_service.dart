@@ -10,11 +10,11 @@ class ConfigService {
 
   ConfigService._internal();
 
-  CoopConfig? _currentConfig;
+  CoOperative? _currentConfig;
 
-  CoopConfig get config => _currentConfig ?? CoopConfig.defaultConfig();
+  CoOperative get config => _currentConfig ?? CoOperative.defaultConfig();
 
-  Future<CoopConfig> initialize() async {
+  Future<CoOperative> initialize() async {
     final uri = Uri.parse(html.window.location.href);
 
     final pathSegments = uri.pathSegments;
@@ -29,38 +29,38 @@ class ConfigService {
     return config;
   }
 
-  Future<CoopConfig> _loadConfigForCoop(String? coopName) async {
+  Future<CoOperative> _loadConfigForCoop(String? coopName) async {
     if (coopName == null || coopName.isEmpty) {
-      return CoopConfig.defaultConfig();
+      return CoOperative.defaultConfig();
     }
 
     switch (coopName.toLowerCase()) {
       case 'shubhasandesh':
-        return const CoopConfig(
-          coopName: 'shubhasandesh',
-          bannerImagePath: 'assets/images/shubhasandesh_banner.png',
-          clientKey: 'JCJY7XP42T',
+        return const CoOperative(
+          coOperativeName: 'shubhasandesh',
+          bannerImage: 'assets/images/shubhasandesh_banner.png',
+          clientCode: 'JCJY7XP42T',
           clientSecret: '149163',
           primaryColor: Color(0xFF0A1172),
         );
       case 'bhimad':
-        return const CoopConfig(
-          coopName: 'bhimad',
-          bannerImagePath: 'assets/images/bhimad_banner.png',
-          clientKey: '01O76FM7KC',
+        return const CoOperative(
+          coOperativeName: 'bhimad',
+          bannerImage: 'assets/images/bhimad_banner.png',
+          clientCode: '01O76FM7KC',
           clientSecret: '186933',
           primaryColor: Color(0xFF006837),
         );
       case 'aadarsha':
-        return const CoopConfig(
-          coopName: 'aadarsha',
-          bannerImagePath: 'assets/images/aadarsha_banner.png',
-          clientKey: '6LDSFON6DI',
+        return const CoOperative(
+          coOperativeName: 'aadarsha',
+          bannerImage: 'assets/images/aadarsha_banner.png',
+          clientCode: '6LDSFON6DI',
           clientSecret: '219548',
           primaryColor: Color(0xFFF44336),
         );
       default:
-        return CoopConfig.defaultConfig();
+        return CoOperative.defaultConfig();
     }
 
     // In a real application, you might want to fetch this data from an API

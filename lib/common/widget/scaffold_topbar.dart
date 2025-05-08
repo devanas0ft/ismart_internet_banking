@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ismart_web/common/constants/env.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 
 class ScaffoldTopBar extends StatelessWidget {
   final String name;

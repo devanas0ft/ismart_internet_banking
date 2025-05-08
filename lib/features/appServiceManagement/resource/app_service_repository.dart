@@ -1,7 +1,7 @@
-import 'package:ismart_web/common/constants/env.dart';
 import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/http/custom_exception.dart';
 import 'package:ismart_web/common/http/response.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/utils/hive_utils.dart';
 import 'package:ismart_web/features/appServiceManagement/model/app_service_management_model.dart';
 import 'package:ismart_web/features/appServiceManagement/resource/app_service_api_provider.dart';

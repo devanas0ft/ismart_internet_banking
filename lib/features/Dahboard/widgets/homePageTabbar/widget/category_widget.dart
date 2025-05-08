@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/bloc/data_state.dart';
 import 'package:ismart_web/common/constants/assets.dart';
-import 'package:ismart_web/common/constants/env.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/constants/slugs.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/show_loading_dialog.dart';

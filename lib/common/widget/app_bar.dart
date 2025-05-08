@@ -25,7 +25,7 @@ AppBar myAppbar({bool showBackButton = false, bool showChatBot = false}) {
             : null,
     title: Padding(
       padding: const EdgeInsets.all(0),
-      child: Image.asset(config.bannerImagePath, height: 50),
+      child: Image.asset(config.bannerImage, height: 50),
     ),
     actions: [
       NotificationCountIcon(),

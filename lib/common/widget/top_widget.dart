@@ -27,7 +27,7 @@ class GuthiTopWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               // child: Image.asset("assets/Newa_banner.png", height: 60.hp),
-              child: Image.asset(config.bannerImagePath, height: 60.hp),
+              child: Image.asset(config.bannerImage, height: 60.hp),
             ),
           ),
 
