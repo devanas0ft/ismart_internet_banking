@@ -1,82 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
-import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/service/config_service.dart';
+import 'package:ismart_web/features/Dahboard/widgets/dashboard_widget.dart';
 import 'package:ismart_web/features/auth/ui/screens/login_page.dart';
+import 'package:ismart_web/features/splash/cubit/startup_cubit.dart';
 
 class LoaderScreen extends StatefulWidget {
-  const LoaderScreen({Key? key}) : super(key: key);
+  const LoaderScreen({super.key});
 
   @override
   State<LoaderScreen> createState() => _LoaderScreenState();
 }
 
 class _LoaderScreenState extends State<LoaderScreen> {
-  late Future<CoOperative> _configFuture;
+  final _configFuture = ConfigService().config;
 
   @override
   void initState() {
+    CustomTheme().initializeTheme(_configFuture.primaryColor);
     super.initState();
-    _configFuture = ConfigService().initialize();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<CoOperative>(
-      future: _configFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 20),
-                  Text('Loading configuration...'),
-                ],
-              ),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.error_outline, color: Colors.red, size: 60),
-                  SizedBox(height: 20),
-                  Text('Error loading configuration'),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _configFuture = ConfigService().initialize();
-                      });
-                    },
-                    child: Text('Retry'),
-                  ),
-                ],
-              ),
-            ),
-          );
-        } else {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            final config = ConfigService().config;
-            CustomTheme().initializeTheme(config.primaryColor);
-            Future.delayed(const Duration(seconds: 3), () {
-              final config = ConfigService().config;
-              CustomTheme().initializeTheme(config.primaryColor);
-              NavigationService.pushReplacement(target: LoginPage());
-            });
-          });
-
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+    return BlocListener<StartupCubit, StartupState>(
+      listener: (context, state) {
+        if (state is StartupSuccess) {
+          NavigationService.pushReplacement(target: const LoginPage());
+          if (state.isLogged) {
+            NavigationService.pushReplacement(target: const DashboardWidget());
+          }
         }
       },
+      child: Scaffold(
+        body: SafeArea(
+          // child: Center(
+          //   child: CircularProgressIndicator(color: Colors.deepOrangeAccent),
+          // ),
+          child: Center(child: Image.asset('assets/loader.gif')),
+        ),
+      ),
     );
   }
 }

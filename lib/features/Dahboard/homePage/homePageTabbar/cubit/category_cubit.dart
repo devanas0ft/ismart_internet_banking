@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/bloc/data_state.dart';
 import 'package:ismart_web/common/http/response.dart';
 import 'package:ismart_web/common/utils/hive_utils.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/resources/category_repository.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/resources/category_repository.dart';
 
 class CategoryCubit extends Cubit<CommonState> {
   final CategoryRepository servicesRepository;

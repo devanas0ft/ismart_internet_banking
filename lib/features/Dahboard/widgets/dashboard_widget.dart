@@ -1,6 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
+import 'package:ismart_web/features/Dahboard/homePage/screen/home_page.dart';
+import 'package:ismart_web/features/customerDetail/cubit/customer_detail_cubit.dart';
 
 class DashboardWidget extends StatefulWidget {
   const DashboardWidget({super.key});
@@ -10,17 +14,29 @@ class DashboardWidget extends StatefulWidget {
 }
 
 class _DashboardWidgetState extends State<DashboardWidget> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   final List<Widget> _pages = [
     Center(child: Text('Dashboard')),
-    Center(child: Text('Dashboard')),
+    HomePage(),
     Center(child: Text('Account')),
     Center(child: Text('Fund Management')),
     Center(child: Text('Paynment')),
     Center(child: Text('Settings Page')),
     Center(child: Text('Dashboard')),
   ];
+
+  List<String> offerBanners = [];
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CustomerDetailCubit>().fetchCustomerDetail(
+      isCalledAtStatup: true,
+    );
+
+    // offerBanners = RepositoryProvider.of<BannerRepository>(context).banners;
+  }
 
   void _onItemTapped(int index) {
     setState(() {

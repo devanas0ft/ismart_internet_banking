@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ismart_web/common/models/key_value.dart';
 import 'package:ismart_web/common/widget/custom_icon_button.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/common/category_search_widget.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/common/category_search_widget.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/model/category_model.dart';
 
 import '../../../../../common/app/navigation_service.dart';
 

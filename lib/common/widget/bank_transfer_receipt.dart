@@ -11,7 +11,7 @@ import 'package:ismart_web/common/widget/custom_round_button.dart';
 import 'package:ismart_web/common/widget/key_value_tile.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/features/Dahboard/widgets/dashboard_widget.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/model/category_model.dart';
 import 'package:ismart_web/features/categoryWiseService/airlines/model/airlines_avliable_list_model.dart';
 import 'package:ismart_web/features/history/cubit/receipt_download_cubit.dart';
 import 'package:ismart_web/features/history/resources/recent_transaction_repository.dart';

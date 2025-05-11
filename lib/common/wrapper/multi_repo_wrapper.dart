@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/resources/category_repository.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/resources/category_repository.dart';
 import 'package:ismart_web/features/appServiceManagement/resource/app_service_repository.dart';
 import 'package:ismart_web/features/auth/resources/user_repository.dart';
 import 'package:ismart_web/features/auth/ui/actiateAccount/resources/reset_otp_register_repository.dart';

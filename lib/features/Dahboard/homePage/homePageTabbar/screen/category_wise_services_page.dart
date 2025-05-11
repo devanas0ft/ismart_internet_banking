@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/widget/category_wise_service_widget.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/widget/category_wise_service_widget.dart';
 
 class CategoriesWiseServicePage extends StatelessWidget {
   final String topBarName;

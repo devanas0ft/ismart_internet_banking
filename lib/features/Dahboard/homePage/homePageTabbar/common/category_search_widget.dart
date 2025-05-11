@@ -7,7 +7,7 @@ import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/models/key_value.dart';
 import 'package:ismart_web/common/widget/custom_list_tile.dart';
 import 'package:ismart_web/common/widget/custom_text_field.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/model/category_model.dart';
 
 class CategorySearchWidgets extends StatefulWidget {
   final List<ServiceList> items;

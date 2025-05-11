@@ -5,9 +5,9 @@ import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/constants/assets.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/cubit/category_cubit.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/resources/category_repository.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/widget/category_widget.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/cubit/category_cubit.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/resources/category_repository.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/widget/category_widget.dart';
 
 class CategoryPage extends StatefulWidget {
   final bool showAllServices;

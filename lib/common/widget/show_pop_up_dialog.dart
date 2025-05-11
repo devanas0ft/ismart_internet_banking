@@ -91,53 +91,56 @@ class _LoadingDialogBoxState extends State<PopUpDialogWidget> {
       onWillPop: () => Future.value(false),
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 30.hp, horizontal: 15.hp),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "${widget.title}",
-                style: _textTheme.titleLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
+        child: SizedBox(
+          width: 50.w,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 30.hp, horizontal: 15.hp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "${widget.title}",
+                  style: _textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 14),
-              if (widget.isSuccessPopUp) image,
-              if (widget.isSuccessPopUp) const SizedBox(height: 14),
-              Text(
-                "${widget.message}",
-                textAlign: TextAlign.center,
-                style: _textTheme.titleLarge,
-              ),
-              const SizedBox(height: 20),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  children: [
-                    if (widget.showCancelButton)
+                const SizedBox(height: 14),
+                if (widget.isSuccessPopUp) image,
+                if (widget.isSuccessPopUp) const SizedBox(height: 14),
+                Text(
+                  "${widget.message}",
+                  textAlign: TextAlign.center,
+                  style: _textTheme.titleLarge,
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: [
+                      if (widget.showCancelButton)
+                        Expanded(
+                          child: CustomRoundedButtom(
+                            title: "cancel",
+                            color: Colors.white,
+                            textColor: _theme.primaryColor,
+                            onPressed: () {
+                              NavigationService.pop();
+                            },
+                          ),
+                        ),
+                      if (widget.showCancelButton) SizedBox(width: 10.hp),
                       Expanded(
                         child: CustomRoundedButtom(
-                          title: "done",
-                          color: Colors.white,
-                          textColor: _theme.primaryColor,
-                          onPressed: () {
-                            NavigationService.pop();
-                          },
+                          title: widget.buttonText ?? "done",
+                          onPressed: widget.buttonCallback,
                         ),
                       ),
-                    if (widget.showCancelButton) SizedBox(width: 10.hp),
-                    Expanded(
-                      child: CustomRoundedButtom(
-                        title: widget.buttonText ?? "done",
-                        onPressed: widget.buttonCallback,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -8,7 +8,7 @@ import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/common_container.dart';
 import 'package:ismart_web/common/widget/custom_text_field.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/model/category_model.dart';
 
 class CategoriesWiseServicesWidget extends StatefulWidget {
   final List<ServiceList> services;

@@ -6,13 +6,14 @@ import 'package:ismart_web/common/bloc/data_state.dart';
 import 'package:ismart_web/common/constants/assets.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/constants/slugs.dart';
+import 'package:ismart_web/common/utils/responsive.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/show_loading_dialog.dart';
 import 'package:ismart_web/common/widget/show_pop_up_dialog.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/cubit/category_cubit.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/screen/all_category_screen.dart';
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/screen/category_wise_services_page.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/cubit/category_cubit.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/model/category_model.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/screen/all_category_screen.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/screen/category_wise_services_page.dart';
 
 import '../../../../../common/app/navigation_service.dart';
 
@@ -42,7 +43,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
     final _textTheme = _theme.textTheme;
     final _height = SizeUtils.height;
     return Container(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: CustomTheme.white,
         borderRadius: BorderRadius.circular(18),
@@ -76,25 +77,30 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         builder: (context, state) {
           int itemLength;
           bool showViewMore = false;
-
-          if (widget.showAllService) {
-            itemLength = _categoryList.length;
-          } else {
-            if (_categoryList.length > 11) {
-              itemLength = 12; // 7 items + 1 "View More" option
-              showViewMore = true;
-            } else {
-              itemLength = _categoryList.length;
-            }
-          }
+          itemLength = _categoryList.length;
+          // if (widget.showAllService) {
+          //   itemLength = _categoryList.length;
+          // } else {
+          //   if (!Responsive.isDesktop(context) && _categoryList.length > 11) {
+          //     itemLength = 12; // 7 items + 1 "View More" option
+          //     showViewMore = true;
+          //   } else {
+          //     itemLength = _categoryList.length;
+          //   }
+          // }
 
           if (itemLength > 0)
             return GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: itemLength,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:
+                    Responsive.isDesktop(context)
+                        ? 8
+                        : Responsive.isTablet(context)
+                        ? 6
+                        : 4,
               ),
               itemBuilder: (context, index) {
                 if (showViewMore && index == 11) {

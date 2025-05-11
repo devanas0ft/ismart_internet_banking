@@ -1,4 +1,4 @@
-import 'package:ismart_web/features/Dahboard/widgets/homePageTabbar/model/category_model.dart';
+import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/model/category_model.dart';
 import 'package:ismart_web/features/utility_payment/enums/topup_type.dart';
 
 class TopUpUtils {

@@ -38,7 +38,7 @@ class AuthApiProvider {
     final _body = {
       "client_id": coOperative.clientCode,
       "client_secret": coOperative.clientSecret,
-      "password": "$password",
+      "password": password,
       "grant_type": "password",
       "username": coOperative.clientCode + username,
       "deviceUniqueIdentifier": "$deviceUUID",
