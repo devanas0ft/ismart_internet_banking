@@ -7,6 +7,10 @@ import 'package:ismart_web/features/appServiceManagement/resource/app_service_re
 import 'package:ismart_web/features/auth/resources/user_repository.dart';
 import 'package:ismart_web/features/auth/ui/actiateAccount/resources/reset_otp_register_repository.dart';
 import 'package:ismart_web/features/auth/ui/resetPin/resources/reset_pin_repository.dart';
+import 'package:ismart_web/features/categoryWiseService/airlines/resources/airlines_repository.dart';
+import 'package:ismart_web/features/categoryWiseService/movie/resource/movie_repository.dart';
+import 'package:ismart_web/features/categoryWiseService/tvPayment/resources/tv_payment_repository.dart';
+import 'package:ismart_web/features/chatBot/resources/audio_upload_repository.dart';
 import 'package:ismart_web/features/customerDetail/resource/customer_detail_repository.dart';
 import 'package:ismart_web/features/history/resources/recent_transaction_repository.dart';
 import 'package:ismart_web/features/sendMoney/internalCooperative/resources/internal_transfer_repository.dart';
@@ -70,15 +74,15 @@ class MultiRepositoryWrapper extends StatelessWidget {
         //       ),
         //   lazy: true,
         // ),
-        // RepositoryProvider(
-        //   create:
-        //       (context) => AudioUploadRepository(
-        //         apiProvider: RepositoryProvider.of<ApiProvider>(context),
-        //         userRepository: RepositoryProvider.of<UserRepository>(context),
-        //         coOperative: RepositoryProvider.of<CoOperative>(context),
-        //       ),
-        //   lazy: true,
-        // ),
+        RepositoryProvider(
+          create:
+              (context) => AudioUploadRepository(
+                apiProvider: RepositoryProvider.of<ApiProvider>(context),
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+                coOperative: RepositoryProvider.of<CoOperative>(context),
+              ),
+          lazy: true,
+        ),
         RepositoryProvider<UtilityPaymentRepository>(
           create:
               (context) => UtilityPaymentRepository(
@@ -109,15 +113,15 @@ class MultiRepositoryWrapper extends StatelessWidget {
               ),
           lazy: true,
         ),
-        // RepositoryProvider(
-        //   create:
-        //       (context) => MovieRepository(
-        //         userRepository: RepositoryProvider.of<UserRepository>(context),
-        //         apiProvider: RepositoryProvider.of<ApiProvider>(context),
-        //         env: RepositoryProvider.of<CoOperative>(context),
-        //       ),
-        //   lazy: true,
-        // ),
+        RepositoryProvider(
+          create:
+              (context) => MovieRepository(
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+                apiProvider: RepositoryProvider.of<ApiProvider>(context),
+                env: RepositoryProvider.of<CoOperative>(context),
+              ),
+          lazy: true,
+        ),
         RepositoryProvider(
           create:
               (context) => FullStatementRepository(
@@ -216,15 +220,15 @@ class MultiRepositoryWrapper extends StatelessWidget {
         //       ),
         //   lazy: true,
         // ),
-        // RepositoryProvider(
-        //   create:
-        //       (context) => AirlinesRepository(
-        //         apiProvider: RepositoryProvider.of<ApiProvider>(context),
-        //         userRepository: RepositoryProvider.of<UserRepository>(context),
-        //         coOperative: RepositoryProvider.of<CoOperative>(context),
-        //       ),
-        //   lazy: true,
-        // ),
+        RepositoryProvider(
+          create:
+              (context) => AirlinesRepository(
+                apiProvider: RepositoryProvider.of<ApiProvider>(context),
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+                coOperative: RepositoryProvider.of<CoOperative>(context),
+              ),
+          lazy: true,
+        ),
         // RepositoryProvider(
         //   create:
         //       (context) => CreditCardRepository(
@@ -252,15 +256,15 @@ class MultiRepositoryWrapper extends StatelessWidget {
               ),
           lazy: true,
         ),
-        // RepositoryProvider(
-        //   create:
-        //       (context) => TvPaymentRepository(
-        //         apiProvider: RepositoryProvider.of<ApiProvider>(context),
-        //         userRepository: RepositoryProvider.of<UserRepository>(context),
-        //         env: RepositoryProvider.of<CoOperative>(context),
-        //       ),
-        //   lazy: true,
-        // ),
+        RepositoryProvider(
+          create:
+              (context) => TvPaymentRepository(
+                apiProvider: RepositoryProvider.of<ApiProvider>(context),
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+                env: RepositoryProvider.of<CoOperative>(context),
+              ),
+          lazy: true,
+        ),
         // RepositoryProvider(
         //   create:
         //       (context) => AppContactRepository(

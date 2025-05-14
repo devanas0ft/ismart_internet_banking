@@ -42,8 +42,6 @@ class CoOperative {
       clientSecret: '126489',
       primaryColor: Color(0xFF010C80),
       coOperativeLogo: 'assets/images/ismart_logo_only.png',
-      // baseUrl: 'https://ismart.devanasoft.com.np/',
-      baseUrl: 'http://localhost:3000/',
       appStoreID: 'com.devanasoft.ismart',
       appTitle: 'iSmart Devanasoft',
       backgroundImage: 'assets/images/ismart_background_image.jpg',

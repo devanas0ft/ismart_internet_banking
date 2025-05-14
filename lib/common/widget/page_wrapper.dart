@@ -96,13 +96,22 @@ class _PageWrapperState extends State<PageWrapper> {
                       showChatBot: widget.showChatBot,
                     ))
                 : null,
-        body: Container(
-          padding:
-              widget.padding ??
-              const EdgeInsets.symmetric(
-                horizontal: CustomTheme.symmetricHozPadding,
-              ),
-          child: widget.body,
+        body: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 300.w,
+              // minWidth: 400,
+            ),
+            child: Container(
+              width: double.infinity,
+              padding:
+                  widget.padding ??
+                  const EdgeInsets.symmetric(
+                    horizontal: CustomTheme.symmetricHozPadding,
+                  ),
+              child: widget.body,
+            ),
+          ),
         ),
       );
     }

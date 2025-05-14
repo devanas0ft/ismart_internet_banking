@@ -18,6 +18,7 @@ class SharedPref {
   static const _biometricLogin = "biometricLogin";
   static const _deviceUUID = "deviceUUID";
   static const _downloadedFilesList = "downloadedFilesList";
+  static const _phoneNumber = 'phoneNumber';
 
   static Future addDownloadedFiles(DownloadedFile fileDetails) async {
     final _instance = await SharedPreferences.getInstance();
@@ -158,6 +159,17 @@ class SharedPref {
   static Future<String> getRefreshToken() async {
     final _instance = await SharedPreferences.getInstance();
     final res = _instance.getString(_refresh_token);
+    return res ?? "";
+  }
+
+  static Future setPhoneNumber(String refreshToken) async {
+    final _instance = await SharedPreferences.getInstance();
+    await _instance.setString(_phoneNumber, refreshToken);
+  }
+
+  static Future<String> getPhoneNumber() async {
+    final _instance = await SharedPreferences.getInstance();
+    final res = _instance.getString(_phoneNumber);
     return res ?? "";
   }
 

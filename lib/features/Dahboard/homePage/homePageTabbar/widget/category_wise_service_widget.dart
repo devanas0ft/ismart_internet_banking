@@ -2,13 +2,28 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
+import 'package:ismart_web/common/constants/slugs.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/common_container.dart';
 import 'package:ismart_web/common/widget/custom_text_field.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/features/Dahboard/homePage/homePageTabbar/model/category_model.dart';
+import 'package:ismart_web/features/categoryWiseService/dataPack/screen/select_datapack_screen.dart';
+import 'package:ismart_web/features/categoryWiseService/drinkingwater/khanepani/screen/khane_pani_screen.dart';
+import 'package:ismart_web/features/categoryWiseService/drinkingwater/kukl/screen/kukl_payment_page.dart';
+import 'package:ismart_web/features/categoryWiseService/governmentPayment/bluebook/screen/bluebook_payment_page.dart';
+import 'package:ismart_web/features/categoryWiseService/governmentPayment/commonGovPayment/screen/gov_payment_page.dart';
+import 'package:ismart_web/features/categoryWiseService/governmentPayment/traffic_fine/screens/traffic_fine_payment_page.dart';
+import 'package:ismart_web/features/categoryWiseService/internet/cg/screens/cg_payment_page.dart';
+import 'package:ismart_web/features/categoryWiseService/internet/common/screen/common_internet_page.dart';
+import 'package:ismart_web/features/categoryWiseService/internet/common/screen/common_internet_with_amount_page.dart';
+import 'package:ismart_web/features/categoryWiseService/internet/subisu/screens/subisu_payment_page.dart';
+import 'package:ismart_web/features/categoryWiseService/internet/ui/screens/find_username_internet_screen.dart';
+import 'package:ismart_web/features/categoryWiseService/tvPayment/commonTvPayment/screen/net_tv_payment_page.dart';
+import 'package:ismart_web/features/categoryWiseService/tvPayment/screen/tv_payment_page.dart';
 
 class CategoriesWiseServicesWidget extends StatefulWidget {
   final List<ServiceList> services;
@@ -141,77 +156,66 @@ class _CategoriesWiseServicesWidgetState
     // .where((e) =>
     // e.uniqueIdentifier.toString().toLowerCase() == uniqueIdentifier)
     // .toList();
-    // final searchedService = searchItems[index];
+    final searchedService = searchItems[index];
 
-    // if (widget.categoryIdentifier.toLowerCase() == Slugs.tv.toLowerCase()) {
-    //   if (serviceIdentifier.toLowerCase() ==
-    //       Slugs.netTvOnlineTopup.toLowerCase()) {
-    //     NavigationService.push(
-    //         target: NetTvPaymentPage(
-    //       service: searchedService,
-    //     ));
-    //   } else {
-    //     NavigationService.push(
-    //         target: TvPaymentPage(
-    //       service: searchedService,
-    //     ));
-    //   }
-    // }
+    if (widget.categoryIdentifier.toLowerCase() == Slugs.tv.toLowerCase()) {
+      if (serviceIdentifier.toLowerCase() ==
+          Slugs.netTvOnlineTopup.toLowerCase()) {
+        NavigationService.push(
+          target: NetTvPaymentPage(service: searchedService),
+        );
+      } else {
+        NavigationService.push(target: TvPaymentPage(service: searchedService));
+      }
+    }
     // if (serviceIdentifier.toLowerCase() == "digital_dakshina_service") {
     //   NavigationService.push(
     //       target: QRScannerScreens(
     //     remarks: searchedService.instructions,
     //   ));
     // }
-    // if (widget.categoryIdentifier.toLowerCase() == "internet".toLowerCase()) {
-    //   if (serviceIdentifier.toLowerCase() ==
-    //       Slugs.worldlinkPayment.toLowerCase()) {
-    //     NavigationService.push(
-    //         target: FindInternetUserScreen(
-    //       service: searchedService,
-    //     ));
-    //   } else if (serviceIdentifier.toLowerCase() ==
-    //       "subisu_online_topup".toLowerCase()) {
-    //     NavigationService.push(
-    //         target: SubisuPaymentPage(
-    //       service: searchedService,
-    //     ));
-    //   } else if (serviceIdentifier.toLowerCase() ==
-    //       Slugs.cgnetTopup.toLowerCase()) {
-    //     NavigationService.push(
-    //         target: CgPaymentPage(
-    //       service: searchedService,
-    //     ));
-    //   } else if (serviceIdentifier.toLowerCase() ==
-    //           Slugs.alishaTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() == Slugs.infonetTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.royalnetworkTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.eastlinkTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.ntFtthInternetTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.webnetworkTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.virtualnetworkTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.pokharainternetTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.adsluOnlineTopup.toLowerCase() ||
-    //       serviceIdentifier.toLowerCase() ==
-    //           Slugs.metrolinkTopup.toLowerCase()) {
-    //     NavigationService.push(
-    //         target: CommonInternetWithAmountPage(
-    //       service: searchedService,
-    //     ));
-    //   } else {
-    //     NavigationService.push(
-    //         target: CommonInternetPage(
-    //       service: searchedService,
-    //     ));
-    //   }
-    // }
+    if (widget.categoryIdentifier.toLowerCase() == "internet".toLowerCase()) {
+      if (serviceIdentifier.toLowerCase() ==
+          Slugs.worldlinkPayment.toLowerCase()) {
+        NavigationService.push(
+          target: FindInternetUserScreen(service: searchedService),
+        );
+      } else if (serviceIdentifier.toLowerCase() ==
+          "subisu_online_topup".toLowerCase()) {
+        NavigationService.push(
+          target: SubisuPaymentPage(service: searchedService),
+        );
+      } else if (serviceIdentifier.toLowerCase() ==
+          Slugs.cgnetTopup.toLowerCase()) {
+        NavigationService.push(target: CgPaymentPage(service: searchedService));
+      } else if (serviceIdentifier.toLowerCase() ==
+              Slugs.alishaTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() == Slugs.infonetTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.royalnetworkTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.eastlinkTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.ntFtthInternetTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.webnetworkTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.virtualnetworkTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.pokharainternetTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.adsluOnlineTopup.toLowerCase() ||
+          serviceIdentifier.toLowerCase() ==
+              Slugs.metrolinkTopup.toLowerCase()) {
+        NavigationService.push(
+          target: CommonInternetWithAmountPage(service: searchedService),
+        );
+      } else {
+        NavigationService.push(
+          target: CommonInternetPage(service: searchedService),
+        );
+      }
+    }
 
     // if (widget.categoryIdentifier.toLowerCase() ==
     //     Slugs.rideSharing.toLowerCase()) {
@@ -228,24 +232,17 @@ class _CategoriesWiseServicesWidgetState
     //   }
     // }
 
-    // if (serviceIdentifier.toLowerCase() ==
-    //     "khanepani_online_topup".toLowerCase()) {
-    //   NavigationService.push(
-    //       target: KhanePaniPage(
-    //     service: searchedService,
-    //   ));
-    // } else if (serviceIdentifier.toLowerCase() == Slugs.kukl.toLowerCase()) {
-    //   NavigationService.push(
-    //       target: KuklPaymentPage(
-    //     service: searchedService,
-    //   ));
-    // }
-    // if (widget.categoryIdentifier == "data_pack") {
-    //   NavigationService.push(
-    //       target: SelectDatapackScreen(
-    //     service: searchedService,
-    //   ));
-    // }
+    if (serviceIdentifier.toLowerCase() ==
+        "khanepani_online_topup".toLowerCase()) {
+      NavigationService.push(target: KhanePaniPage(service: searchedService));
+    } else if (serviceIdentifier.toLowerCase() == Slugs.kukl.toLowerCase()) {
+      NavigationService.push(target: KuklPaymentPage(service: searchedService));
+    }
+    if (widget.categoryIdentifier == "data_pack") {
+      NavigationService.push(
+        target: SelectDatapackScreen(service: searchedService),
+      );
+    }
 
     // if (widget.categoryIdentifier.toLowerCase() == "insurance".toLowerCase()) {
     //   // if (serviceIdentifier.toLowerCase() ==
@@ -277,25 +274,22 @@ class _CategoriesWiseServicesWidgetState
     //     ));
     //   }
     // }
-    // if (widget.categoryIdentifier == Slugs.governmentPayment) {
-    //   if (serviceIdentifier.toLowerCase() ==
-    //       "traffic_fine_payments".toLowerCase()) {
-    //     NavigationService.push(
-    //         target: TrafficFinePaymentPage(
-    //       service: searchedService,
-    //     ));
-    //   } else if (serviceIdentifier.toLowerCase() ==
-    //       Slugs.bluebookRenewal.toLowerCase()) {
-    //     NavigationService.push(
-    //         target: BlueBookRenewalPage(
-    //       service: searchedService,
-    //     ));
-    //   } else {
-    //     NavigationService.push(
-    //         target: GovernmentPaymentPage(
-    //       services: searchedService,
-    //     ));
-    //   }
-    // }
+    if (widget.categoryIdentifier == Slugs.governmentPayment) {
+      if (serviceIdentifier.toLowerCase() ==
+          "traffic_fine_payments".toLowerCase()) {
+        NavigationService.push(
+          target: TrafficFinePaymentPage(service: searchedService),
+        );
+      } else if (serviceIdentifier.toLowerCase() ==
+          Slugs.bluebookRenewal.toLowerCase()) {
+        NavigationService.push(
+          target: BlueBookRenewalPage(service: searchedService),
+        );
+      } else {
+        NavigationService.push(
+          target: GovernmentPaymentPage(services: searchedService),
+        );
+      }
+    }
   }
 }
