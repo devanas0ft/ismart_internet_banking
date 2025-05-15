@@ -35,11 +35,13 @@ class CommonContainer extends StatefulWidget {
   final double horizontalPadding;
   final VoidCallback? onBackPressed;
   final String? verificationAmount;
+  final String? subTitle;
 
   final Function(RecentTransactionModel)? onRecentTransactionPressed;
 
   final Function()? onButtonPressed;
   const CommonContainer({
+    this.subTitle,
     this.serviceCategoryId = "",
     this.showDetail = false,
     this.showRecentTransaction = false,
@@ -126,6 +128,7 @@ class _CommonContainerState extends State<CommonContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ScaffoldTopBar(
+                  subTitle: widget.subTitle ?? '',
                   name: widget.topbarName,
                   showBackButton: widget.showBackBotton,
                   onBackPressed:
@@ -133,7 +136,6 @@ class _CommonContainerState extends State<CommonContainer> {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
-                    // padding: EdgeInsets.only(bottom: keyboardHeight + 50),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,

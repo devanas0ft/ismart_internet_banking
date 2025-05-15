@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
 
 class ScaffoldTopBar extends StatelessWidget {
   final String name;
   final bool showBackButton;
   final VoidCallback onBackPressed;
+  final String subTitle;
 
   const ScaffoldTopBar({
     super.key,
     required this.name,
     this.showBackButton = true,
     required this.onBackPressed,
+    this.subTitle = '',
   });
 
   @override
@@ -23,34 +26,60 @@ class ScaffoldTopBar extends StatelessWidget {
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
         ),
-        color: Theme.of(context).primaryColor,
-        image: DecorationImage(
-          image: AssetImage(
-            RepositoryProvider.of<CoOperative>(context).backgroundImage,
-          ),
-          fit: BoxFit.cover,
-        ),
+        color: CustomTheme.white,
+        // image: DecorationImage(
+        //   image: AssetImage(
+        //     RepositoryProvider.of<CoOperative>(context).backgroundImage,
+        //   ),
+        //   fit: BoxFit.cover,
+        // ),
       ),
-      child: Row(
+      child: Column(
         children: [
-          showBackButton
-              ? IconButton(
-                onPressed: onBackPressed,
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-              )
-              : Container(),
-          Expanded(
-            child: Center(
-              child: Text(
-                name,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: "popinsemibold",
-                  fontSize: 23,
+          Row(
+            children: [
+              showBackButton
+                  ? IconButton(
+                    onPressed: onBackPressed,
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: CustomTheme.darkGray,
+                    ),
+                  )
+                  : Container(),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 36, top: 16),
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            name,
+                            style: const TextStyle(
+                              color: CustomTheme.darkGray,
+                              fontFamily: "popinsemibold",
+                              fontSize: 23,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(subTitle),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
+
+          Divider(color: CustomTheme.gray),
         ],
       ),
     );

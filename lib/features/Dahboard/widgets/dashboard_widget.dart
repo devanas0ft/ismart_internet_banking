@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/features/Dahboard/homePage/screen/home_page.dart';
+import 'package:ismart_web/features/banking/screen/banking_page.dart';
 import 'package:ismart_web/features/customerDetail/cubit/customer_detail_cubit.dart';
 
 class DashboardWidget extends StatefulWidget {
@@ -19,7 +20,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   final List<Widget> _pages = [
     Center(child: Text('Dashboard')),
     HomePage(),
-    Center(child: Text('Account')),
+    const Bankingpage(),
     Center(child: Text('Fund Management')),
     Center(child: Text('Paynment')),
     Center(child: Text('Settings Page')),
@@ -52,6 +53,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       bottomNavBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: CustomTheme.white,
+        elevation: 50,
         selectedLabelStyle: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,

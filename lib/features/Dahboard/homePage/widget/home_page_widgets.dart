@@ -9,8 +9,9 @@ import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/common/utils/responsive.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
-import 'package:ismart_web/features/Dahboard/homePage/graphBar/graph_bar.dart';
+import 'package:ismart_web/features/Dahboard/homePage/graphBar/widgets/transaction_summary_screen.dart';
 import 'package:ismart_web/features/Dahboard/homePage/screen/homepage_money_page.dart';
+import 'package:ismart_web/features/Dahboard/homePage/widget/Recent%20transition/recent_activity_widget.dart';
 import 'package:ismart_web/features/Dahboard/widgets/dashboard_widget.dart';
 import 'package:ismart_web/features/chatBot/intermediate_chat_page.dart';
 import 'package:ismart_web/features/customerDetail/model/customer_detail_model.dart';
@@ -96,221 +97,308 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              flex: 1,
-                              child: Container(
-                                height: 30.h,
-                                child: const HomePageUserWidget(),
+                              flex: 2,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 30.h,
+                                    child: const HomePageUserWidget(),
+                                  ),
+                                  SizedBox(height: _height * 0.01),
+                                  if ((val?.instaLoanEnable ?? false) == true)
+                                    if (_shouldShowDifferentMenu)
+                                      SizedBox(
+                                        height: 65.hp,
+                                        child: const HomePageMoneyPage(),
+                                      ),
+                                  if (!_shouldShowDifferentMenu)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: InkWell(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          const EdgeInsets.symmetric(
+                                                            vertical: 7,
+                                                          ),
+                                                      decoration: BoxDecoration(
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                  0.3,
+                                                                ),
+                                                            offset:
+                                                                const Offset(
+                                                                  7,
+                                                                  7,
+                                                                ),
+                                                            blurRadius: 8,
+                                                            spreadRadius: -5,
+                                                          ),
+                                                        ],
+                                                        color:
+                                                            CustomTheme.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              8,
+                                                            ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          CircleAvatar(
+                                                            backgroundColor:
+                                                                _theme
+                                                                    .primaryColor
+                                                                    .withOpacity(
+                                                                      0.05,
+                                                                    ),
+                                                            child: SvgPicture.asset(
+                                                              Assets
+                                                                  .reveiceMoneyIcon,
+                                                              height: 18.hp,
+                                                              color:
+                                                                  _theme
+                                                                      .primaryColor,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width:
+                                                                _width * 0.02,
+                                                          ),
+                                                          Text(
+                                                            "Receive",
+                                                            style: _textTheme
+                                                                .titleLarge!
+                                                                .copyWith(
+                                                                  fontSize: 12,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+
+                                                SizedBox(width: _width * 0.03),
+
+                                                // Remit Button
+                                                Expanded(
+                                                  child: InkWell(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
+                                                    onTap: () {
+                                                      // Your navigation code
+                                                    },
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          const EdgeInsets.symmetric(
+                                                            vertical: 7,
+                                                          ),
+                                                      decoration: BoxDecoration(
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                  0.3,
+                                                                ),
+                                                            offset:
+                                                                const Offset(
+                                                                  7,
+                                                                  7,
+                                                                ),
+                                                            blurRadius: 8,
+                                                            spreadRadius: -5,
+                                                          ),
+                                                        ],
+                                                        color:
+                                                            CustomTheme.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              8,
+                                                            ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          CircleAvatar(
+                                                            backgroundColor:
+                                                                _theme
+                                                                    .primaryColor
+                                                                    .withOpacity(
+                                                                      0.05,
+                                                                    ),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .swap_horiz_outlined,
+                                                              size: 22.hp,
+                                                              color:
+                                                                  CustomTheme
+                                                                      .primaryColor,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width:
+                                                                _width * 0.02,
+                                                          ),
+                                                          Text(
+                                                            "Remit",
+                                                            style: _textTheme
+                                                                .titleLarge!
+                                                                .copyWith(
+                                                                  fontSize: 12,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+
+                                                SizedBox(width: _width * 0.03),
+                                                Expanded(
+                                                  child: InkWell(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
+                                                    onTap: () {
+                                                      NavigationService.push(
+                                                        target: SendMoneyPage(),
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          const EdgeInsets.symmetric(
+                                                            vertical: 7,
+                                                          ),
+                                                      decoration: BoxDecoration(
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                  0.3,
+                                                                ),
+                                                            offset:
+                                                                const Offset(
+                                                                  7,
+                                                                  7,
+                                                                ),
+                                                            blurRadius: 8,
+                                                            spreadRadius: -5,
+                                                          ),
+                                                        ],
+                                                        color:
+                                                            CustomTheme.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              8,
+                                                            ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          CircleAvatar(
+                                                            backgroundColor:
+                                                                _theme
+                                                                    .primaryColor
+                                                                    .withOpacity(
+                                                                      0.05,
+                                                                    ),
+                                                            child: SvgPicture.asset(
+                                                              Assets
+                                                                  .sendMoneyIcon,
+                                                              height: 22.hp,
+                                                              color:
+                                                                  _theme
+                                                                      .primaryColor,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width:
+                                                                _width * 0.02,
+                                                          ),
+                                                          Text(
+                                                            "Send",
+                                                            style: _textTheme
+                                                                .titleLarge!
+                                                                .copyWith(
+                                                                  fontSize: 12,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                             if (Responsive.isDesktop(context))
-                              Expanded(flex: 2, child: Container()),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 20),
+                                  child: TransactionSummaryScreen(),
+                                ),
+                              ),
                           ],
                         ),
                       ),
 
                       SizedBox(height: _height * 0.02),
-
-                      if ((val?.instaLoanEnable ?? false) == true)
-                        if (_shouldShowDifferentMenu)
-                          SizedBox(
-                            height: 65.hp,
-                            child: const HomePageMoneyPage(),
-                          ),
-                      if (!_shouldShowDifferentMenu)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: InkWell(
-                                        borderRadius: BorderRadius.circular(12),
-                                        onTap: () {},
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 7,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey.withOpacity(
-                                                  0.3,
-                                                ),
-                                                offset: const Offset(7, 7),
-                                                blurRadius: 8,
-                                                spreadRadius: -5,
-                                              ),
-                                            ],
-                                            color: CustomTheme.white,
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: _theme
-                                                    .primaryColor
-                                                    .withOpacity(0.05),
-                                                child: SvgPicture.asset(
-                                                  Assets.reveiceMoneyIcon,
-                                                  height: 18.hp,
-                                                  color: _theme.primaryColor,
-                                                ),
-                                              ),
-                                              SizedBox(width: _width * 0.02),
-                                              Text(
-                                                "Receive",
-                                                style: _textTheme.titleLarge!
-                                                    .copyWith(fontSize: 12),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    SizedBox(width: _width * 0.03),
-
-                                    // Remit Button
-                                    Expanded(
-                                      child: InkWell(
-                                        borderRadius: BorderRadius.circular(12),
-                                        onTap: () {
-                                          // Your navigation code
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 7,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey.withOpacity(
-                                                  0.3,
-                                                ),
-                                                offset: const Offset(7, 7),
-                                                blurRadius: 8,
-                                                spreadRadius: -5,
-                                              ),
-                                            ],
-                                            color: CustomTheme.white,
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: _theme
-                                                    .primaryColor
-                                                    .withOpacity(0.05),
-                                                child: Icon(
-                                                  Icons.swap_horiz_outlined,
-                                                  size: 22.hp,
-                                                  color:
-                                                      CustomTheme.primaryColor,
-                                                ),
-                                              ),
-                                              SizedBox(width: _width * 0.02),
-                                              Text(
-                                                "Remit",
-                                                style: _textTheme.titleLarge!
-                                                    .copyWith(fontSize: 12),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    SizedBox(width: _width * 0.03),
-
-                                    // Send Money Button
-                                    Expanded(
-                                      child: InkWell(
-                                        borderRadius: BorderRadius.circular(12),
-                                        onTap: () {
-                                          NavigationService.push(
-                                            target: SendMoneyPage(),
-                                          );
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 7,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey.withOpacity(
-                                                  0.3,
-                                                ),
-                                                offset: const Offset(7, 7),
-                                                blurRadius: 8,
-                                                spreadRadius: -5,
-                                              ),
-                                            ],
-                                            color: CustomTheme.white,
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: _theme
-                                                    .primaryColor
-                                                    .withOpacity(0.05),
-                                                child: SvgPicture.asset(
-                                                  Assets.sendMoneyIcon,
-                                                  height: 22.hp,
-                                                  color: _theme.primaryColor,
-                                                ),
-                                              ),
-                                              SizedBox(width: _width * 0.02),
-                                              Text(
-                                                "Send",
-                                                style: _textTheme.titleLarge!
-                                                    .copyWith(fontSize: 12),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (Responsive.isDesktop(context))
-                                const Expanded(flex: 2, child: SizedBox()),
-                            ],
-                          ),
+                      if (Responsive.isMobile(context) ||
+                          Responsive.isTablet(context))
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 8),
+                          child: TransactionSummaryScreen(),
                         ),
-
-                      const HomePageTabbarWidget(),
+                      // const HomePageTabbarWidget(),
+                      RecentActivityTable(),
                     ],
                   );
                 },
               ),
             ),
 
-            // Chat Bot Button
             FutureBuilder(
               future: SharedPref.getChatBotVisibility(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SizedBox.shrink(); // Use a less intrusive loading indicator
+                  return const SizedBox.shrink();
                 }
                 final isChatBotVisible = snapshot.data ?? false;
                 return isChatBotVisible
@@ -336,8 +424,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             }
                           },
                           child: Container(
-                            width: 70, // Slightly smaller
-                            height: 70, // Slightly smaller
+                            width: 70,
+                            height: 70,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: CustomTheme.white,

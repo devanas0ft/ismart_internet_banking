@@ -43,7 +43,8 @@ class CustomTheme {
   static const Color lightTextColor = Color(0xff131313);
   static const Color yellow = Color(0xFFFFC107);
   static const Color green = Colors.green;
-  static const Color backgroundColor = Color(0xFFECF4FF);
+  // static const Color backgroundColor = Color(0xFFECF4FF);
+  static const Color backgroundColor = Color(0xFFd9d9d9);
   static const Color googleColor = Color(0xFFDB4437);
   static const Color facebookColor = Color(0xFF4267B2);
   static const Color twitter = Color(0xFF1DA1F2);
