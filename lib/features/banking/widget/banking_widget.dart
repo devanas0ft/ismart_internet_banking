@@ -10,7 +10,7 @@ import 'package:ismart_web/common/widget/common_loading_widget.dart';
 import 'package:ismart_web/features/appServiceManagement/cubit/app_service_cubit.dart';
 import 'package:ismart_web/features/appServiceManagement/model/app_service_management_model.dart';
 import 'package:ismart_web/features/banking/balanceInquiry/screen/balance_inquiry_page.dart';
-import 'package:ismart_web/features/banking/cheque/screen/cheque_block_page.dart';
+import 'package:ismart_web/features/banking/cheque/screen/cheque_screen.dart';
 import 'package:ismart_web/features/banking/loan/screen/loan_choose_account_widget.dart';
 import 'package:ismart_web/features/statement/screen/statement_page.dart';
 
@@ -115,7 +115,7 @@ class _BankingWidgetState extends State<BankingWidget> {
     BalanceInquiryPage(),
     BalanceInquiryPage(),
     StatementPage(),
-    ChequeBlocKScreen(),
+    ChequePage(),
     ChooseAccountLoanWidget.ChooseLoanAccountWidget(),
   ];
 }

@@ -6,6 +6,10 @@ import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/features/Dahboard/homePage/screen/home_page.dart';
 import 'package:ismart_web/features/banking/screen/banking_page.dart';
 import 'package:ismart_web/features/customerDetail/cubit/customer_detail_cubit.dart';
+import 'package:ismart_web/features/fundManagement/screens/fundmanagemt_page.dart';
+import 'package:ismart_web/features/history/screen/recent_transaction_page.dart';
+import 'package:ismart_web/features/history/screen/recent_transaction_service_page.dart';
+import 'package:ismart_web/features/userAccount/widgets/user_account_widget.dart';
 
 class DashboardWidget extends StatefulWidget {
   const DashboardWidget({super.key});
@@ -18,13 +22,13 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   int _selectedIndex = 1;
 
   final List<Widget> _pages = [
-    Center(child: Text('Dashboard')),
     HomePage(),
+    const UserAccountWidget(),
     const Bankingpage(),
-    Center(child: Text('Fund Management')),
+    const FundmanagemtPage(),
     Center(child: Text('Paynment')),
+    const RecentTransactionScreen(),
     Center(child: Text('Settings Page')),
-    Center(child: Text('Dashboard')),
   ];
 
   List<String> offerBanners = [];
@@ -66,10 +70,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         onTap: _onItemTapped,
         unselectedItemColor: Colors.grey,
         items: [
-          const BottomNavigationBarItem(icon: SizedBox(width: 20), label: ''),
           BottomNavigationBarItem(
             icon: Icon(_selectedIndex == 1 ? Icons.home : Icons.home_outlined),
             label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              _selectedIndex == 3 ? Icons.person : Icons.person_outline,
+            ),
+            label: 'User Account',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -77,8 +86,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                   ? Icons.account_balance
                   : Icons.account_balance_outlined,
             ),
-            label: 'Account',
+            label: 'Banking',
           ),
+
           BottomNavigationBarItem(
             icon: Icon(
               _selectedIndex == 3
@@ -95,11 +105,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
+              _selectedIndex == 5 ? Icons.history : Icons.history_outlined,
+            ),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
               _selectedIndex == 5 ? Icons.settings : Icons.settings_outlined,
             ),
             label: 'Settings',
           ),
-          const BottomNavigationBarItem(icon: SizedBox(width: 20), label: ''),
         ],
       ),
 

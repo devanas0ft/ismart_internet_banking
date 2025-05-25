@@ -8,6 +8,8 @@ import 'package:ismart_web/features/auth/resources/user_repository.dart';
 import 'package:ismart_web/features/auth/ui/actiateAccount/resources/reset_otp_register_repository.dart';
 import 'package:ismart_web/features/auth/ui/resetPin/resources/reset_pin_repository.dart';
 import 'package:ismart_web/features/categoryWiseService/airlines/resources/airlines_repository.dart';
+import 'package:ismart_web/features/categoryWiseService/dataPack/resources/datapack_repository.dart';
+import 'package:ismart_web/features/categoryWiseService/drinkingwater/khanepani/resources/khanepani_repository.dart';
 import 'package:ismart_web/features/categoryWiseService/movie/resource/movie_repository.dart';
 import 'package:ismart_web/features/categoryWiseService/tvPayment/resources/tv_payment_repository.dart';
 import 'package:ismart_web/features/chatBot/resources/audio_upload_repository.dart';
@@ -193,24 +195,24 @@ class MultiRepositoryWrapper extends StatelessWidget {
               ),
           lazy: true,
         ),
-        // RepositoryProvider(
-        //   create:
-        //       (context) => KhanePaniRepository(
-        //         apiProvider: RepositoryProvider.of<ApiProvider>(context),
-        //         userRepository: RepositoryProvider.of<UserRepository>(context),
-        //         coOperative: RepositoryProvider.of<CoOperative>(context),
-        //       ),
-        //   lazy: true,
-        // ),
-        // RepositoryProvider(
-        //   create:
-        //       (context) => DatapackRepository(
-        //         apiProvider: RepositoryProvider.of<ApiProvider>(context),
-        //         userRepository: RepositoryProvider.of<UserRepository>(context),
-        //         coOperative: RepositoryProvider.of<CoOperative>(context),
-        //       ),
-        //   lazy: true,
-        // ),
+        RepositoryProvider(
+          create:
+              (context) => KhanePaniRepository(
+                apiProvider: RepositoryProvider.of<ApiProvider>(context),
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+                coOperative: RepositoryProvider.of<CoOperative>(context),
+              ),
+          lazy: true,
+        ),
+        RepositoryProvider(
+          create:
+              (context) => DatapackRepository(
+                apiProvider: RepositoryProvider.of<ApiProvider>(context),
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+                coOperative: RepositoryProvider.of<CoOperative>(context),
+              ),
+          lazy: true,
+        ),
         // RepositoryProvider(
         //   create:
         //       (context) => QrRepository(
