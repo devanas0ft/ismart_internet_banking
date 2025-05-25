@@ -15,6 +15,7 @@ class _FundmanagemtPageState extends State<FundmanagemtPage> {
     return CommonContainer(
       showBackBotton: false,
       title: 'Fund Managemt',
+      showRoundBotton: false,
       topbarName: 'Fund Managemt',
       subTitle:
           'Manage your account, send funds to wallet and view your statement',

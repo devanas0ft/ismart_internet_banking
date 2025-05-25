@@ -48,7 +48,7 @@ class _FundManagementWidgetState extends State<FundManagementWidget> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           MouseRegion(
             cursor: SystemMouseCursors.click,
