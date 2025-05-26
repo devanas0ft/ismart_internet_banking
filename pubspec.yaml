@@ -58,3 +58,6 @@ flutter:
     - assets/
     - assets/icons/
     - assets/images/
+    - assets/icons/user_account/
+    - assets/icons/user_account/personal/
+    - assets/icons/user_account/bank_details/
