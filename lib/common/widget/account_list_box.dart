@@ -69,8 +69,7 @@ class _AccountDetailBoxState extends State<AccountDetailBox> {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     padding: const EdgeInsets.all(18),
-                    width: double.infinity,
-                    // height: _width * 0.35,
+                    width: 350.wp,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
                       color: CustomTheme.white,

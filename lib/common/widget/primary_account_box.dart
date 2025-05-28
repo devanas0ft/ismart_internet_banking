@@ -35,6 +35,7 @@ class _PrimaryAccountBoxState extends State<PrimaryAccountBox> {
           onTap: () {
             showDialog(
               context: context,
+
               builder:
                   (context) => AccountDetailBox(
                     validateMobileBankingStatus:
@@ -48,12 +49,9 @@ class _PrimaryAccountBoxState extends State<PrimaryAccountBox> {
             width: double.infinity,
             height: _height * 0.15,
             decoration: BoxDecoration(
-              color: _theme.scaffoldBackgroundColor,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: _theme.scaffoldBackgroundColor,
-                width: 2,
-              ),
+              border: Border.all(color: _theme.primaryColor, width: 1),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,7 +92,7 @@ class _PrimaryAccountBoxState extends State<PrimaryAccountBox> {
                         width: _width * 0.2,
                         height: _width * 0.06,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(4),
                           color: _theme.primaryColor,
                         ),
                         child: const Center(

@@ -13,8 +13,9 @@ class _FundmanagemtPageState extends State<FundmanagemtPage> {
   @override
   Widget build(BuildContext context) {
     return CommonContainer(
+      showAccountSelection: false,
       showBackBotton: false,
-      title: 'Fund Managemt',
+      title: '',
       showRoundBotton: false,
       topbarName: 'Fund Managemt',
       subTitle:

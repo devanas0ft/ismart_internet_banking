@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ismart_web/common/utils/size_utils.dart';
+import 'package:ismart_web/common/widget/custom_text_field.dart';
+import 'package:ismart_web/common/widget/primary_account_box.dart';
 
 class FundManagementWidget extends StatefulWidget {
   const FundManagementWidget({super.key});
@@ -83,235 +86,250 @@ class _FundManagementWidgetState extends State<FundManagementWidget> {
   }
 
   Widget _buildLoadWalletContent() {
-    return Column(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF4CAF50),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'e',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF4CAF50),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'e',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                const Text(
-                  'Load eSewa',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                  const SizedBox(width: 12),
                   const Text(
-                    'Guide to load from eSewa',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF333333),
-                    ),
+                    'Load eSewa',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(height: 12),
-                  _buildGuideItem('Please do not Refresh the page'),
-                  _buildGuideItem('Please Cross Check your eSewa ID'),
-                  _buildGuideItem('Amount must be 10 Digit long'),
-                  _buildGuideItem('Amount max length must be 1 Digit'),
-                  _buildGuideItem('Confirm Amount before submit'),
                 ],
               ),
-            ),
-            const SizedBox(height: 25),
-          ],
-        ),
-
-        Row(
-          children: [
-            const Text(
-              'Select Account',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF666666),
-              ),
-            ),
-            const SizedBox(height: 8),
-            _buildAccountSelector(),
-            const SizedBox(height: 20),
-            const Text(
-              'Wallet ID',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF666666),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _walletIdController,
-              decoration: InputDecoration(
-                hintText: 'Enter you eSewa ID',
-                hintStyle: const TextStyle(color: Color(0xFFBBBBBB)),
-                filled: true,
-                fillColor: const Color(0xFFF5F5F5),
-                border: OutlineInputBorder(
+              const SizedBox(height: 25),
+              Container(
+                // width: 250,
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F5F5),
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
                 ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 12,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Amount',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF666666),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: 'XXXXX.XX',
-                hintStyle: const TextStyle(color: Color(0xFFBBBBBB)),
-                filled: true,
-                fillColor: const Color(0xFFF5F5F5),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 12,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Guide to load from eSewa',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF333333),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildGuideItem('Please do not Refresh the page'),
+                    _buildGuideItem('Please Cross Check your eSewa ID'),
+                    _buildGuideItem('Amount must be 10 Digit long'),
+                    _buildGuideItem('Amount max length must be 1 Digit'),
+                    _buildGuideItem('Confirm Amount before submit'),
+                  ],
                 ),
               ),
-              onChanged: (value) {
-                setState(() {
-                  _selectedAmount = null;
-                });
-              },
-            ),
-            const SizedBox(height: 15),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: [
-                _buildAmountButton(10),
-                _buildAmountButton(20),
-                _buildAmountButton(50),
-                _buildAmountButton(500),
-                _buildAmountButton(1000),
-                _buildAmountButton(2000),
-              ],
-            ),
-            const SizedBox(width: 20),
-          ],
+            ],
+          ),
         ),
+        VerticalDivider(width: 8.w),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Select Account',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF666666),
+                ),
+              ),
 
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const Text(
+              PrimaryAccountBox(validateMobileBankingStatus: true),
+              const SizedBox(height: 8),
+              const Text(
+                'Wallet ID',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF666666),
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _walletIdController,
+                decoration: InputDecoration(
+                  hintText: 'Enter you eSewa ID',
+                  hintStyle: const TextStyle(color: Color(0xFFBBBBBB)),
+                  filled: true,
+                  fillColor: const Color(0xFFF5F5F5),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Amount section
+              const Text(
+                'Amount',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF666666),
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'XXXXX.XX',
+                  hintStyle: const TextStyle(color: Color(0xFFBBBBBB)),
+                  filled: true,
+                  fillColor: const Color(0xFFF5F5F5),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedAmount = null;
+                  });
+                },
+              ),
+
+              const SizedBox(height: 15),
+              // Amount buttons
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: [
+                  _buildAmountButton(10),
+                  _buildAmountButton(20),
+                  _buildAmountButton(50),
+                  _buildAmountButton(500),
+                  _buildAmountButton(1000),
+                  _buildAmountButton(2000),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+        VerticalDivider(width: 8.w),
+        Expanded(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.topLeft,
+                child: const Text(
                   'Remarks',
                   style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
                 ),
-                const SizedBox(height: 4),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF5F5F5),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'XXXXXXXXXXXXX',
-                      style: TextStyle(fontSize: 12, color: Color(0xFFBBBBBB)),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          side: const BorderSide(color: Color(0xFFE0E0E0)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+              ),
+              const SizedBox(height: 8),
+              // Container(
+              //   width: double.infinity,
+              //   height: 60,
+              //   decoration: BoxDecoration(
+              //     color: const Color(0xFFF5F5F5),
+              //     borderRadius: BorderRadius.circular(8),
+              //   ),
+              //   child: const Center(
+              //     child: Text(
+              //       'XXXXXXXXXXXXX',
+              //       style: TextStyle(fontSize: 12, color: Color(0xFFBBBBBB)),
+              //     ),
+              //   ),
+              // ),
+              CustomTextField(maxLine: 8),
+
+              const SizedBox(height: 15),
+              Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        side: const BorderSide(color: Color(0xFFE0E0E0)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(
-                            color: Color(0xFF666666),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                          ),
+                      ),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: Color(0xFF666666),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1E3A8A),
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                  ),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1E3A8A),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Text(
-                          'Confirm',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                          ),
+                      ),
+                      child: const Text(
+                        'Confirm',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -394,7 +412,7 @@ class _FundManagementWidgetState extends State<FundManagementWidget> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  _buildAccountSelector(),
+                  // _buildAccountSelector(),
                   const SizedBox(height: 20),
                   const Text(
                     'Amount',
@@ -534,62 +552,6 @@ class _FundManagementWidgetState extends State<FundManagementWidget> {
           'Statement content coming soon...',
           style: TextStyle(fontSize: 16, color: Color(0xFF666666)),
         ),
-      ),
-    );
-  }
-
-  Widget _buildAccountSelector() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFE0E0E0)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1E3A8A),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: const Text(
-                  'Primary',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              const Icon(Icons.keyboard_arrow_down, color: Color(0xFF666666)),
-            ],
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'NPR 1234083',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF333333),
-            ),
-          ),
-          const SizedBox(height: 2),
-          const Text(
-            'Sanima Bikash Bank Ltd.',
-            style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-          ),
-          const SizedBox(height: 2),
-          const Text(
-            '1256786543234567',
-            style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-          ),
-        ],
       ),
     );
   }

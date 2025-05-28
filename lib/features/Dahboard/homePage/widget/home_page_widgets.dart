@@ -9,7 +9,7 @@ import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/common/utils/responsive.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
-import 'package:ismart_web/features/Dahboard/homePage/graphBar/widgets/transaction_summary_screen.dart';
+import 'package:ismart_web/features/Dahboard/homePage/graphBar/pages/graph_page.dart';
 import 'package:ismart_web/features/Dahboard/homePage/screen/homepage_money_page.dart';
 import 'package:ismart_web/features/Dahboard/homePage/widget/Recent%20transition/recent_activity_widget.dart';
 import 'package:ismart_web/features/Dahboard/widgets/dashboard_widget.dart';
@@ -22,7 +22,6 @@ import 'package:ismart_web/features/utility_payment/models/utility_response_data
 
 import '../../../../common/app/navigation_service.dart';
 import '../../../splash/resource/startup_repository.dart';
-import 'home_page_tabbar_widget.dart';
 import 'home_page_user_widget.dart';
 // Import TransactionSummaryScreen from its file
 
@@ -372,7 +371,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 flex: 3,
                                 child: Container(
                                   margin: EdgeInsets.only(left: 20),
-                                  child: TransactionSummaryScreen(),
+                                  child: GraphPage(),
                                 ),
                               ),
                           ],
@@ -384,7 +383,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           Responsive.isTablet(context))
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 8),
-                          child: TransactionSummaryScreen(),
+                          // child: TransactionSummaryScreen(),
+                          child: GraphPage(),
                         ),
                       // const HomePageTabbarWidget(),
                       RecentActivityTable(),

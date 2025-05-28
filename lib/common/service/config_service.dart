@@ -1,4 +1,4 @@
-import 'dart:html' as html;
+// import 'dart:html' as html;
 import 'package:flutter/material.dart';
 // import 'package:web/web.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
@@ -15,16 +15,16 @@ class ConfigService {
   CoOperative get config => _currentConfig ?? CoOperative.defaultConfig();
 
   Future<CoOperative> initialize() async {
-    final uri = Uri.parse(html.window.location.href);
+    // final uri = Uri.parse(html.window.location.href);
 
-    final pathSegments = uri.pathSegments;
+    // final pathSegments = uri.pathSegments;
 
-    String? coopName;
-    if (pathSegments.isNotEmpty) {
-      coopName = pathSegments.first;
-    }
+    // String? coopName;
+    // if (pathSegments.isNotEmpty) {
+    //   coopName = pathSegments.first;
+    // }
 
-    _currentConfig = await _loadConfigForCoop(coopName);
+    // _currentConfig = await _loadConfigForCoop(coopName);
 
     return config;
   }
