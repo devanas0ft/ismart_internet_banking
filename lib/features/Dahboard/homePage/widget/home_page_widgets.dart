@@ -11,7 +11,7 @@ import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/features/Dahboard/homePage/graphBar/pages/graph_page.dart';
 import 'package:ismart_web/features/Dahboard/homePage/screen/homepage_money_page.dart';
-import 'package:ismart_web/features/Dahboard/homePage/widget/Recent%20transition/recent_activity_widget.dart';
+import 'package:ismart_web/features/Dahboard/homePage/widget/Recent%20transition/screens/recent_activity_page.dart';
 import 'package:ismart_web/features/Dahboard/widgets/dashboard_widget.dart';
 import 'package:ismart_web/features/chatBot/intermediate_chat_page.dart';
 import 'package:ismart_web/features/customerDetail/model/customer_detail_model.dart';
@@ -387,7 +387,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: GraphPage(),
                         ),
                       // const HomePageTabbarWidget(),
-                      RecentActivityTable(),
+                      RecentActivityPage(),
                     ],
                   );
                 },

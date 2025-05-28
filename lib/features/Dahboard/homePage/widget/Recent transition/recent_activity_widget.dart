@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
+import 'package:ismart_web/common/bloc/data_state.dart';
+import 'package:ismart_web/common/widget/no_data_screen.dart';
+import 'package:ismart_web/common/widget/show_loading_dialog.dart';
+import 'package:ismart_web/features/history/cubit/recent_transaction_cubit.dart';
+import 'package:ismart_web/features/history/models/recent_transaction_model.dart';
 
-class RecentActivityTable extends StatelessWidget {
-  final List<Map<String, String>> data = [
-    {
-      "serviceName": "Internal Fund",
-      "transferredTo": "001-001-GBK-0004567",
-      "through": "Chq# 0 0518163707969801130007",
-      "amount": "-NPR 1621.20",
-    },
-    {
-      "serviceName": "Internal Fund",
-      "transferredTo": "001-001-GBK-0004567",
-      "through": "Chq# 0 0518163707969801130007",
-      "amount": "-NPR 1621.20",
-    },
-    {
-      "serviceName": "Internal Fund",
-      "transferredTo": "001-001-GBK-0004567",
-      "through": "Chq# 0 0518163707969801130007",
-      "amount": "-NPR 1621.20",
-    },
-    {
-      "serviceName": "Internal Fund",
-      "transferredTo": "001-001-GBK-0004567",
-      "through": "Chq# 0 0518163707969801130007",
-      "amount": "NPR 1621.20",
-    },
-    {
-      "serviceName": "Internal Fund",
-      "transferredTo": "001-001-GBK-0004567",
-      "through": "Chq# 0 0518163707969801130007",
-      "amount": "NPR 1621.20",
-    },
-  ];
+class RecentActivityTable extends StatefulWidget {
+  const RecentActivityTable({super.key});
+  @override
+  State<RecentActivityTable> createState() => _RecentActivityTableState();
+}
+
+class _RecentActivityTableState extends State<RecentActivityTable> {
+  DateTime toDate = DateTime.now();
+  DateTime fromDate = DateTime.now().subtract(const Duration(days: 30));
+
+  @override
+  void initState() {
+    super.initState();
+    getRecentTransaction(fromDate, toDate);
+  }
+
+  getRecentTransaction(DateTime fromDatee, DateTime toDatee) {
+    context.read<RecentTransactionCubit>().fetchrecentTransaction(
+      fromDate: "${fromDate.year}-${fromDate.month}-${fromDate.day}",
+      toDate: "${toDate.year}-${toDate.month}-${toDate.day}",
+      serviceCategoryId: "",
+      associatedId: "",
+      serviceId: "",
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,55 +92,69 @@ class RecentActivityTable extends StatelessWidget {
             ),
           ),
           const Divider(height: 1),
-          SizedBox(
-            height: 300,
-            child: ListView.separated(
-              itemCount: data.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
-              itemBuilder: (context, index) {
-                final item = data[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 16,
-                  ),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          item['serviceName'] ?? '',
-                          style: TextStyle(
-                            fontSize: 10,
+          BlocConsumer<RecentTransactionCubit, CommonState>(
+            listener: (context, state) {
+              if (state is CommonLoading) {
+                showLoadingDialogBox(context);
+              } else if (state is! CommonLoading) {}
+            },
+            builder: (context, state) {
+              if (state is CommonDataFetchSuccess<RecentTransactionModel>) {
+                return SizedBox(
+                  height: 300,
+                  child: ListView.separated(
+                    itemCount: state.data.length,
+                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    itemBuilder: (context, index) {
+                      final item = state.data[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                item.service,
+                                style: TextStyle(
+                                  fontSize: 10,
 
-                            fontWeight: FontWeight.w600,
-                          ),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            Expanded(flex: 2, child: Text(item.destination)),
+                            Expanded(flex: 2, child: Text(item.accountNumber)),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                item.amount.toString(),
+                                style: TextStyle(
+                                  color: item.debit ? Colors.red : Colors.green,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(item['transferredTo'] ?? ''),
-                      ),
-                      Expanded(flex: 2, child: Text(item['through'] ?? '')),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          item['amount'] ?? '',
-                          style: TextStyle(
-                            color:
-                                item['amount']?.startsWith('-') ?? false
-                                    ? Colors.red
-                                    : Colors.green,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 );
-              },
-            ),
+              } else {
+                return SizedBox(
+                  height: 300,
+                  child: NoDataScreen(
+                    title: "No transactions yet.",
+                    details:
+                        "Could not find transaction for date ${fromDate.year}-${fromDate.month}-${fromDate.day} to ${toDate.year}-${toDate.month}-${toDate.day}",
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),

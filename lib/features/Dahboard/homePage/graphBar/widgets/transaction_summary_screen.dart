@@ -21,15 +21,15 @@ class _TransactionSummaryScreenState extends State<TransactionSummaryScreen> {
   bool isMonthlyView = true;
 
   List<double> monthlyData = [
+    500.0,
+    200.0,
     320.0,
     320.0,
+    430.0,
     320.0,
+    300.0,
     320.0,
-    320.0,
-    320.0,
-    320.0,
-    320.0,
-    320.0,
+    120.0,
     320.0,
     320.0,
     320.0,
@@ -78,7 +78,12 @@ class _TransactionSummaryScreenState extends State<TransactionSummaryScreen> {
             closingBalance: closingbalance.toString(),
           );
         } else if (state is CommonLoading) {
-          return const CommonLoadingWidget();
+          // return SizedBox(height: 330, child: const CommonLoadingWidget());
+          return GraphBox(
+            monthlyData: monthlyData,
+            openingBalance: 'Loading....',
+            closingBalance: 'Loading....',
+          );
         } else {
           return GraphBox(
             monthlyData: monthlyData,

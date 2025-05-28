@@ -3,8 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/features/Dahboard/homePage/graphBar/widgets/balance_card.dart';
 
-class GraphBox extends StatelessWidget {
-  final bool isMonthlyView = true;
+class GraphBox extends StatefulWidget {
   final String openingBalance;
   final String closingBalance;
 
@@ -17,12 +16,25 @@ class GraphBox extends StatelessWidget {
   });
 
   @override
+  State<GraphBox> createState() => _GraphBoxState();
+}
+
+class _GraphBoxState extends State<GraphBox> {
+  final bool isMonthlyView = true;
+  bool showFullMonth = false;
+
+  getMaxValue() {
+    final val = widget.monthlyData.reduce((a, b) => a > b ? a : b);
+    return val;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
@@ -48,6 +60,25 @@ class GraphBox extends StatelessWidget {
                   // fontFamily: 'poppins',
                 ),
               ),
+              Row(
+                children: [
+                  const Text('Show: '),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        showFullMonth = !showFullMonth;
+                      });
+                    },
+                    child: Text(
+                      showFullMonth ? 'Full Monthly' : 'Compact View',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 20),
@@ -56,11 +87,11 @@ class GraphBox extends StatelessWidget {
             children: [
               BalanceCard(
                 title: 'Opening Balance',
-                amount: 'NRS $openingBalance',
+                amount: 'NRS ${widget.openingBalance}',
               ),
               BalanceCard(
                 title: 'Closing Balance',
-                amount: 'NRS $closingBalance',
+                amount: 'NRS ${widget.closingBalance}',
               ),
               const SizedBox(width: 80),
             ],
@@ -70,7 +101,7 @@ class GraphBox extends StatelessWidget {
             child: BarChart(
               BarChartData(
                 alignment: BarChartAlignment.spaceAround,
-                maxY: 500,
+                maxY: 500 > getMaxValue() ? 500 : getMaxValue(),
                 minY: 0,
                 barTouchData: BarTouchData(
                   enabled: true,
@@ -96,7 +127,7 @@ class GraphBox extends StatelessWidget {
                     sideTitles: SideTitles(
                       showTitles: true,
                       reservedSize: 30,
-                      interval: 100,
+                      interval: 500 > getMaxValue() ? 100 : getMaxValue() / 5,
                       getTitlesWidget: (value, meta) {
                         if (value == 0) return const SizedBox.shrink();
                         return Text(
@@ -152,7 +183,11 @@ class GraphBox extends StatelessWidget {
                   },
                   drawVerticalLine: false,
                 ),
-                barGroups: _generateBarGroups(monthlyData.sublist(0, 12)),
+                barGroups: _generateBarGroups(
+                  showFullMonth
+                      ? widget.monthlyData
+                      : widget.monthlyData.sublist(0, 12),
+                ),
               ),
             ),
           ),
