@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
-import 'package:ismart_web/common/utils/responsive.dart';
 import 'package:ismart_web/common/widget/common_container.dart';
 import 'package:ismart_web/features/userAccount/widgets/account_detail.dart';
 import 'package:ismart_web/features/userAccount/widgets/bank_detail.dart';
@@ -46,6 +43,7 @@ class _UserAccountWidgetState extends State<UserAccountWidget> {
                 ],
               ),
             ),
+            Divider(),
             SizedBox(height: 20),
 
             if (activeIndex == 0) ...[
@@ -53,7 +51,7 @@ class _UserAccountWidgetState extends State<UserAccountWidget> {
             ] else if (activeIndex == 1) ...[
               BankDetail(),
             ] else if (activeIndex == 2) ...[
-              AccountDetail()
+              AccountDetail(),
             ],
           ],
         ),
@@ -87,7 +85,4 @@ class _UserAccountWidgetState extends State<UserAccountWidget> {
       ),
     );
   }
-
-
-  
 }
