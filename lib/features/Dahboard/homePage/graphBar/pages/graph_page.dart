@@ -7,7 +7,7 @@ import 'package:ismart_web/features/utility_payment/cubit/utility_payment_cubit.
 import 'package:ismart_web/features/utility_payment/resources/utility_payment_repository.dart';
 
 class GraphPage extends StatelessWidget {
-  const GraphPage({Key? key}) : super(key: key);
+  const GraphPage({super.key});
 
   @override
   Widget build(BuildContext context) {

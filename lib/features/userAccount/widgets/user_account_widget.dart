@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/widget/common_container.dart';
-import 'package:ismart_web/features/userAccount/widgets/account_detail.dart';
+import 'package:ismart_web/features/customerDetail/model/customer_detail_model.dart';
+import 'package:ismart_web/features/customerDetail/resource/customer_detail_repository.dart';
+import 'package:ismart_web/features/userAccount/widgets/account_detail_widget.dart';
 import 'package:ismart_web/features/userAccount/widgets/bank_detail.dart';
 import 'package:ismart_web/features/userAccount/widgets/personal_detail.dart';
 
@@ -13,75 +17,115 @@ class UserAccountWidget extends StatefulWidget {
 
 class _UserAccountWidgetState extends State<UserAccountWidget> {
   int activeIndex = 0;
+  final List<String> _tabs = [
+    'PERSONAL DETAILS',
+    'BANK DETAILS',
+    'ACCOUNT DETAILS',
+  ];
+  ValueNotifier<CustomerDetailModel?> customerDetail = ValueNotifier(null);
+  ValueNotifier<AccountDetail?> selectedAccountNotifier = ValueNotifier(null);
+  ValueNotifier<dynamic> accountDetail = ValueNotifier([]);
+  String bannerImage = "";
+
+  String? imageUrl;
+  String? gender;
+
+  @override
+  void initState() {
+    super.initState();
+    customerDetail =
+        RepositoryProvider.of<CustomerDetailRepository>(
+          context,
+        ).customerDetailModel;
+    RepositoryProvider.of<CustomerDetailRepository>(context).accountsList;
+    selectedAccountNotifier =
+        RepositoryProvider.of<CustomerDetailRepository>(
+          context,
+        ).selectedAccount;
+    bannerImage = RepositoryProvider.of<CoOperative>(context).bannerImage;
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
     return CommonContainer(
       topbarName: "User Account",
       subTitle: "Manage and view your account",
       showBackBotton: false,
       showRoundBotton: false,
 
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  buildTab('PERSONAL DETAILS', 0, screenWidth),
-                  SizedBox(width: screenWidth * 0.1),
-                  buildTab('BANK DETAILS', 1, screenWidth),
-                  SizedBox(width: screenWidth * 0.1),
-                  buildTab('ACCOUNT DETAILS', 2, screenWidth),
-                ],
-              ),
-            ),
-            Divider(),
-            SizedBox(height: 20),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
 
-            if (activeIndex == 0) ...[
-              PersonalDetail(),
-            ] else if (activeIndex == 1) ...[
-              BankDetail(),
-            ] else if (activeIndex == 2) ...[
-              AccountDetail(),
-            ],
-          ],
+        child: ValueListenableBuilder(
+          valueListenable: selectedAccountNotifier,
+          builder: (context, selectAcc, _) {
+            return ValueListenableBuilder(
+              valueListenable: customerDetail,
+              builder: (context, customerDet, _) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Row(
+                        children: [
+                          ..._tabs.asMap().entries.map((entry) {
+                            int index = entry.key;
+                            String title = entry.value;
+                            return Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    activeIndex = index;
+                                  });
+                                },
+                                child: _buildTab(title, activeIndex == index),
+                              ),
+                            );
+                          }),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                    Divider(height: 1),
+                    const SizedBox(height: 30),
+                    if (activeIndex == 0)
+                      PersonalDetail(
+                        detail: customerDet,
+                        selectedAccountNotifier: selectAcc,
+                      ),
+                    if (activeIndex == 1) BankDetail(accountDetail: selectAcc),
+                    if (activeIndex == 2) AccountDetailWidget(),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget buildTab(String title, int index, double screenWidth) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          activeIndex = index;
-        });
-      },
-      child: Column(
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 15,
-              color: activeIndex == index ? Color(0xff010c80) : Colors.black,
-            ),
+  Widget _buildTab(String title, bool isActive) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: isActive ? const Color(0xFF1E3A8A) : Colors.transparent,
+            width: 2,
           ),
-          SizedBox(height: 4),
-          Container(
-            height: 2,
-            width: screenWidth * 0.1,
-            color: activeIndex == index ? Color(0xff010c80) : Colors.grey,
-          ),
-        ],
+        ),
+      ),
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: isActive ? const Color(0xFF1E3A8A) : const Color(0xFF666666),
+        ),
       ),
     );
   }

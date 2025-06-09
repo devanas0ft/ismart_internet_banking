@@ -4,14 +4,14 @@ import 'package:ismart_web/common/utils/responsive.dart';
 import 'package:ismart_web/features/userAccount/widgets/account_table.dart';
 import 'package:ismart_web/features/userAccount/widgets/each_bank_helper.dart';
 
-class AccountDetail extends StatefulWidget {
-  const AccountDetail({super.key});
+class AccountDetailWidget extends StatefulWidget {
+  const AccountDetailWidget({super.key});
 
   @override
-  State<AccountDetail> createState() => _AccountDetailState();
+  State<AccountDetailWidget> createState() => _AccountDetailWidgetState();
 }
 
-class _AccountDetailState extends State<AccountDetail> {
+class _AccountDetailWidgetState extends State<AccountDetailWidget> {
   String selectedValue = 'Select Bank Account';
 
   final List<String> items = [

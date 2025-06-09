@@ -15,14 +15,14 @@ import 'package:ismart_web/common/widget/custom_cached_network_image.dart';
 import 'package:ismart_web/features/customerDetail/model/customer_detail_model.dart';
 import 'package:ismart_web/features/customerDetail/resource/customer_detail_repository.dart';
 
-import '../../../../common/app/navigation_service.dart';
+// import '../../../../common/app/navigation_service.dart';
 
 class HomePageUserWidget extends StatefulWidget {
   const HomePageUserWidget({
-    Key? key,
+    super.key,
     this.selectedImage,
     this.isPreview = false,
-  }) : super(key: key);
+  });
 
   final File? selectedImage;
   final bool isPreview;
@@ -36,9 +36,7 @@ class _HomePageUserWidgetState extends State<HomePageUserWidget> {
   ValueNotifier<CustomerDetailModel?> customerDetail = ValueNotifier(null);
   ValueNotifier<AccountDetail?> selectedAccountNotifier = ValueNotifier(null);
   ValueNotifier<dynamic> accountDetail = ValueNotifier([]);
-
   String bannerImage = "";
-
   String? imageUrl;
   String? gender;
 

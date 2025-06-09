@@ -27,7 +27,7 @@ class _AppDevState extends State<AppDev> {
     ServiceHiveUtils.init();
     _configFuture = ConfigService().initialize();
     sessionConfig = SessionConfig(
-      invalidateSessionForAppLostFocus: const Duration(minutes: 5),
+      invalidateSessionForAppLostFocus: const Duration(minutes: 2),
       invalidateSessionForUserInactivity: const Duration(minutes: 2),
     );
     sessionConfig!.stream.listen((event) {

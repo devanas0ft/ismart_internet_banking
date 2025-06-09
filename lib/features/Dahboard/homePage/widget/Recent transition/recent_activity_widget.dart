@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/bloc/data_state.dart';
 import 'package:ismart_web/common/widget/no_data_screen.dart';
@@ -17,6 +16,12 @@ class RecentActivityTable extends StatefulWidget {
 class _RecentActivityTableState extends State<RecentActivityTable> {
   DateTime toDate = DateTime.now();
   DateTime fromDate = DateTime.now().subtract(const Duration(days: 30));
+  int activeIndex = 0;
+  final List<String> _tabs = [
+    'PERSONAL DETAILS',
+    'BANK DETAILS',
+    'ACCOUNT DETAILS',
+  ];
 
   @override
   void initState() {

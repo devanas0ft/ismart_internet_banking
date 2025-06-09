@@ -38,6 +38,7 @@ dependencies:
   animations: ^2.0.11
   shimmer: ^3.0.0
   fl_chart: ^1.0.0
+  device_preview_plus: ^2.3.0
   khalti_checkout_flutter: ^1.0.0-dev.4
 
 dev_dependencies:
@@ -58,6 +59,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/images/
+    - assets/icons/navbar/
     - assets/icons/user_account/
     - assets/icons/user_account/personal/
     - assets/icons/user_account/bank_details/

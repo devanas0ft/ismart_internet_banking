@@ -145,6 +145,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.11"
+  device_frame:
+    dependency: transitive
+    description:
+      name: device_frame
+      sha256: d031a06f5d6f4750009672db98a5aa1536aa4a231713852469ce394779a23d75
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   device_info_plus:
     dependency: transitive
     description:
@@ -161,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.2"
+  device_preview_plus:
+    dependency: "direct main"
+    description:
+      name: device_preview_plus
+      sha256: "4a94b5bb4c8296bff18311f58c02fd0f0d8b129301a6f1fb62eb1443c3eed3c5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   devtools_shared:
     dependency: transitive
     description:
@@ -397,6 +413,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.4"
   hive:
     dependency: transitive
     description:
@@ -453,6 +477,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.2"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.9.0"
   json_rpc_2:
     dependency: transitive
     description:
@@ -1204,4 +1236,4 @@ packages:
     version: "2.2.2"
 sdks:
   dart: ">=3.7.0 <4.0.0"
-  flutter: ">=3.27.4"
+  flutter: ">=3.29.0"

@@ -6,7 +6,7 @@ import 'package:ismart_web/features/history/cubit/recent_transaction_cubit.dart'
 import 'package:ismart_web/features/history/resources/recent_transaction_repository.dart';
 
 class RecentActivityPage extends StatefulWidget {
-  const RecentActivityPage({Key? key}) : super(key: key);
+  const RecentActivityPage({super.key});
 
   @override
   State<RecentActivityPage> createState() => _RecentActivityPageState();

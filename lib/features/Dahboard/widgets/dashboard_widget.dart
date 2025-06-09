@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/features/Dahboard/homePage/screen/home_page.dart';
 import 'package:ismart_web/features/banking/screen/banking_page.dart';
 import 'package:ismart_web/features/customerDetail/cubit/customer_detail_cubit.dart';
 import 'package:ismart_web/features/fundManagement/screens/fundmanagemt_page.dart';
-import 'package:ismart_web/features/history/screen/recent_transaction_page.dart';
-import 'package:ismart_web/features/userAccount/widgets/user_account_widget.dart';
+import 'package:ismart_web/features/userAccount/Screens/user_account_page.dart';
 
 class DashboardWidget extends StatefulWidget {
   const DashboardWidget({super.key});
@@ -17,15 +17,15 @@ class DashboardWidget extends StatefulWidget {
 }
 
 class _DashboardWidgetState extends State<DashboardWidget> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   final List<Widget> _pages = [
     HomePage(),
-    const UserAccountWidget(),
+    const UserAccountPage(),
     const Bankingpage(),
     const FundmanagemtPage(),
-    Center(child: Text('Paynment')),
-    const RecentTransactionScreen(),
+    Center(child: Text('Favourite')),
+    // const RecentTransactionScreen(),
     Center(child: Text('Settings Page')),
   ];
 
@@ -33,12 +33,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   @override
   void initState() {
     super.initState();
-
-    context.read<CustomerDetailCubit>().fetchCustomerDetail(
-      isCalledAtStatup: true,
-    );
-
-    // offerBanners = RepositoryProvider.of<BannerRepository>(context).banners;
   }
 
   void _onItemTapped(int index) {
@@ -61,7 +55,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           fontWeight: FontWeight.bold,
         ),
         unselectedLabelStyle: TextStyle(
-          color: CustomTheme.darkGray.withAlpha(50),
+          color: CustomTheme.darkGray.withAlpha(120),
         ),
         selectedItemColor: Theme.of(context).primaryColor,
         currentIndex: _selectedIndex,
@@ -69,49 +63,98 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(_selectedIndex == 1 ? Icons.home : Icons.home_outlined),
+            icon: SvgPicture.asset(
+              height: 24,
+              'assets/icons/navbar/dashboard.svg',
+              colorFilter: ColorFilter.mode(
+                _selectedIndex == 0
+                    ? CustomTheme.primaryColor
+                    : CustomTheme.darkGray.withAlpha(120),
+                BlendMode.srcIn,
+              ),
+            ),
+
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 3 ? Icons.person : Icons.person_outline,
+            icon: SvgPicture.asset(
+              height: 24,
+              'assets/icons/navbar/user.svg',
+              colorFilter: ColorFilter.mode(
+                _selectedIndex == 1
+                    ? CustomTheme.primaryColor
+                    : CustomTheme.darkGray.withAlpha(120),
+                BlendMode.srcIn,
+              ),
             ),
             label: 'User Account',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 2
-                  ? Icons.account_balance
-                  : Icons.account_balance_outlined,
+            icon: SvgPicture.asset(
+              height: 24,
+              'assets/icons/navbar/banking.svg',
+              colorFilter: ColorFilter.mode(
+                _selectedIndex == 2
+                    ? CustomTheme.primaryColor
+                    : CustomTheme.darkGray.withAlpha(120),
+                BlendMode.srcIn,
+              ),
             ),
             label: 'Banking',
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 3
-                  ? Icons.monetization_on
-                  : Icons.monetization_on_outlined,
-            ),
-            label: 'Fund Management',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 4 ? Icons.payment : Icons.payment_outlined,
+            icon: SvgPicture.asset(
+              height: 24,
+              'assets/icons/navbar/payment.svg',
+              colorFilter: ColorFilter.mode(
+                _selectedIndex == 3
+                    ? CustomTheme.primaryColor
+                    : CustomTheme.darkGray.withAlpha(120),
+                BlendMode.srcIn,
+              ),
             ),
             label: 'Payment',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 5 ? Icons.history : Icons.history_outlined,
+            icon: SvgPicture.asset(
+              height: 24,
+              'assets/icons/navbar/favourite.svg',
+              colorFilter: ColorFilter.mode(
+                _selectedIndex == 4
+                    ? CustomTheme.primaryColor
+                    : CustomTheme.darkGray.withAlpha(120),
+                BlendMode.srcIn,
+              ),
             ),
-            label: 'History',
+            label: 'Favourite',
           ),
+
+          // BottomNavigationBarItem(
+          //   icon: SvgPicture.asset(
+          //     height: 24,
+          //     'assets/icons/navbar/history.svg',
+          //     colorFilter: ColorFilter.mode(
+          //       _selectedIndex == 5
+          //           ? CustomTheme.primaryColor
+          //           : CustomTheme.darkGray.withAlpha(120),
+          //       BlendMode.srcIn,
+          //     ),
+          //   ),
+          //   label: 'History',
+          // ),
           BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 5 ? Icons.settings : Icons.settings_outlined,
+            icon: SvgPicture.asset(
+              height: 24,
+              'assets/icons/navbar/more.svg',
+              colorFilter: ColorFilter.mode(
+                _selectedIndex == 6
+                    ? CustomTheme.primaryColor
+                    : CustomTheme.darkGray.withAlpha(120),
+                BlendMode.srcIn,
+              ),
             ),
-            label: 'Settings',
+            label: 'More',
           ),
         ],
       ),

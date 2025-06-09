@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ismart_web/features/customerDetail/model/customer_detail_model.dart';
 
 class PersonalDetail extends StatefulWidget {
-  PersonalDetail({super.key});
+  final CustomerDetailModel? detail;
+  final AccountDetail? selectedAccountNotifier;
+  const PersonalDetail({
+    super.key,
+    required this.detail,
+    required this.selectedAccountNotifier,
+  });
 
   @override
   State<PersonalDetail> createState() => _PersonalDetailState();
@@ -40,73 +47,86 @@ class _PersonalDetailState extends State<PersonalDetail> {
                       ),
                     ),
                     // SizedBox(width: screenWidth * 0.1),
-                    SizedBox(
-                      height: screenHeight * 0.05,
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (isEdit) {
-                            setState(() {
-                              isEdit = !isEdit;
-                            });
-                          }
-                        },
-                        child:
-                            isEdit
-                                ? Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.edit,
-                                      color: Color(0xff010c80),
-                                      size: 15,
-                                    ),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      'Edit Details',
-                                      style: TextStyle(
-                                        color: Color(0xff010c80),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                                : Text(
-                                  'Change Photo',
-                                  style: TextStyle(color: Color(0xff010c80)),
-                                ),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.05,
+                    //   child: OutlinedButton(
+                    //     style: OutlinedButton.styleFrom(
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(5),
+                    //       ),
+                    //     ),
+                    //     onPressed: () {
+                    //       if (isEdit) {
+                    //         setState(() {
+                    //           isEdit = !isEdit;
+                    //         });
+                    //       }
+                    //     },
+                    //     child:
+                    //         isEdit
+                    //             ? Row(
+                    //               mainAxisSize: MainAxisSize.min,
+                    //               children: [
+                    //                 Icon(
+                    //                   Icons.edit,
+                    //                   color: Color(0xff010c80),
+                    //                   size: 15,
+                    //                 ),
+                    //                 SizedBox(width: 5),
+                    //                 Text(
+                    //                   'Edit Details',
+                    //                   style: TextStyle(
+                    //                     color: Color(0xff010c80),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             )
+                    //             : Text(
+                    //               'Change Photo',
+                    //               style: TextStyle(
+                    //                 color: Color(0xff010c80),
+                    //               ),
+                    //             ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(height: 20),
                 buildPersonalDetail(
                   'assets/icons/user_account/personal/name.svg',
                   'Full Name',
-                  'xxxx',
+                  widget.detail?.firstName == null
+                      ? ''
+                      : '${widget.detail?.firstName} ${widget.detail?.middleName} ${widget.detail?.lastName}'
+                          .trim(),
+
                   screenWidth,
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 buildPersonalDetail(
                   'assets/icons/user_account/personal/mail.svg',
                   'Email',
-                  'xxxxx.com',
+                  (widget.detail?.email.isEmpty ?? true)
+                      ? 'Not Available'
+                      : widget.detail?.email ?? '',
+
                   screenWidth,
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 buildPersonalDetail(
                   'assets/icons/user_account/personal/mobile.svg',
                   'Mobile Number',
-                  'xxxx',
+                  (widget.detail?.mobileNumber.isEmpty ?? true)
+                      ? 'Not Available'
+                      : widget.detail?.mobileNumber ?? '',
+
                   screenWidth,
                 ),
                 SizedBox(height: 10),
               ],
             ),
           ),
+
           Expanded(
             flex: 1,
             child: Column(
@@ -116,79 +136,81 @@ class _PersonalDetailState extends State<PersonalDetail> {
                 buildPersonalDetail(
                   'assets/icons/user_account/personal/location.svg',
                   'Province',
-                  'xxxx',
+                  'Not Available yet',
                   screenWidth,
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 buildPersonalDetail(
                   'assets/icons/user_account/personal/city.svg',
                   'City',
-                  'xxxx',
+                  (widget.detail?.city.isEmpty ?? true)
+                      ? 'Not Available'
+                      : widget.detail?.city ?? '',
                   screenWidth,
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 buildPersonalDetail(
                   'assets/icons/user_account/personal/ward.svg',
                   'Ward No.',
-                  'xxxx',
+                  "Not Available",
                   screenWidth,
                 ),
                 if (!isEdit) SizedBox(height: 40),
 
-                !isEdit
-                    ? Wrap(
-                      spacing: 20,
-                      runSpacing: 10,
-                      children: [
-                        SizedBox(
-                          height: 43,
-                          width: 100,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              setState(() {
-                                isEdit = !isEdit;
-                              });
-                            },
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.transparent),
-                              backgroundColor: Colors.grey[200],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            ),
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        // SizedBox(width: 35),
-                        SizedBox(
-                          width: 100,
-                          height: 43,
-                          child: OutlinedButton(
-                            onPressed: () {},
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.transparent),
-                              backgroundColor: Color(0xff010c80),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            ),
-                            child: Text(
-                              'Save',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                    : buildPersonalDetail(
-                      'assets/icons/user_account/personal/municipality.svg',
-                      'Municipality',
-                      'xxxx',
-                      screenWidth,
-                    ),
+                // !isEdit
+                //     ? Wrap(
+                //       spacing: 20,
+                //       runSpacing: 10,
+                //       children: [
+                //         SizedBox(
+                //           height: 43,
+                //           width: 100,
+                //           child: OutlinedButton(
+                //             onPressed: () {
+                //               setState(() {
+                //                 isEdit = !isEdit;
+                //               });
+                //             },
+                //             style: OutlinedButton.styleFrom(
+                //               side: BorderSide(color: Colors.transparent),
+                //               backgroundColor: Colors.grey[200],
+                //               shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(5),
+                //               ),
+                //             ),
+                //             child: Text(
+                //               'Cancel',
+                //               style: TextStyle(color: Colors.black),
+                //             ),
+                //           ),
+                //         ),
+                //         // SizedBox(width: 35),
+                //         SizedBox(
+                //           width: 100,
+                //           height: 43,
+                //           child: OutlinedButton(
+                //             onPressed: () {},
+                //             style: OutlinedButton.styleFrom(
+                //               side: BorderSide(color: Colors.transparent),
+                //               backgroundColor: Color(0xff010c80),
+                //               shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(5),
+                //               ),
+                //             ),
+                //             child: Text(
+                //               'Save',
+                //               style: TextStyle(color: Colors.white),
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     )
+                //     : buildPersonalDetail(
+                //       'assets/icons/user_account/personal/municipality.svg',
+                //       'Municipality',
+                //       'xxxx',
+                //       screenWidth,
+                //     ),
               ],
             ),
           ),
@@ -229,13 +251,13 @@ class _PersonalDetailState extends State<PersonalDetail> {
               ? Padding(
                 padding: const EdgeInsets.only(left: 30.0),
                 child: Text(
-                  'xxxx',
+                  body,
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               )
               : SizedBox(
                 width: screenWidth * 0.2,
-                child: CustomTextField('xxxx'),
+                child: CustomTextField(body),
               ),
         ],
       ),

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/bloc/data_state.dart';
-import 'package:ismart_web/common/widget/common_loading_widget.dart';
-import 'package:ismart_web/features/Dahboard/homePage/graphBar/widgets/balance_card.dart';
 import 'package:ismart_web/features/Dahboard/homePage/graphBar/widgets/graph_box.dart';
 import 'package:ismart_web/features/utility_payment/cubit/utility_payment_cubit.dart';
 import 'package:ismart_web/features/utility_payment/models/utility_response_data.dart';

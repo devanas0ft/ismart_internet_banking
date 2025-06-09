@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ismart_web/app/app_dev.dart';
 import 'package:ismart_web/features/splash/loader_screen.dart';
@@ -14,7 +16,12 @@ Future<void> main() async {
     () async {
       HttpOverrides.global = MyHttpOverrides();
       WidgetsFlutterBinding.ensureInitialized();
-      runApp(AppDev(home: LoaderScreen()));
+      runApp(
+        DevicePreview(
+          enabled: !kReleaseMode,
+          builder: (context) => AppDev(home: LoaderScreen()),
+        ),
+      );
     },
     (e, s) {
       Log.e(e);

@@ -36,6 +36,10 @@ AppBar myAppbar({bool showBackButton = false, bool showChatBot = false}) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 8.0),
+          //   child: Text("My account"),
+          // ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(0),

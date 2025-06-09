@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ismart_web/features/Dahboard/homePage/widget/home_page_widgets.dart';
 import 'package:ismart_web/features/customerDetail/cubit/customer_detail_cubit.dart';
 import 'package:ismart_web/features/customerDetail/resource/customer_detail_repository.dart';
+import 'package:ismart_web/features/userAccount/widgets/user_account_widget.dart';
 import 'package:ismart_web/features/utility_payment/cubit/utility_payment_cubit.dart';
 import 'package:ismart_web/features/utility_payment/resources/utility_payment_repository.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class UserAccountPage extends StatelessWidget {
+  const UserAccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               ),
         ),
       ],
-      child: const HomePageWidget(),
+      child: const UserAccountWidget(),
     );
   }
 }

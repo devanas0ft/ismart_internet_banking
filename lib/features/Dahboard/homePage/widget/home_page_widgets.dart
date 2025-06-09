@@ -29,7 +29,7 @@ import 'home_page_user_widget.dart';
 // import 'path/to/transaction_summary_screen.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key? key}) : super(key: key);
+  const HomePageWidget({super.key});
 
   @override
   State<HomePageWidget> createState() => _HomePageWidgetState();
@@ -41,13 +41,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   List<String> _bannerImages = [];
 
   _checkMenu() {
-    final List<String> _clientCodesListForDifferentMenu = [
-      "9DZS5N3TOY", // Uttarganga
-    ];
-
+    final List<String> _clientCodesListForDifferentMenu = ["9DZS5N3TOY"];
     String _clientCode = "";
     _clientCode = RepositoryProvider.of<CoOperative>(context).clientCode;
-
     _shouldShowDifferentMenu = _clientCodesListForDifferentMenu.contains(
       _clientCode,
     );

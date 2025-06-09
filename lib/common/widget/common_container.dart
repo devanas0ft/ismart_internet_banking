@@ -106,12 +106,9 @@ class _CommonContainerState extends State<CommonContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    final _textTheme = _theme.textTheme;
-    final _height = SizeUtils.height;
-    //  final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-    // bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-    // print('is keyboard opened: ${isKeyboardOpen}');
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final height = SizeUtils.height;
     return PageWrapper(
       showAppBar: false,
       padding: EdgeInsets.zero,
@@ -164,23 +161,22 @@ class _CommonContainerState extends State<CommonContainer> {
                                     if (widget.title.isNotEmpty)
                                       Text(
                                         widget.title,
-                                        style: _textTheme.displaySmall!
-                                            .copyWith(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        style: textTheme.displaySmall!.copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     if (widget.detail.isNotEmpty)
                                       Text(
                                         widget.detail,
-                                        style: _textTheme.titleLarge,
+                                        style: textTheme.titleLarge,
                                       ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: _height * 0.01),
+                          SizedBox(height: height * 0.01),
                           widget.showAccountSelection
                               ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +198,7 @@ class _CommonContainerState extends State<CommonContainer> {
                               )
                               : Container(),
                           widget.body,
-                          SizedBox(height: _height * 0.03),
+                          SizedBox(height: height * 0.03),
                           widget.showRoundBotton
                               ? CustomRoundedButtom(
                                 verificationAmount: widget.verificationAmount,
@@ -210,7 +206,7 @@ class _CommonContainerState extends State<CommonContainer> {
                                 onPressed: widget.onButtonPressed,
                               )
                               : Container(),
-                          SizedBox(height: _height * 0.25),
+                          SizedBox(height: height * 0.25),
                         ],
                       ),
                     ),
@@ -281,7 +277,7 @@ class _CommonContainerState extends State<CommonContainer> {
                                       ),
                                       child: Text(
                                         "Recent Transaction",
-                                        style: _textTheme.titleLarge?.copyWith(
+                                        style: textTheme.titleLarge?.copyWith(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
