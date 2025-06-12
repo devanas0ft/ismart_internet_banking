@@ -16,8 +16,9 @@ AppBar myAppbar({bool showBackButton = false, bool showChatBot = false}) {
   final config = ConfigService().config;
 
   return AppBar(
-    backgroundColor:
-        Theme.of(NavigationService.context).scaffoldBackgroundColor,
+    // backgroundColor:
+    //     Theme.of(NavigationService.context).scaffoldBackgroundColor,
+    backgroundColor: Color(0xFFd9d9d9),
     elevation: 0,
     toolbarHeight: 8.h,
     iconTheme: const IconThemeData(color: Colors.black),

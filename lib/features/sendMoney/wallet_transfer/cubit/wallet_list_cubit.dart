@@ -21,7 +21,6 @@ class WalletListCubit extends Cubit<CommonState> {
 
     try {
       final response = await walletLoadRepository.fetchWalletList();
-
       if (response.status == Status.Success && response.data != null) {
         emit(CommonDataFetchSuccess<WalletModel>(data: response.data!));
       } else {

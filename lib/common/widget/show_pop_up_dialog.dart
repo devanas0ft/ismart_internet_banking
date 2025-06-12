@@ -8,6 +8,7 @@ showPopUpDialog({
   required String message,
   required String title,
   required Function() buttonCallback,
+  Function? cancelbtn,
   bool showCancelButton = true,
   bool isSuccessPopUp = false,
   String? buttonText,

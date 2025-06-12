@@ -23,10 +23,6 @@ import 'package:ismart_web/features/utility_payment/models/utility_response_data
 import '../../../../common/app/navigation_service.dart';
 import '../../../splash/resource/startup_repository.dart';
 import 'home_page_user_widget.dart';
-// Import TransactionSummaryScreen from its file
-
-// Add this line to import the TransactionSummaryScreen
-// import 'path/to/transaction_summary_screen.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
@@ -70,6 +66,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     final _height = SizeUtils.height;
 
     return PageWrapper(
+      backgroundColor: Color(0xFFd9d9d9),
       padding: EdgeInsets.zero,
       showAppBar: false,
       body: RefreshIndicator(

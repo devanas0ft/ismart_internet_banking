@@ -42,52 +42,57 @@ class _BankingWidgetState extends State<BankingWidget> {
           Container(
             width: double.infinity,
             // height: _height * 0.7,
-            child: Container(
-              child: BlocBuilder<AppServiceCubit, CommonState>(
-                builder: (context, state) {
-                  if (state
-                      is CommonDataFetchSuccess<AppServiceManagementModel>) {
-                    final filteredItems =
-                        state.data
-                            .where(
-                              (item) =>
-                                  item.uniqueIdentifier
-                                      .toString()
-                                      .toLowerCase()
-                                      .contains("loan_payment".toLowerCase()) &&
-                                  item.status.toString().toLowerCase() ==
-                                      "Active".toLowerCase(),
-                            )
-                            .toList();
+            child: BlocBuilder<AppServiceCubit, CommonState>(
+              builder: (context, state) {
+                if (state
+                    is CommonDataFetchSuccess<AppServiceManagementModel>) {
+                  final filteredItems =
+                      state.data
+                          .where(
+                            (item) =>
+                                item.uniqueIdentifier
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains("loan_payment".toLowerCase()) &&
+                                item.status.toString().toLowerCase() ==
+                                    "Active".toLowerCase(),
+                          )
+                          .toList();
 
-                    return GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: filteredItems.isEmpty ? 4 : itemName.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: Responsive.isDesktop(context) ? 4 : 3,
-                      ),
-                      itemBuilder:
-                          (context, index) => CommonGridViewContainer(
-                            onContainerPress: () {
-                              NavigationService.push(target: onPress[index]);
-                            },
-                            margin:
-                                Responsive.isDesktop(context)
-                                    ? const EdgeInsets.all(24)
-                                    : const EdgeInsets.all(8),
-                            containerImage: images[index],
-                            title: itemName[index],
-                          ),
-                    );
-                  }
-                  if (state is CommonLoading) {
-                    return const CommonLoadingWidget();
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      double width = constraints.maxWidth;
+                      int crossAxisCount = width ~/ 180;
+                      if (crossAxisCount < 1) crossAxisCount = 1;
+                      return GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: filteredItems.isEmpty ? 4 : itemName.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                        ),
+                        itemBuilder:
+                            (context, index) => CommonGridViewContainer(
+                              onContainerPress: () {
+                                NavigationService.push(target: onPress[index]);
+                              },
+                              margin:
+                                  Responsive.isDesktop(context)
+                                      ? const EdgeInsets.all(24)
+                                      : const EdgeInsets.all(8),
+                              containerImage: images[index],
+                              title: itemName[index],
+                            ),
+                      );
+                    },
+                  );
+                }
+                if (state is CommonLoading) {
+                  return const CommonLoadingWidget();
+                } else {
+                  return Container();
+                }
+              },
             ),
           ),
         ],

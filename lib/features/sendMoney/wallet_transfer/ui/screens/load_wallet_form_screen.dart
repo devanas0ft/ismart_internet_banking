@@ -9,6 +9,7 @@ import 'package:ismart_web/features/sendMoney/wallet_transfer/ui/widgets/load_wa
 class LoadWalletFormScreen extends StatelessWidget {
   final String? phoneNumber;
   final String? remarks;
+  final WalletModel selectedWallet;
 
   const LoadWalletFormScreen({
     Key? key,
@@ -17,7 +18,6 @@ class LoadWalletFormScreen extends StatelessWidget {
     this.remarks,
   }) : super(key: key);
 
-  final WalletModel selectedWallet;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

@@ -9,8 +9,9 @@ class BalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      width: 250,
+      width: screenWidth < 480 ? 130 : 200,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
         color: const Color(0xFFE4F0FC),
@@ -21,13 +22,16 @@ class BalanceCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 14, color: CustomTheme.darkGray),
+            style: TextStyle(
+              fontSize: screenWidth < 480 ? 10 : 14,
+              color: CustomTheme.darkGray,
+            ),
           ),
           const SizedBox(height: 4),
           Text(
             amount,
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: screenWidth < 480 ? 12 : 16,
               fontWeight: FontWeight.bold,
               color: CustomTheme.darkGray,
             ),

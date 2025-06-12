@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/widget/page_wrapper.dart';
 import 'package:ismart_web/features/Dahboard/homePage/screen/home_page.dart';
 import 'package:ismart_web/features/banking/screen/banking_page.dart';
-import 'package:ismart_web/features/customerDetail/cubit/customer_detail_cubit.dart';
+import 'package:ismart_web/features/favourite/listFavAccount/widget/fav_section.dart';
 import 'package:ismart_web/features/fundManagement/screens/fundmanagemt_page.dart';
+import 'package:ismart_web/features/more/screen/more_page.dart';
 import 'package:ismart_web/features/userAccount/Screens/user_account_page.dart';
 
 class DashboardWidget extends StatefulWidget {
@@ -24,9 +24,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     const UserAccountPage(),
     const Bankingpage(),
     const FundmanagemtPage(),
-    Center(child: Text('Favourite')),
-    // const RecentTransactionScreen(),
-    Center(child: Text('Settings Page')),
+    const FavSection(),
+    const MorePage(),
   ];
 
   List<String> offerBanners = [];
@@ -46,6 +45,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     return PageWrapper(
       showAppBar: true,
       showBackButton: false,
+      backgroundColor: Color(0xFFd9d9d9),
       bottomNavBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: CustomTheme.white,

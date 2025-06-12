@@ -39,7 +39,11 @@ dependencies:
   shimmer: ^3.0.0
   fl_chart: ^1.0.0
   device_preview_plus: ^2.3.0
+  gap: ^3.0.1
   khalti_checkout_flutter: ^1.0.0-dev.4
+  percent_indicator: ^4.2.5
+  image_picker: ^1.1.2
+  nepali_utils: ^3.0.8
 
 dev_dependencies:
   flutter_test:

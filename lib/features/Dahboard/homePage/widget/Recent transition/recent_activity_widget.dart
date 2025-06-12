@@ -17,11 +17,7 @@ class _RecentActivityTableState extends State<RecentActivityTable> {
   DateTime toDate = DateTime.now();
   DateTime fromDate = DateTime.now().subtract(const Duration(days: 30));
   int activeIndex = 0;
-  final List<String> _tabs = [
-    'PERSONAL DETAILS',
-    'BANK DETAILS',
-    'ACCOUNT DETAILS',
-  ];
+  final List<String> _tabs = ['Full Statement', 'Recent Activity'];
 
   @override
   void initState() {

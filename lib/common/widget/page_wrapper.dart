@@ -84,7 +84,7 @@ class _PageWrapperState extends State<PageWrapper> {
                     )
                     : null)
                 : widget.floatinActionButton,
-        backgroundColor: widget.backgroundColor,
+        backgroundColor: widget.backgroundColor ?? Color(0xFFd9d9d9),
         bottomNavigationBar: widget.bottomNavBar,
         floatingActionButtonLocation: widget.floatingActionButtonLocation,
         appBar:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:gap/gap.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/features/Dahboard/homePage/graphBar/widgets/balance_card.dart';
 
@@ -70,7 +71,7 @@ class _GraphBoxState extends State<GraphBox> {
                       });
                     },
                     child: Text(
-                      showFullMonth ? 'Full Monthly' : 'Compact View',
+                      showFullMonth ? 'Full Monthly' : 'Compact',
                       style: const TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.w500,
@@ -82,13 +83,15 @@ class _GraphBoxState extends State<GraphBox> {
             ],
           ),
           const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
             children: [
               BalanceCard(
                 title: 'Opening Balance',
                 amount: 'NRS ${widget.openingBalance}',
               ),
+              // const Gap(12),
               BalanceCard(
                 title: 'Closing Balance',
                 amount: 'NRS ${widget.closingBalance}',

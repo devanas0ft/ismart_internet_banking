@@ -4,7 +4,6 @@ import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/widget/common_container.dart';
 import 'package:ismart_web/features/customerDetail/model/customer_detail_model.dart';
 import 'package:ismart_web/features/customerDetail/resource/customer_detail_repository.dart';
-import 'package:ismart_web/features/userAccount/widgets/account_detail_widget.dart';
 import 'package:ismart_web/features/userAccount/widgets/bank_detail.dart';
 import 'package:ismart_web/features/userAccount/widgets/personal_detail.dart';
 
@@ -17,16 +16,11 @@ class UserAccountWidget extends StatefulWidget {
 
 class _UserAccountWidgetState extends State<UserAccountWidget> {
   int activeIndex = 0;
-  final List<String> _tabs = [
-    'PERSONAL DETAILS',
-    'BANK DETAILS',
-    'ACCOUNT DETAILS',
-  ];
+  final List<String> _tabs = ['PERSONAL DETAILS', 'BANK DETAILS'];
   ValueNotifier<CustomerDetailModel?> customerDetail = ValueNotifier(null);
   ValueNotifier<AccountDetail?> selectedAccountNotifier = ValueNotifier(null);
   ValueNotifier<dynamic> accountDetail = ValueNotifier([]);
   String bannerImage = "";
-
   String? imageUrl;
   String? gender;
 
@@ -96,7 +90,7 @@ class _UserAccountWidgetState extends State<UserAccountWidget> {
                         selectedAccountNotifier: selectAcc,
                       ),
                     if (activeIndex == 1) BankDetail(accountDetail: selectAcc),
-                    if (activeIndex == 2) AccountDetailWidget(),
+                    // if (activeIndex == 2) AccountDetailWidget(),
                   ],
                 );
               },
