@@ -6,7 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ismart_web/app/app_dev.dart';
-import 'package:ismart_web/features/splash/loader_screen.dart';
+import 'package:ismart_web/features/splash/resource/loader_page.dart';
 
 import 'common/utils/log.dart';
 
@@ -19,7 +19,7 @@ Future<void> main() async {
       runApp(
         DevicePreview(
           enabled: !kReleaseMode,
-          builder: (context) => AppDev(home: LoaderScreen()),
+          builder: (context) => AppDev(home: LoaderPage()),
         ),
       );
     },

@@ -6,7 +6,7 @@ import 'package:ismart_web/common/service/config_service.dart';
 import 'package:ismart_web/common/utils/hive_utils.dart';
 import 'package:ismart_web/common/wrapper/multi_bloc_wrapper.dart';
 import 'package:ismart_web/common/wrapper/multi_repo_wrapper.dart';
-import 'package:ismart_web/features/splash/loader_screen.dart';
+import 'package:ismart_web/features/splash/resource/loader_page.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 class AppDev extends StatefulWidget {
@@ -34,7 +34,7 @@ class _AppDevState extends State<AppDev> {
       if (event == SessionTimeoutState.appFocusTimeout ||
           event == SessionTimeoutState.userInactivityTimeout) {
         NavigationService.pushReplacement(
-          target: const AppDev(home: LoaderScreen()),
+          target: const AppDev(home: LoaderPage()),
         );
       }
     });

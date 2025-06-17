@@ -21,17 +21,17 @@ class MultiBlocWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create:
-              (context) => StartupCubit(
-                appServiceRepository:
-                    RepositoryProvider.of<AppServiceRepository>(context),
-                startUpRepository: RepositoryProvider.of<StartUpRepository>(
-                  context,
-                ),
-                userRepository: RepositoryProvider.of<UserRepository>(context),
-              )..fetchStartupData(),
-        ),
+        // BlocProvider(
+        //   create:
+        //       (context) => StartupCubit(
+        //         appServiceRepository:
+        //             RepositoryProvider.of<AppServiceRepository>(context),
+        //         startUpRepository: RepositoryProvider.of<StartUpRepository>(
+        //           context,
+        //         ),
+        //         userRepository: RepositoryProvider.of<UserRepository>(context),
+        //       ),
+        // ),
         BlocProvider(
           create:
               (context) => LoginCubit(

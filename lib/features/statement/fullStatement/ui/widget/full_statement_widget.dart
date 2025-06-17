@@ -24,6 +24,7 @@ import 'package:ismart_web/features/statement/fullStatement/model/full_statement
 import 'package:path_provider/path_provider.dart';
 
 class FullStatementWidget extends StatefulWidget {
+  const FullStatementWidget({super.key});
   @override
   State<FullStatementWidget> createState() => _FullStatementWidgetState();
 }
