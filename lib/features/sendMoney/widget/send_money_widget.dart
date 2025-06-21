@@ -191,14 +191,26 @@ class _SendMoneyWidgetState extends State<SendMoneyWidget> {
         },
         builder: (context, state) {
           if (state is CommonDataFetchSuccess<AppServiceManagementModel>) {
+            // final filteredItems =
+            //     state.data
+            //         .where(
+            //           (item) =>
+            //               item.type.toString().toLowerCase().contains(
+            //                 "send".toLowerCase(),
+            //               ) &&
+            //               item.status.toLowerCase() == "Active".toLowerCase(),
+            //         )
+            //         .toList();
             final filteredItems =
                 state.data
                     .where(
                       (item) =>
-                          item.type.toString().toLowerCase().contains(
-                            "send".toLowerCase(),
-                          ) &&
-                          item.status.toLowerCase() == "Active".toLowerCase(),
+                          item.type.toString().toLowerCase().contains("send") &&
+                          item.status.toLowerCase() == "active" &&
+                          item.uniqueIdentifier.toLowerCase() !=
+                              "load_wallet" &&
+                          item.uniqueIdentifier.toLowerCase() !=
+                              "fund_transfer_dashboard",
                     )
                     .toList();
 

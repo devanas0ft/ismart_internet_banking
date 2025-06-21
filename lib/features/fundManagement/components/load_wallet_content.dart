@@ -18,6 +18,7 @@ import 'package:ismart_web/common/widget/show_pop_up_dialog.dart';
 import 'package:ismart_web/common/widget/transactipon_pin_screen.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_list_cubit.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_send_cubit.dart';
+import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_validate_cubit.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_model.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_validation_model.dart';
 
@@ -60,7 +61,7 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _buildGuideSection()),
+            Expanded(child: _buildListWallet()),
             VerticalDivider(width: 8.w),
             Expanded(child: _buildAccountSection()),
             VerticalDivider(width: 8.w),
@@ -72,7 +73,7 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _buildGuideSection(),
+          _buildListWallet(),
           const SizedBox(height: 20),
           _buildAccountSection(),
           const SizedBox(height: 20),
@@ -82,7 +83,7 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
     }
   }
 
-  Widget _buildGuideSection() {
+  Widget _buildListWallet() {
     return BlocBuilder<WalletListCubit, CommonState>(
       builder: (context, state) {
         if (state is CommonStateSuccess<WalletValidationModel>) {
@@ -212,65 +213,6 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
           return const NoDataScreen(title: "No Wallet Found", details: "");
         }
         return CommonLoadingWidget();
-        // return Column(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Container(
-        //           width: 50,
-        //           height: 50,
-        //           decoration: const BoxDecoration(
-        //             color: Color(0xFF4CAF50),
-        //             shape: BoxShape.circle,
-        //           ),
-        //           child: const Center(
-        //             child: Text(
-        //               'e',
-        //               style: TextStyle(
-        //                 color: Colors.white,
-        //                 fontSize: 24,
-        //                 fontWeight: FontWeight.bold,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //         const SizedBox(width: 12),
-        //         const Text(
-        //           'Load eSewa',
-        //           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        //         ),
-        //       ],
-        //     ),
-        //     const SizedBox(height: 25),
-        //     Container(
-        //       padding: const EdgeInsets.all(15),
-        //       decoration: BoxDecoration(
-        //         color: const Color(0xFFF5F5F5),
-        //         borderRadius: BorderRadius.circular(8),
-        //       ),
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           const Text(
-        //             'Guide to load from eSewa',
-        //             style: TextStyle(
-        //               fontSize: 14,
-        //               fontWeight: FontWeight.w600,
-        //               color: Color(0xFF333333),
-        //             ),
-        //           ),
-        //           const SizedBox(height: 12),
-        //           _buildGuideItem('Please do not Refresh the page'),
-        //           _buildGuideItem('Please Cross Check your eSewa ID'),
-        //           _buildGuideItem('Amount must be 10 Digit long'),
-        //           _buildGuideItem('Amount max length must be 1 Digit'),
-        //           _buildGuideItem('Confirm Amount before submit'),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // );
       },
     );
   }
@@ -391,27 +333,6 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
     );
   }
 
-  // Widget _buildGuideItem(String text) {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(bottom: 4),
-  //     child: Row(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         const Text(
-  //           '• ',
-  //           style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-  //         ),
-  //         Expanded(
-  //           child: Text(
-  //             text,
-  //             style: const TextStyle(fontSize: 12, color: Color(0xFF666666)),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _buildRemarksSection() {
     return Column(
       children: [
@@ -462,7 +383,7 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
                 onPressed: () {
                   if (true) {
                     if (_formKey.currentState!.validate()) {
-                      context.read<WalletListCubit>().validateWallet(
+                      context.read<WalletValidationCubit>().validateWallet(
                         walletId: wallet1.id.toString(),
                         accountNumber: _walletAccountController.text,
                         amount: _amountController.text,

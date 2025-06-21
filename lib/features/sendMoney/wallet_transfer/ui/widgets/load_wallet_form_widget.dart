@@ -246,11 +246,11 @@ class _LoadWalletFormWidgetState extends State<LoadWalletFormWidget> {
           onButtonPressed: () {
             if (!_isAccountValidated && _validationResult == null) {
               if (_formKey.currentState!.validate()) {
-                context.read<WalletListCubit>().validateWallet(
-                  walletId: widget.selectedWallet.id.toString(),
-                  accountNumber: _walletAccountController.text,
-                  amount: _amountController.text,
-                );
+                // context.read<WalletListCubit>().validateWallet(
+                //   walletId: widget.selectedWallet.id.toString(),
+                //   accountNumber: _walletAccountController.text,
+                //   amount: _amountController.text,
+                // );
               }
             }
           },

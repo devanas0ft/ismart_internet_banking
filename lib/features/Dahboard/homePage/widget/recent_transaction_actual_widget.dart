@@ -133,7 +133,6 @@ class _RecentTransactionActualWidgetState
               );
             } else {
               return SizedBox(
-                height: 300,
                 child: NoDataScreen(
                   title: "No transactions yet.",
                   details:

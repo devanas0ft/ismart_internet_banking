@@ -20,7 +20,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(),
+    const HomePage(),
     const UserAccountPage(),
     const Bankingpage(),
     const FundmanagemtPage(),

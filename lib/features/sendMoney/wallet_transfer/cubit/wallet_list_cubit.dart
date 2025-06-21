@@ -35,30 +35,30 @@ class WalletListCubit extends Cubit<CommonState> {
     }
   }
 
-  validateWallet({
-    required String walletId,
-    required String accountNumber,
-    required String amount,
-  }) async {
-    emit(CommonLoading());
-    try {
-      final response = await walletLoadRepository.validateWalletAccount(
-        walletId: walletId,
-        accountNumber: accountNumber,
-        amount: amount,
-      );
+  // validateWallet({
+  //   required String walletId,
+  //   required String accountNumber,
+  //   required String amount,
+  // }) async {
+  //   emit(CommonLoading());
+  //   try {
+  //     final response = await walletLoadRepository.validateWalletAccount(
+  //       walletId: walletId,
+  //       accountNumber: accountNumber,
+  //       amount: amount,
+  //     );
 
-      if (response.status == Status.Success && response.data != null) {
-        emit(CommonStateSuccess<WalletValidationModel>(data: response.data!));
-      } else {
-        emit(
-          CommonError(
-            message: response.message ?? "Error fetching wallet list.",
-          ),
-        );
-      }
-    } catch (e) {
-      emit(CommonError(message: e.toString()));
-    }
-  }
+  //     if (response.status == Status.Success && response.data != null) {
+  //       emit(CommonStateSuccess<WalletValidationModel>(data: response.data!));
+  //     } else {
+  //       emit(
+  //         CommonError(
+  //           message: response.message ?? "Error fetching wallet list.",
+  //         ),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     emit(CommonError(message: e.toString()));
+  //   }
+  // }
 }
