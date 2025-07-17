@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/app/navigation_service.dart';
@@ -40,12 +41,9 @@ class _LoaderScreenState extends State<LoaderScreen> {
       child: BlocListener<CustomerDetailCubit, CommonState>(
         listener: (context, customerState) {
           if (customerState is CommonStateSuccess) {
-            NavigationService.pushReplacement(target: const LoginPage());
-            if (isUserLogged) {
-              NavigationService.pushReplacement(
-                target: const DashboardWidget(),
-              );
-            }
+            NavigationService.pushReplacement(target: const DashboardWidget());
+          } else if (customerState is CommonError) {
+            NavigationService.pushReplacement(target: LoginPage());
           }
         },
         child: Scaffold(

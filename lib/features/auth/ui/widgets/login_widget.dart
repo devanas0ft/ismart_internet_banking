@@ -22,6 +22,8 @@ import 'package:ismart_web/features/auth/cubit/validate_co_op_cubit.dart';
 import 'package:ismart_web/features/auth/enum/login_response_value.dart';
 import 'package:ismart_web/features/auth/ui/widgets/opt_widget.dart';
 import 'package:ismart_web/features/auth/ui/widgets/sign_up_widget.dart';
+import 'package:ismart_web/features/splash/loader_screen.dart';
+import 'package:ismart_web/features/splash/resource/loader_page.dart';
 import 'package:uuid/uuid.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -92,9 +94,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           if (state is CommonStateSuccess<LoginResponseValue>) {
             await SharedPref.setDeviceUUID(_currentUUID);
             if (state.data == LoginResponseValue.Success) {
-              NavigationService.pushReplacement(
-                target: const DashboardWidget(),
-              );
+              NavigationService.pushReplacement(target: const LoaderPage());
             }
             // else if (state.data == LoginResponseValue.OTPVerification) {
             //   NavigationService.push(

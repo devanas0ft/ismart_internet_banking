@@ -38,10 +38,20 @@ class _FullStatementHomeWidgetState extends State<FullStatementHomeWidget> {
     );
   }
 
+  _addListener(BuildContext context) {
+    RepositoryProvider.of<CustomerDetailRepository>(
+      context,
+    ).customerDetailModel.addListener(() {
+      getData(fromdate: fromDate, todate: toDate);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    getData(fromdate: fromDate, todate: toDate);
+    // getData(fromdate: fromDate, todate: toDate);
+
+    _addListener(context);
   }
 
   @override

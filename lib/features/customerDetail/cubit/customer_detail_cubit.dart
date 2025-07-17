@@ -15,7 +15,7 @@ class CustomerDetailCubit extends Cubit<CommonState> {
       );
 
       if (response.status == Status.Success && response.data != null) {
-        emit(CommonStateSuccess<dynamic>(data: response.data!));
+        emit(CommonStateSuccess(data: response.data!));
       } else {
         emit(
           CommonError(
