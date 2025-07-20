@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/features/fundManagement/components/load_wallet_content.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_list_cubit.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_send_cubit.dart';
+import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_validate_cubit.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/resoures/wallet_load_repository.dart';
 
 class LoadWalletPageProviders extends StatelessWidget {
@@ -22,6 +23,13 @@ class LoadWalletPageProviders extends StatelessWidget {
         BlocProvider(
           create:
               (context) => WalletSendCubit(
+                walletLoadRepository:
+                    RepositoryProvider.of<WalletLoadRepository>(context),
+              ),
+        ),
+        BlocProvider(
+          create:
+              (context) => WalletValidationCubit(
                 walletLoadRepository:
                     RepositoryProvider.of<WalletLoadRepository>(context),
               ),

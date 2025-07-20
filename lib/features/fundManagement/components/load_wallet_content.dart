@@ -10,16 +10,20 @@ import 'package:ismart_web/common/utils/responsive.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/utils/snack_bar_utils.dart';
 import 'package:ismart_web/common/widget/common_loading_widget.dart';
+import 'package:ismart_web/common/widget/common_transaction_success_screen.dart';
 import 'package:ismart_web/common/widget/custom_cached_network_image.dart';
 import 'package:ismart_web/common/widget/custom_text_field.dart';
+import 'package:ismart_web/common/widget/key_value_tile.dart';
 import 'package:ismart_web/common/widget/no_data_screen.dart';
 import 'package:ismart_web/common/widget/primary_account_box.dart';
+import 'package:ismart_web/common/widget/show_loading_dialog.dart';
 import 'package:ismart_web/common/widget/show_pop_up_dialog.dart';
 import 'package:ismart_web/common/widget/transactipon_pin_screen.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_list_cubit.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_send_cubit.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/cubit/wallet_validate_cubit.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_model.dart';
+import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_transfer_model.dart';
 import 'package:ismart_web/features/sendMoney/wallet_transfer/model/wallet_validation_model.dart';
 
 class LoadWalletContent extends StatefulWidget {
@@ -83,137 +87,265 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
     }
   }
 
+  bool _isLoading = false;
+  bool _isAccountValidated = false;
+  WalletValidationModel? _validationResult;
+
   Widget _buildListWallet() {
-    return BlocBuilder<WalletListCubit, CommonState>(
-      builder: (context, state) {
-        if (state is CommonStateSuccess<WalletValidationModel>) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (state.data.status.toLowerCase() == "success" ||
-                state.data.message.toLowerCase() ==
-                    "validation not available") {
-              final WalletValidationModel? _myValidationResult = state.data;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<WalletValidationCubit, CommonState>(
+          listener: (context, state) {
+            if (state is CommonLoading && !_isLoading) {
+              _isLoading = true;
+              showLoadingDialogBox(context);
+            } else if (state is! CommonLoading && _isLoading) {
+              _isLoading = false;
+              NavigationService.pop();
+            }
 
-              // _isAccountValidated = true;
-              // _validationResult = state.data;
-              showPopUpDialog(
-                context: context,
-                message:
-                    "Wallet ID Validated successfully. Do you want to continue transfer?",
-                title: "Confirm",
-                buttonCallback: () {
-                  NavigationService.pop();
-                  NavigationService.push(
-                    target: TransactionPinScreen(
-                      onValueCallback: (p0) {
-                        NavigationService.pop();
-                        context.read<WalletSendCubit>().sendToWallet(
-                          mPin: p0,
-                          remarks: _remarksController.text,
-                          walletId: wallet1.id.toString(),
-                          amount: _amountController.text,
-                          customerName: _walletAccountController.text,
-                          walletAccountNumber: _walletAccountController.text,
-                          validationIdentifier:
-                              _myValidationResult?.validationIdentifier ?? "",
-                        );
-                      },
-                    ),
-                  );
-                },
-              );
-              // _isAccountValidated = false;
+            if (state is CommonStateSuccess<WalletValidationModel>) {
+              if (state.data.status.toLowerCase() == "success" ||
+                  state.data.message.toLowerCase() ==
+                      "validation not available") {
+                final WalletValidationModel? _myValidationResult = state.data;
+                _isAccountValidated = true;
+                _validationResult = state.data;
+                showPopUpDialog(
+                  context: context,
+                  message:
+                      "Wallet ID Validated successfully. Do you want to continue transfer?",
+                  title: "Confirm",
+                  buttonCallback: () {
+                    NavigationService.pop();
+                    NavigationService.push(
+                      target: TransactionPinScreen(
+                        onValueCallback: (p0) {
+                          NavigationService.pop();
+                          context.read<WalletSendCubit>().sendToWallet(
+                            mPin: p0,
+                            remarks: _remarksController.text,
+                            walletId: wallet1.id.toString(),
+                            amount: _amountController.text,
+                            customerName: _walletAccountController.text,
+                            walletAccountNumber: _walletAccountController.text,
+                            validationIdentifier:
+                                _myValidationResult?.validationIdentifier ?? "",
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+                _isAccountValidated = false;
 
-              // _validationResult = null;
-            } else {
+                _validationResult = null;
+              } else {
+                SnackBarUtils.showErrorBar(
+                  context: context,
+                  message: state.data.message,
+                );
+              }
+            } else if (state is CommonError) {
+              _isAccountValidated = false;
               SnackBarUtils.showErrorBar(
                 context: context,
-                message: state.data.message,
+                message: state.message,
               );
             }
-          });
-        }
-        if (state is CommonDataFetchSuccess<WalletModel>) {
-          final List<WalletModel> walletsList = state.data;
-          if (selectedWalletIndex == null && walletsList.isNotEmpty) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              setState(() {
-                wallet1 = walletsList[0];
-                selectedWalletIndex = 0;
-              });
-            });
-          }
-          return SizedBox(
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: walletsList.length,
-              itemBuilder: (BuildContext context, int index) {
-                final wallet = walletsList[index];
-                final isSelected = selectedWalletIndex == index;
-
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedWalletIndex = index;
-                    });
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 4,
-                      horizontal: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isSelected ? Colors.blue.shade50 : Colors.white,
-                      border: Border.all(
-                        color:
-                            isSelected
-                                ? CustomTheme.primaryColor
-                                : Colors.grey.shade300,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ListTile(
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-
-                        child: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: CustomCachedNetworkImage(
-                            url: iconUrl(wallet.icon),
-                            fit: BoxFit.cover,
+          },
+        ),
+        BlocListener<WalletSendCubit, CommonState>(
+          listener: (context, state) {
+            if (state is CommonLoading && !_isLoading) {
+              _isLoading = true;
+              showLoadingDialogBox(context);
+            } else if (state is! CommonLoading && _isLoading) {
+              _isLoading = false;
+              NavigationService.pop();
+            }
+            if (state is CommonStateSuccess<WalletTransferModel>) {
+              final WalletTransferModel _response = state.data;
+              if (state.data.code == "M0000") {
+                NavigationService.pushReplacement(
+                  target: CommonTransactionSuccessPage(
+                    serviceName: "Load Wallet",
+                    body: Column(
+                      children: [
+                        KeyValueTile(
+                          title: "Wallet",
+                          value: _response.findValue(primaryKey: "walletName"),
+                        ),
+                        KeyValueTile(
+                          title: "To Account",
+                          value: _response.findValue(
+                            primaryKey: "descOneFieldValue",
                           ),
                         ),
-                      ),
-                      title: Text(
-                        wallet.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color:
-                              isSelected
-                                  ? CustomTheme.primaryColor
-                                  : Colors.black87,
+                        KeyValueTile(
+                          title: "Amount",
+                          value: _response.findValue(primaryKey: "amount"),
                         ),
-                      ),
-                      trailing:
-                          isSelected
-                              ? Icon(
-                                Icons.check_circle,
-                                color: CustomTheme.primaryColor,
-                              )
-                              : null,
+                      ],
+                    ),
+                    message: _response.message,
+                    transactionID: _response.findValue(
+                      primaryKey: "transactionIdentifier",
                     ),
                   ),
                 );
-              },
-            ),
-          );
-        } else if (state is CommonError) {
-          return const NoDataScreen(title: "No Wallet Found", details: "");
-        }
-        return CommonLoadingWidget();
-      },
+              } else {
+                showPopUpDialog(
+                  context: context,
+                  message: state.data.message,
+                  title: state.data.status,
+                  buttonCallback: () {
+                    NavigationService.pop();
+                  },
+                  showCancelButton: false,
+                );
+              }
+            } else if (state is CommonError) {
+              showPopUpDialog(
+                context: context,
+                message: state.message,
+                title: "Error",
+                buttonCallback: () {
+                  NavigationService.pop();
+                },
+                showCancelButton: false,
+              );
+            }
+          },
+        ),
+      ],
+      child: BlocBuilder<WalletListCubit, CommonState>(
+        builder: (context, state) {
+          if (state is CommonStateSuccess<WalletValidationModel>) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (state.data.status.toLowerCase() == "success" ||
+                  state.data.message.toLowerCase() ==
+                      "validation not available") {
+                final WalletValidationModel? _myValidationResult = state.data;
+                // _isAccountValidated = true;
+                // _validationResult = state.data;
+                showPopUpDialog(
+                  context: context,
+                  message:
+                      "Wallet ID Validated successfully. Do you want to continue transfer?",
+                  title: "Confirm",
+                  buttonCallback: () {
+                    NavigationService.pop();
+                    NavigationService.push(
+                      target: TransactionPinScreen(
+                        onValueCallback: (p0) {
+                          NavigationService.pop();
+                          context.read<WalletSendCubit>().sendToWallet(
+                            mPin: p0,
+                            remarks: _remarksController.text,
+                            walletId: wallet1.id.toString(),
+                            amount: _amountController.text,
+                            customerName: _walletAccountController.text,
+                            walletAccountNumber: _walletAccountController.text,
+                            validationIdentifier:
+                                _myValidationResult?.validationIdentifier ?? "",
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+                // _isAccountValidated = false;
+                // _validationResult = null;
+              } else {
+                SnackBarUtils.showErrorBar(
+                  context: context,
+                  message: state.data.message,
+                );
+              }
+            });
+          }
+          if (state is CommonDataFetchSuccess<WalletModel>) {
+            final List<WalletModel> walletsList = state.data;
+            if (selectedWalletIndex == null && walletsList.isNotEmpty) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                setState(() {
+                  wallet1 = walletsList[0];
+                  selectedWalletIndex = 0;
+                });
+              });
+            }
+            return SizedBox(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: walletsList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final wallet = walletsList[index];
+                  final isSelected = selectedWalletIndex == index;
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedWalletIndex = index;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.blue.shade50 : Colors.white,
+                        border: Border.all(
+                          color:
+                              isSelected
+                                  ? CustomTheme.primaryColor
+                                  : Colors.grey.shade300,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: ListTile(
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: SizedBox(
+                            height: 30,
+                            width: 30,
+                            child: CustomCachedNetworkImage(
+                              url: iconUrl(wallet.icon),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          wallet.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color:
+                                isSelected
+                                    ? CustomTheme.primaryColor
+                                    : Colors.black87,
+                          ),
+                        ),
+                        trailing:
+                            isSelected
+                                ? Icon(
+                                  Icons.check_circle,
+                                  color: CustomTheme.primaryColor,
+                                )
+                                : null,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          } else if (state is CommonError) {
+            return const NoDataScreen(title: "No Wallet Found", details: "");
+          }
+          return CommonLoadingWidget();
+        },
+      ),
     );
   }
 
@@ -358,7 +490,11 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _remarksController.clear();
+                  _amountController.clear();
+                  _walletAccountController.clear();
+                },
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   side: const BorderSide(color: Color(0xFFE0E0E0)),
@@ -381,7 +517,7 @@ class _LoadWalletContentState extends State<LoadWalletContent> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  if (true) {
+                  if (!_isAccountValidated && _validationResult == null) {
                     if (_formKey.currentState!.validate()) {
                       context.read<WalletValidationCubit>().validateWallet(
                         walletId: wallet1.id.toString(),
