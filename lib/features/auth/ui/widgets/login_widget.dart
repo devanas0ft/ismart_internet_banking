@@ -95,21 +95,20 @@ class _LoginWidgetState extends State<LoginWidget> {
             await SharedPref.setDeviceUUID(_currentUUID);
             if (state.data == LoginResponseValue.Success) {
               NavigationService.pushReplacement(target: const LoaderPage());
+            } else if (state.data == LoginResponseValue.OTPVerification) {
+              NavigationService.push(
+                target: OptWidget(
+                  onValueCallback: (val) async {
+                    context.read<LoginCubit>().loginUser(
+                      username: _getPhoneNumber(),
+                      password: passwordController.text,
+                      otpCode: val,
+                      deviceUUID: await _getDeviceUUID(),
+                    );
+                  },
+                ),
+              );
             }
-            // else if (state.data == LoginResponseValue.OTPVerification) {
-            //   NavigationService.push(
-            //     target: OTPWidget(
-            //       onValueCallback: (val) async {
-            //         context.read<LoginCubit>().loginUser(
-            //               username: _getPhoneNumber(),
-            //               password: passwordController.text,
-            //               otpCode: val,
-            //               deviceUUID: await _getDeviceUUID(),
-            //             );
-            //       },
-            //     ),
-            //   );
-            // }
           } else if (state is CommonError) {
             SnackBarUtils.showErrorBar(
               context: context,
