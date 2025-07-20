@@ -410,10 +410,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 customer != null
                                     ? Expanded(
                                       flex: 3,
-                                      child: Container(
-                                        margin: EdgeInsets.only(left: 20),
-                                        child: GraphPage(customer: customer!),
-                                      ),
+                                      child: GraphPage(customer: customer!),
                                     )
                                     : null,
                           ),

@@ -5,6 +5,7 @@ import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/constants/assets.dart';
 import 'package:ismart_web/common/shared_pref.dart';
+import 'package:ismart_web/common/utils/responsive.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 import 'package:ismart_web/common/widget/custom_pin_field.dart';
 import 'package:ismart_web/common/widget/custom_round_button.dart';
@@ -68,113 +69,122 @@ class _TransactionPinScreenState extends State<TransactionPinScreen> {
                     color: CustomTheme.white,
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        Assets.verify,
-                        color: const Color(0xff4E4E4E),
-                        height: _height * 0.05,
-                      ),
-                      SizedBox(height: _height * 0.02),
-                      Text(
-                        "Enter your Security Pin",
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      SizedBox(height: _height * 0.01),
-                      Text(
-                        "Please enter your Security Pin to proceed.",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: _height * 0.04),
-                      //TODO need to remove condition ,using just for test
-                      CustomPinCodeField(
-                        // length: 5,
-                        controller: _pinCodeController,
+                  child: Padding(
+                    padding:
+                        Responsive.isDesktop(context)
+                            ? EdgeInsets.symmetric(horizontal: 300)
+                            : EdgeInsets.all(0),
+                    child: Column(
+                      children: [
+                        SvgPicture.asset(
+                          Assets.verify,
+                          color: const Color(0xff4E4E4E),
+                          height: _height * 0.05,
+                        ),
+                        SizedBox(height: _height * 0.02),
+                        Text(
+                          "Enter your Security Pin",
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        SizedBox(height: _height * 0.01),
+                        Text(
+                          "Please enter your Security Pin to proceed.",
+                          style: Theme.of(context).textTheme.headlineSmall,
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: _height * 0.04),
+                        //TODO need to remove condition ,using just for test
+                        CustomPinCodeField(
+                          // length: 5,
+                          controller: _pinCodeController,
 
-                        length:
-                            RepositoryProvider.of<CustomerDetailRepository>(
-                                      context,
-                                    ).customerDetailModel.value?.mobileNumber ==
-                                    "9813894737"
-                                ? 6
-                                : 5,
-                        onChanged: (p0) {
-                          pinValue = p0;
-                        },
-                        validator: (val) {
-                          if (val == null || val.isEmpty) {
-                            return "PIN Code field cannot be empty";
-                          } else if (val.length < 5) {
-                            return "PIN code cannot be less than 5 characters.";
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: _height * 0.05),
-                      CustomRoundedButtom(
-                        title: "Proceed",
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            widget.onValueCallback(pinValue);
-                          }
-                        },
-                      ),
-                      SizedBox(height: _height * 0.01),
-                      SizedBox(height: size.height * 0.01),
-                      SizedBox(height: height * 0.014),
-                      if (widget.showBiometric == true)
-                        ValueListenableBuilder<bool>(
-                          valueListenable: _isBiometricEnabled,
-                          builder: (context, val, _) {
-                            if (val) {
-                              return InkWell(
-                                onTap: () async {
-                                  // final bool authenticated =
-                                  //     await FingerPrintUtils
-                                  //         .verifyFingerPrint(
-                                  //   context: NavigationService.context,
-                                  // );
-                                  // if (authenticated) {
-                                  //   final String password =
-                                  //       await SecureStorageService
-                                  //           .appPassword;
-
-                                  //   if (password.isNotEmpty) {
-                                  //     widget.onValueCallback(password);
-                                  //   }
-                                  // }
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.fingerprint, size: 35),
-                                    SizedBox(width: width * 0.03),
-                                    Text(
-                                      "User Biometric ",
-                                      style: _theme.textTheme.labelMedium,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return Container();
+                          length:
+                              RepositoryProvider.of<CustomerDetailRepository>(
+                                            context,
+                                          )
+                                          .customerDetailModel
+                                          .value
+                                          ?.mobileNumber ==
+                                      "9813894737"
+                                  ? 6
+                                  : 5,
+                          onChanged: (p0) {
+                            pinValue = p0;
+                          },
+                          validator: (val) {
+                            if (val == null || val.isEmpty) {
+                              return "PIN Code field cannot be empty";
+                            } else if (val.length < 5) {
+                              return "PIN code cannot be less than 5 characters.";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: _height * 0.05),
+                        CustomRoundedButtom(
+                          title: "Proceed",
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              widget.onValueCallback(pinValue);
                             }
                           },
                         ),
-                      TextButton(
-                        onPressed: () {
-                          NavigationService.pop();
-                        },
-                        child: const Text(
-                          "Cancel",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                        SizedBox(height: _height * 0.01),
+                        SizedBox(height: size.height * 0.01),
+                        SizedBox(height: height * 0.014),
+                        if (widget.showBiometric == true)
+                          ValueListenableBuilder<bool>(
+                            valueListenable: _isBiometricEnabled,
+                            builder: (context, val, _) {
+                              if (val) {
+                                return InkWell(
+                                  onTap: () async {
+                                    // final bool authenticated =
+                                    //     await FingerPrintUtils
+                                    //         .verifyFingerPrint(
+                                    //   context: NavigationService.context,
+                                    // );
+                                    // if (authenticated) {
+                                    //   final String password =
+                                    //       await SecureStorageService
+                                    //           .appPassword;
+
+                                    //   if (password.isNotEmpty) {
+                                    //     widget.onValueCallback(password);
+                                    //   }
+                                    // }
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(Icons.fingerprint, size: 35),
+                                      SizedBox(width: width * 0.03),
+                                      Text(
+                                        "User Biometric ",
+                                        style: _theme.textTheme.labelMedium,
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
+                          ),
+                        TextButton(
+                          onPressed: () {
+                            NavigationService.pop();
+                          },
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
