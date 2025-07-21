@@ -4,6 +4,8 @@ import 'package:ismart_web/features/Dahboard/homePage/widget/Recent%20transition
 import 'package:ismart_web/features/history/cubit/receipt_download_cubit.dart';
 import 'package:ismart_web/features/history/cubit/recent_transaction_cubit.dart';
 import 'package:ismart_web/features/history/resources/recent_transaction_repository.dart';
+import 'package:ismart_web/features/statement/fullStatement/cubit/full_statement_cubit.dart';
+import 'package:ismart_web/features/statement/fullStatement/resources/full_statement_repository.dart';
 
 class RecentActivityPage extends StatefulWidget {
   const RecentActivityPage({super.key});
@@ -29,6 +31,13 @@ class _RecentActivityPageState extends State<RecentActivityPage> {
               (context) => TransactionDownloadCubit(
                 recentTransactionRepository:
                     RepositoryProvider.of<RecentTransactionRepository>(context),
+              ),
+        ),
+        BlocProvider(
+          create:
+              (context) => FullStatementCubit(
+                fullStatementRepository:
+                    RepositoryProvider.of<FullStatementRepository>(context),
               ),
         ),
       ],

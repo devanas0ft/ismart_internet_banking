@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/features/Dahboard/homePage/widget/full_statement_homepage/screens/full_statemenent_home_page.dart';
 import 'package:ismart_web/features/Dahboard/homePage/widget/recent_transaction_actual_widget.dart';
+import 'package:ismart_web/features/customerDetail/resource/customer_detail_repository.dart';
+import 'package:ismart_web/features/statement/fullStatement/cubit/full_statement_cubit.dart';
 
 class RecentActivityTable extends StatefulWidget {
   const RecentActivityTable({super.key});
@@ -12,10 +15,25 @@ class RecentActivityTable extends StatefulWidget {
 class _RecentActivityTableState extends State<RecentActivityTable> {
   int activeIndex = 0;
   final List<String> _tabs = ['Full Statement', 'Recent Activity'];
+  DateTime fromDate = DateTime.now().subtract(const Duration(days: 90));
+  DateTime toDate = DateTime.now();
+
+  void getData({required DateTime fromdate, required DateTime todate}) {
+    context.read<FullStatementCubit>().fetchFullStatement(
+      accountNumber:
+          RepositoryProvider.of<CustomerDetailRepository>(
+            context,
+          ).selectedAccount.value?.accountNumber ??
+          "",
+      fromDate: fromdate,
+      toDate: todate,
+    );
+  }
 
   @override
   void initState() {
     super.initState();
+    getData(fromdate: fromDate, todate: toDate);
   }
 
   @override
