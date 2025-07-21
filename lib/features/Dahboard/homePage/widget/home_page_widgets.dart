@@ -166,8 +166,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               spreadRadius: -5,
                                                             ),
                                                           ],
-                                                          color:
-                                                              CustomTheme.white,
+                                                          // color:
+                                                          //     CustomTheme.white,
+                                                          color: Colors.grey,
                                                           borderRadius:
                                                               BorderRadius.circular(
                                                                 8,
@@ -249,8 +250,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               spreadRadius: -5,
                                                             ),
                                                           ],
-                                                          color:
-                                                              CustomTheme.white,
+                                                          // color:
+                                                          //     CustomTheme.white,
+                                                          color: Colors.grey,
                                                           borderRadius:
                                                               BorderRadius.circular(
                                                                 8,
