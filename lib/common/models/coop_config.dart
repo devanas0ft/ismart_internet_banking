@@ -25,7 +25,7 @@ class CoOperative {
     this.baseUrl = 'https://ismart.devanasoft.com.np/',
     // this.baseUrl = 'http://localhost:3000/',
     this.splashImage = 'assets/images/ismart_splash.png',
-    this.primaryColor = const Color(0xFF010C80),
+    this.primaryColor = const Color(0xFF008c3f),
     this.backgroundImage = 'assets/images/ismart_background_image.jpg',
     this.appStoreID = 'com.devanasoft.ismart',
     this.packageName = 'com.devanasoft.ismart',

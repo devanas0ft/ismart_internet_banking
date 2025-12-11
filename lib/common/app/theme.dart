@@ -30,7 +30,7 @@ class CustomTheme {
   static const Color tableColorHead = Color(0xFFb3eaf5);
   static const Color tableColorPrimary = Color(0xFFcae3e8);
   static const Color tableColorSecondary = Color(0xFFFAFCFF);
-  static const Color testAppColor = Color(0xFF010C80);
+  static const Color testAppColor = Color(0xFF008c3f);
   static const String footerText = 'Finansol IT Solutions';
   static const String mainLogo = 'assets/icons/finasol.png';
   static const String mainLogoWhite = 'assets/icons/finasol.png';
