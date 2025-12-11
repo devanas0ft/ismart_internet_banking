@@ -6,7 +6,7 @@ import 'package:ismart_web/common/utils/size_utils.dart';
 
 class CustomRoundedButtom extends StatefulWidget {
   const CustomRoundedButtom({
-    Key? key,
+    super.key,
     required this.title,
     required this.onPressed,
     this.isDisabled = false,
@@ -23,7 +23,7 @@ class CustomRoundedButtom extends StatefulWidget {
     this.icon,
     this.iconColor,
     this.verificationAmount,
-  }) : super(key: key);
+  });
   final String title;
   final Function()? onPressed;
   final bool isDisabled;

@@ -72,7 +72,7 @@ class _TransactionPinScreenState extends State<TransactionPinScreen> {
                   child: Padding(
                     padding:
                         Responsive.isDesktop(context)
-                            ? EdgeInsets.symmetric(horizontal: 300)
+                            ? EdgeInsets.symmetric(horizontal: 450)
                             : EdgeInsets.all(0),
                     child: Column(
                       children: [
@@ -93,7 +93,7 @@ class _TransactionPinScreenState extends State<TransactionPinScreen> {
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: _height * 0.04),
-                        //TODO need to remove condition ,using just for test
+
                         CustomPinCodeField(
                           // length: 5,
                           controller: _pinCodeController,
