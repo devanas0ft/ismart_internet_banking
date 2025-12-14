@@ -49,20 +49,33 @@ class CoOperative {
     //   splashImage: '',
     //   channelPartner: '',
     // );
-    return CoOperative(
-      coOperativeName: 'shubhasandesh',
-      bannerImage: 'assets/images/shubhasandesh_banner.png',
-      clientCode: 'JCJY7XP42T',
-      clientSecret: '149163',
-      primaryColor: Color(0xFF0A1172),
-      coOperativeLogo: 'assets/images/ismart_logo_only.png',
-      appStoreID: 'com.devanasoft.ismart',
-      appTitle: 'iSmart Devanasoft',
-      backgroundImage: 'assets/images/ismart_background_image.jpg',
-      packageName: 'com.devanasoft.ismart',
-      splashImage: '',
-      channelPartner: '',
-    );
+    // return CoOperative(
+    //   coOperativeName: 'shubhasandesh',
+    //   bannerImage: 'assets/images/shubhasandesh_banner.png',
+    //   clientCode: 'JCJY7XP42T',
+    //   clientSecret: '149163',
+    //   primaryColor: Color(0xFF0A1172),
+    //   coOperativeLogo: 'assets/images/ismart_logo_only.png',
+    //   appStoreID: 'com.devanasoft.ismart',
+    //   appTitle: 'iSmart Devanasoft',
+    //   backgroundImage: 'assets/images/ismart_background_image.jpg',
+    //   packageName: 'com.devanasoft.ismart',
+    //   splashImage: '',
+    //   channelPartner: '',
+    // );
+     return CoOperative(
+    coOperativeName: 'pacific',
+    baseUrl: 'https://ismart.devanasoft.com.np/',
+    bannerImage: "assets/images/pacific/pacific_banner.png",
+    backgroundImage: "assets/images/pacific/pacific_background.png",
+    clientCode: 'M66VVYESH8',
+    clientSecret: "126072",
+    coOperativeLogo: 'assets/images/pacific/pacific_logo.png',
+    splashImage: "assets/images/pacific/pacific_splash.png",
+    primaryColor: const Color(0xFF1A9640),
+    
+    appTitle: 'Pacific iSmart',
+  );
   }
 
   CoOperative copyWith({

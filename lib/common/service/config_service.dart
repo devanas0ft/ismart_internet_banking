@@ -59,6 +59,14 @@ class ConfigService {
           clientSecret: '219548',
           primaryColor: Color(0xFFF44336),
         );
+        case 'pacific':
+        return CoOperative(
+          coOperativeName: 'pacific',
+          bannerImage: 'assets/images/pacific/pacific_banner.png',
+          clientCode: 'M66VVYESH8',
+         clientSecret: "126072",
+          primaryColor: const Color(0xFF1A9640),
+        );
       default:
         return CoOperative.defaultConfig();
     }
