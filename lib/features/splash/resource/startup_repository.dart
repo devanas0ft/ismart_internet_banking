@@ -2,16 +2,19 @@ import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/http/custom_exception.dart';
 import 'package:ismart_web/common/http/response.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
+import 'package:ismart_web/common/service/config_service.dart';
 import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/common/utils/hive_utils.dart';
 import 'package:ismart_web/features/appServiceManagement/model/app_service_management_model.dart';
 import 'package:ismart_web/features/auth/resources/user_repository.dart';
+import 'package:ismart_web/features/dynamicCoop/cooperative_repository.dart';
 import 'package:ismart_web/features/splash/models/app_config_model.dart';
 import 'package:ismart_web/features/splash/resource/startup_api_provider.dart';
 
 class StartUpRepository {
   ApiProvider apiProvider;
   late StartUpApiProvider startupApiProvider;
+  late CooperativeRepository cooperativeRepository;
   UserRepository userRepository;
   CoOperative env;
 
@@ -26,6 +29,10 @@ class StartUpRepository {
       userRepository: userRepository,
       env: env,
     );
+    cooperativeRepository = CooperativeRepository(
+      apiProvider: apiProvider,
+      baseUrl: env.baseUrl,
+    );
   }
 
   List<String> banners = [];
@@ -34,6 +41,26 @@ class StartUpRepository {
   // AppUpdate? appUpdate;
 
   List<AppServiceManagementModel> allServices = [];
+
+  Future<DataResponse<CoOperative>> dynamicCoopConfig() async {
+    try {
+      // Fetch from API
+      final response = await cooperativeRepository.fetchCooperativeConfig();
+
+      if (response.status == Status.Success && response.data != null) {
+        // Update ConfigService with fetched config
+        ConfigService().setConfig(response.data!);
+        return DataResponse.success(response.data!);
+      } else {
+        return DataResponse.error(
+          response.message ?? "Error fetching cooperative config.",
+        );
+      }
+    } catch (e) {
+      print('Error in fetchCooperativeConfigData: $e');
+      return DataResponse.error("Error fetching cooperative configuration");
+    }
+  }
 
   Future<DataResponse<List<String>>> fetchBannerImages() async {
     banners.clear();

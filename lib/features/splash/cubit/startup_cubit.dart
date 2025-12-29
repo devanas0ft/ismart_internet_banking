@@ -26,6 +26,8 @@ class StartupCubit extends Cubit<StartupState> {
     await startUpRepository.fetchBannerImages();
     await startUpRepository.fetchAppConfig();
     await startUpRepository.fetchdefaultBannerImages();
+    await startUpRepository.dynamicCoopConfig();
+
     // await bannerRepository.fetchBannerImages(bannerImageType: "OfferBanner");
     await startUpRepository.getAppService();
 

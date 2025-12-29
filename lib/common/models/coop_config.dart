@@ -35,34 +35,7 @@ class CoOperative {
   });
 
   factory CoOperative.defaultConfig() {
-    // return CoOperative(
-    //   coOperativeName: 'ismart',
-    //   bannerImage: 'assets/images/ismart_banner.png',
-    //   clientCode: 'EHVNI7CZJ3',
-    //   clientSecret: '126489',
-    //   primaryColor: Color(0xFF010C80),
-    //   coOperativeLogo: 'assets/images/ismart_logo_only.png',
-    //   appStoreID: 'com.devanasoft.ismart',
-    //   appTitle: 'iSmart Devanasoft',
-    //   backgroundImage: 'assets/images/ismart_background_image.jpg',
-    //   packageName: 'com.devanasoft.ismart',
-    //   splashImage: '',
-    //   channelPartner: '',
-    // );
-    // return CoOperative(
-    //   coOperativeName: 'shubhasandesh',
-    //   bannerImage: 'assets/images/shubhasandesh_banner.png',
-    //   clientCode: 'JCJY7XP42T',
-    //   clientSecret: '149163',
-    //   primaryColor: Color(0xFF0A1172),
-    //   coOperativeLogo: 'assets/images/ismart_logo_only.png',
-    //   appStoreID: 'com.devanasoft.ismart',
-    //   appTitle: 'iSmart Devanasoft',
-    //   backgroundImage: 'assets/images/ismart_background_image.jpg',
-    //   packageName: 'com.devanasoft.ismart',
-    //   splashImage: '',
-    //   channelPartner: '',
-    // );
+
      return CoOperative(
     coOperativeName: 'pacific',
     baseUrl: 'https://ismart.devanasoft.com.np/',

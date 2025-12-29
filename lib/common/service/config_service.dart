@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 // import 'package:web/web.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
+import 'package:ismart_web/common/models/coop_model_response.dart';
+import 'package:ismart_web/features/splash/resource/startup_repository.dart';
 
 class ConfigService {
   static final ConfigService _instance = ConfigService._internal();
@@ -12,22 +14,35 @@ class ConfigService {
 
   CoOperative? _currentConfig;
 
+  bool _isInitialized = false;
+
   CoOperative get config => _currentConfig ?? CoOperative.defaultConfig();
 
-  Future<CoOperative> initialize() async {
-    // final uri = Uri.parse(html.window.location.href);
+  bool get isInitialized => _isInitialized;
 
-    // final pathSegments = uri.pathSegments;
-
-    // String? coopName;
-    // if (pathSegments.isNotEmpty) {
-    //   coopName = pathSegments.first;
-    // }
-
-    // _currentConfig = await _loadConfigForCoop(coopName);
-
-    return config;
+   void setConfig(CoOperative config) {
+    _currentConfig = config;
+    _isInitialized = true;
   }
+  Future<dynamic> initialize(){
+     if (_isInitialized && _currentConfig != null) {
+      return Future.value(_currentConfig);
+     }
+     return Future.value('Coop is not configured');
+  }
+
+  // Future<CoOperative> initialize() async {
+  //   if (_isInitialized && _currentConfig != null) {
+  //     return _currentConfig!;
+  //   }
+  //   return config;
+  // }
+
+  void clearConfig() {
+    _currentConfig = null;
+    _isInitialized = false;
+  }
+
 
   Future<CoOperative> _loadConfigForCoop(String? coopName) async {
     if (coopName == null || coopName.isEmpty) {
