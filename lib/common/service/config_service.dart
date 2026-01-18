@@ -24,19 +24,19 @@ class ConfigService {
     _currentConfig = config;
     _isInitialized = true;
   }
-  Future<dynamic> initialize(){
-     if (_isInitialized && _currentConfig != null) {
-      return Future.value(_currentConfig);
-     }
-     return Future.value('Coop is not configured');
-  }
-
-  // Future<CoOperative> initialize() async {
-  //   if (_isInitialized && _currentConfig != null) {
-  //     return _currentConfig!;
-  //   }
-  //   return config;
+  // Future<dynamic> initialize(){
+  //    if (_isInitialized && _currentConfig != null) {
+  //     return Future.value(_currentConfig);
+  //    }
+  //    return Future.value('Coop is not configured');
   // }
+
+  Future<CoOperative> initialize() async {
+    if (_isInitialized && _currentConfig != null) {
+      return _currentConfig!;
+    }
+    return config;
+  }
 
   void clearConfig() {
     _currentConfig = null;
