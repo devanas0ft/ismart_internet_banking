@@ -35,20 +35,24 @@ class CoOperative {
   });
 
   factory CoOperative.defaultConfig() {
+    return CoOperative(
+      coOperativeName: 'aadarsha',
+      bannerImage: 'assets/images/aadarsha_banner.png',
+      clientCode: '6LDSFON6DI',
+      clientSecret: '219548',
+      primaryColor: Color(0xFFF44336),
+      // coOperativeName: 'pacific',
+      // baseUrl: 'https://ismart.devanasoft.com.np/',
+      // bannerImage: "assets/images/pacific/pacific_banner.png",
+      // backgroundImage: "assets/images/pacific/pacific_background.png",
+      // clientCode: 'M66VVYESH8',
+      // clientSecret: "126072",
+      // coOperativeLogo: 'assets/images/pacific/pacific_logo.png',
+      // splashImage: "assets/images/pacific/pacific_splash.png",
+      // primaryColor: const Color(0xFF1A9640),
 
-     return CoOperative(
-    coOperativeName: 'pacific',
-    baseUrl: 'https://ismart.devanasoft.com.np/',
-    bannerImage: "assets/images/pacific/pacific_banner.png",
-    backgroundImage: "assets/images/pacific/pacific_background.png",
-    clientCode: 'M66VVYESH8',
-    clientSecret: "126072",
-    coOperativeLogo: 'assets/images/pacific/pacific_logo.png',
-    splashImage: "assets/images/pacific/pacific_splash.png",
-    primaryColor: const Color(0xFF1A9640),
-    
-    appTitle: 'Pacific iSmart',
-  );
+      // appTitle: 'Pacific iSmart',
+    );
   }
 
   CoOperative copyWith({

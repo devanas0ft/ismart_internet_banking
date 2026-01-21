@@ -12,9 +12,9 @@ class CooperativeApiProvider {
   });
 
   Future<dynamic> fetchCooperativeConfig() async {
-    final _uri = Uri.parse(baseUrl + "api/get/ibanking/config");
+    final uri = Uri.parse("$baseUrl/get/ibanking/config");
     return await apiProvider.get(
-      _uri,
+      uri,
       userId: 0,
       token: '',
     );

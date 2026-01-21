@@ -23,7 +23,8 @@ class _LoaderScreenState extends State<LoaderScreen> {
   @override
   void initState() {
     super.initState();
-    CustomTheme().initializeTheme(_configFuture.primaryColor);
+    // CustomTheme().initializeTheme(Colors.black);
+    CustomTheme().initializeTheme(_configFuture!.primaryColor);
   }
 
   @override

@@ -80,7 +80,7 @@ class CooperativeRepository {
       
       // Parse colors
       primaryColor: _parseColor(detail.themeColorPrimary) ?? 
-          const Color(0xFF010C80),
+          const Color.fromARGB(255, 22, 128, 1),
       
       // Map app title
       appTitle: detail.name ?? 'iSmart',
@@ -95,15 +95,7 @@ class CooperativeRepository {
   }
 
   String _formatImageUrl(String url) {
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return url;
-    }
-    // If relative URL, prepend base URL
-    String formattedUrl = baseUrl + url;
-    return formattedUrl
-        .replaceAll("//", "/")
-        .replaceAll("https:/", "https://")
-        .replaceAll("http:/", "http://");
+    return baseUrl + url;
   }
 
   Color? _parseColor(String? colorString) {

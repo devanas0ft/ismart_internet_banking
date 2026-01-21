@@ -18,7 +18,7 @@ class GuthiTopWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final _height = SizeUtils.height;
     final config = ConfigService().config;
-
+     
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -27,7 +27,17 @@ class GuthiTopWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               // child: Image.asset("assets/Newa_banner.png", height: 60.hp),
-              child: Image.asset(config.bannerImage, height: 60.hp),
+              // child: Image.asset(config.bannerImage, height: 60.hp),
+              child: Image.network(
+                config!.bannerImage, // dynamic url
+                height: 60.hp,
+                errorBuilder: (_, __, ___) {
+                  return Image.asset(
+                    'assets/default_banner.png',
+                    height: 60.hp,
+                  );
+                },
+              ),
             ),
           ),
 
@@ -135,7 +145,7 @@ class GuthiTopWidget extends StatelessWidget {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios,
-                                color: config.primaryColor,
+                                // color: config.primaryColor,
                               ),
                             ],
                           ),

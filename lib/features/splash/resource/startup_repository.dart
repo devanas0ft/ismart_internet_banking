@@ -42,23 +42,25 @@ class StartUpRepository {
 
   List<AppServiceManagementModel> allServices = [];
 
-  Future<DataResponse<CoOperative>> dynamicCoopConfig() async {
+   Future<DataResponse<CoOperative>> dynamicCoopConfig() async {
     try {
-      // Fetch from API
+      ConfigService().setLoading();
+      
       final response = await cooperativeRepository.fetchCooperativeConfig();
 
       if (response.status == Status.Success && response.data != null) {
-        // Update ConfigService with fetched config
         ConfigService().setConfig(response.data!);
         return DataResponse.success(response.data!);
       } else {
-        return DataResponse.error(
-          response.message ?? "Error fetching cooperative config.",
-        );
+        final errorMsg = response.message ?? "Failed to fetch cooperative configuration";
+        ConfigService().setError(errorMsg);
+        return DataResponse.error(errorMsg);
       }
     } catch (e) {
-      print('Error in fetchCooperativeConfigData: $e');
-      return DataResponse.error("Error fetching cooperative configuration");
+      print('Error in dynamicCoopConfig: $e');
+      final errorMsg = "Unable to load cooperative configuration: ${e.toString()}";
+      ConfigService().setError(errorMsg);
+      return DataResponse.error(errorMsg);
     }
   }
 
