@@ -64,17 +64,17 @@ class CoOperative {
     //   channelPartner: '',
     // );
      return CoOperative(
-    coOperativeName: 'pacific',
+    coOperativeName: 'Sadasya Sewa',
     baseUrl: 'https://ismart.devanasoft.com.np/',
-    bannerImage: "assets/images/pacific/pacific_banner.png",
-    backgroundImage: "assets/images/pacific/pacific_background.png",
-    clientCode: 'M66VVYESH8',
-    clientSecret: "126072",
-    coOperativeLogo: 'assets/images/pacific/pacific_logo.png',
-    splashImage: "assets/images/pacific/pacific_splash.png",
+    bannerImage: "assets/images/sadasya_sewa/sadasyasewa_banner.png",
+    backgroundImage: "assets/images/sadasya_sewa/sadasyasewa_background.png",
+    clientCode: 'JY2BVRD208',
+    clientSecret: "164786",
+    coOperativeLogo: 'assets/images/sadasya_sewa/sadasyasewa_logo.png',
+    splashImage: "assets/images/sadasya_sewa/sadasyasewa_splash.png",
     primaryColor: const Color(0xFF1A9640),
     
-    appTitle: 'Pacific iSmart',
+    appTitle: 'Sadasya Sewa',
   );
   }
 
