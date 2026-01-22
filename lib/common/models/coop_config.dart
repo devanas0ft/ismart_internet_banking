@@ -36,11 +36,11 @@ class CoOperative {
 
   factory CoOperative.defaultConfig() {
     return CoOperative(
-      coOperativeName: 'aadarsha',
-      bannerImage: 'assets/images/aadarsha_banner.png',
-      clientCode: '6LDSFON6DI',
-      clientSecret: '219548',
-      primaryColor: Color(0xFFF44336),
+      coOperativeName: 'Sadasya Sewa',
+      bannerImage: 'assets/images/sadasyasewa_banner.png',
+      clientCode: 'JY2BVRD208',
+      clientSecret: '164786',
+      primaryColor: Color(0xFF0072BB),
       // coOperativeName: 'pacific',
       // baseUrl: 'https://ismart.devanasoft.com.np/',
       // bannerImage: "assets/images/pacific/pacific_banner.png",

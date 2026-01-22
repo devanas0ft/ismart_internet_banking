@@ -45,16 +45,20 @@ AppBar myAppbar({bool showBackButton = false, bool showChatBot = false}) {
             child: Padding(
               padding: const EdgeInsets.all(0),
               // child: Image.asset("config.bannerImage", height: 50),
-              child: config!.bannerImage.isEmpty ? Image.asset('assets/images/ismart_banner.png', height: 60.hp,) : Image.network(
-                config.bannerImage, // dynamic url
+              child: Image.asset(
+                config!.bannerImage,
                 height: 60.hp,
-                errorBuilder: (_, __, ___) {
-                  return Image.asset(
-                    'assets/default_banner.png',
-                    height: 60.hp,
-                  );
-                },
               ),
+              // child: config!.bannerImage.isEmpty ? Image.asset('assets/images/ismart_banner.png', height: 60.hp,) : Image.network(
+              //   config.bannerImage, // dynamic url
+              //   height: 60.hp,
+              //   errorBuilder: (_, __, ___) {
+              //     return Image.asset(
+              //       'assets/default_banner.png',
+              //       height: 60.hp,
+              //     );
+              //   },
+              // ),
             ),
           ),
           Row(

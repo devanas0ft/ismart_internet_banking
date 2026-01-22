@@ -18,7 +18,7 @@ class _LoaderPageState extends State<LoaderPage> {
   @override
   void initState() {
     super.initState();
-    _initializeApp();
+    // _initializeApp();
   }
 
   Future<void> _initializeApp() async {
