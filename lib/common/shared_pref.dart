@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:ismart_web/common/models/coop_config.dart';
+import 'package:ismart_web/common/models/coop_model_response.dart';
 import 'package:ismart_web/common/models/downloaded_file.dart';
 import 'package:ismart_web/common/models/users.dart';
 import 'package:ismart_web/features/auth/model/coop_value.dart';
@@ -19,6 +21,7 @@ class SharedPref {
   static const _deviceUUID = "deviceUUID";
   static const _downloadedFilesList = "downloadedFilesList";
   static const _phoneNumber = 'phoneNumber';
+  static const _dynamicCoop = '_dynamicCoop';
 
   static Future addDownloadedFiles(DownloadedFile fileDetails) async {
     final _instance = await SharedPreferences.getInstance();
@@ -235,6 +238,27 @@ class SharedPref {
   static Future<void> toggleChatBotVisibility() async {
     final isVisible = await getChatBotVisibility();
     await setChatBotVisibility(!isVisible);
+  }
+
+    static Future setDynamicCoopDetails(Detail coop) async {
+    final _instance = await SharedPreferences.getInstance();
+    await _instance.setString(_dynamicCoop, json.encode(coop.toJson()));
+  }
+
+  static Future<Detail?> getDynamicCoopDetails() async {
+    final _instance = await SharedPreferences.getInstance();
+
+    final res = _instance.getString(_dynamicCoop);
+    if (res == null) {
+      return null;
+    }
+    Detail? _localDetail;
+    try {
+      _localDetail = Detail.fromJson(json.decode(res));
+    } catch (e) {
+      return null;
+    }
+    return _localDetail;
   }
 }
 // import 'dart:convert';

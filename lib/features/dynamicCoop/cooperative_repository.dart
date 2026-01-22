@@ -5,6 +5,7 @@ import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/http/response.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/models/coop_model_response.dart';
+import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/features/dynamicCoop/cooperative_api_provider.dart';
 
 class CooperativeRepository {
@@ -40,6 +41,7 @@ class CooperativeRepository {
           );
           
           final CoOperative config = _mapApiResponseToConfig(detail);
+          await SharedPref.setDynamicCoopDetails(detail);
           return DataResponse.success(config);
         } else {
           return DataResponse.error("No cooperative configuration found.");

@@ -1,12 +1,16 @@
 // lib/main.dart or wherever AppDev is used
 
+// import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
 import 'package:ismart_web/common/http/api_provider.dart';
 import 'package:ismart_web/common/http/response.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
+import 'package:ismart_web/common/models/coop_model_response.dart';
 import 'package:ismart_web/common/service/config_service.dart';
+import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/common/utils/hive_utils.dart';
 import 'package:ismart_web/common/wrapper/multi_bloc_wrapper.dart';
 import 'package:ismart_web/common/wrapper/multi_repo_wrapper.dart';
@@ -28,6 +32,7 @@ class _AppDevState extends State<AppDev> {
   bool _isLoading = true;
   String? _errorMessage;
   CoOperative? _config;
+  final ValueNotifier<Detail?> _dynamicCoop = ValueNotifier(null);
 
   @override
   void initState() {
@@ -35,6 +40,22 @@ class _AppDevState extends State<AppDev> {
     ServiceHiveUtils.init();
     _initializeConfig();
     _setupSessionTimeout();
+    fetchDynamicIcons();
+  }
+
+  Future<Detail?> fetchDynamicIcons() async {
+    try {
+      final dynamicCoop = await SharedPref.getDynamicCoopDetails();
+      if (dynamicCoop != null) {
+        _dynamicCoop.value = dynamicCoop;
+      }
+
+      print("Token------------------------------------------");
+      print(_dynamicCoop.value);
+    } on Exception catch (_) {
+      print('custom exception is been obtained');
+    }
+    return _dynamicCoop.value;
   }
 
   void _setupSessionTimeout() {
@@ -72,7 +93,7 @@ class _AppDevState extends State<AppDev> {
 
       if (response.status == Status.Success && response.data != null) {
         setState(() {
-          _config = response.data;
+          _config = fetchDynamicCoop();
           _isLoading = false;
           _errorMessage = null;
         });
@@ -89,7 +110,18 @@ class _AppDevState extends State<AppDev> {
       });
     }
   }
-
+ fetchDynamicCoop() {
+    return CoOperative(
+      coOperativeName: _dynamicCoop.value!.name!.toLowerCase(),
+      baseUrl: 'https://ismart.devanasoft.com.np/',
+      bannerImage: "https://ismart.devanasoft.com.np/${_dynamicCoop.value!.bannerUrl}",
+      backgroundImage: "https://ismart.devanasoft.com.np/${_dynamicCoop.value!.iconUrl}",
+      clientCode: _dynamicCoop.value!.clientID!,
+      clientSecret: _dynamicCoop.value!.clientSecret!,
+      coOperativeLogo: "https://ismart.devanasoft.com.np/${_dynamicCoop.value!.logoUrl}",
+      primaryColor:  Color(int.parse(_dynamicCoop.value!.themeColorPrimary!)),
+    );
+  }
   Future<void> _retryConfiguration() async {
     setState(() {
       _isLoading = true;

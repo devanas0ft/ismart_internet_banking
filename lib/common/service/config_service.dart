@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:web/web.dart';
 import 'package:ismart_web/common/models/coop_config.dart';
 import 'package:ismart_web/common/models/coop_model_response.dart';
+import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/features/splash/resource/startup_repository.dart';
 
 enum ConfigLoadingState {
@@ -35,7 +36,7 @@ class ConfigService {
   ConfigLoadingState _state = ConfigLoadingState.uninitialized;
   String? _errorMessage;
 
-  CoOperative? get config => _currentConfig;
+  CoOperative? get config => _currentConfig ?? getDynamicCatchCoopConfig() as CoOperative?;
   bool get isInitialized => _state == ConfigLoadingState.success;
   ConfigLoadingState get state => _state;
   String? get errorMessage => _errorMessage;
@@ -65,6 +66,23 @@ void setConfig(CoOperative config) {
 
   bool hasConfig() {
     return _currentConfig != null && _state == ConfigLoadingState.success;
+  }
+  Future<CoOperative?> getDynamicCatchCoopConfig() async {
+    Detail? detail = await SharedPref.getDynamicCoopDetails();
+    if (detail != null) {
+      return CoOperative(
+        coOperativeName: detail.name!.toLowerCase(),
+      baseUrl: 'https://ismart.devanasoft.com.np/',
+      bannerImage: "https://ismart.devanasoft.com.np/${detail.bannerUrl}",
+      backgroundImage: "https://ismart.devanasoft.com.np/${detail.iconUrl}",
+      clientCode: detail.clientID!,
+      clientSecret: detail.clientSecret!,
+      coOperativeLogo: "https://ismart.devanasoft.com.np/${detail.logoUrl}",
+      primaryColor:  Color(int.parse(detail.themeColorPrimary!)),
+      );
+    } else {
+      throw Exception("No cooperative configuration found in cache.");
+    }
   }
 
   //  void setConfig(CoOperative config) {

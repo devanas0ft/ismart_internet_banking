@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ismart_web/common/app/navigation_service.dart';
 import 'package:ismart_web/common/app/theme.dart';
+import 'package:ismart_web/common/models/coop_model_response.dart';
 import 'package:ismart_web/common/service/config_service.dart';
+import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/common/utils/size_utils.dart';
 
-class GuthiTopWidget extends StatelessWidget {
+class GuthiTopWidget extends StatefulWidget {
   final Function()? supportAction;
   final bool showSupportIcon;
   const GuthiTopWidget({
@@ -14,6 +16,33 @@ class GuthiTopWidget extends StatelessWidget {
     this.supportAction,
   }) : super(key: key);
 
+  @override
+  State<GuthiTopWidget> createState() => _GuthiTopWidgetState();
+}
+
+class _GuthiTopWidgetState extends State<GuthiTopWidget> {
+   ValueNotifier<Detail?> _dynamicCoop = ValueNotifier(null);
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDynamicIcons();
+  }
+
+Future<Detail?> fetchDynamicIcons() async {
+    try {
+      final dynamicCoop = await SharedPref.getDynamicCoopDetails();
+      if (dynamicCoop != null) {
+        _dynamicCoop.value = dynamicCoop;
+      }
+
+      print("Token------------------------------------------");
+      print(_dynamicCoop.value);
+    } on Exception catch (_) {
+      print('custom exception is been obtained');
+    }
+    return _dynamicCoop.value;
+  }
   @override
   Widget build(BuildContext context) {
     final _height = SizeUtils.height;
@@ -28,8 +57,8 @@ class GuthiTopWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               // child: Image.asset("assets/Newa_banner.png", height: 60.hp),
               // child: Image.asset(config.bannerImage, height: 60.hp),
-              child: Image.network(
-                config!.bannerImage, // dynamic url
+              child: config!.bannerImage.isEmpty ?Image.asset('assets/images/ismart_banner.png', height: 60.hp,):Image.network(
+                config.bannerImage, // dynamic url
                 height: 60.hp,
                 errorBuilder: (_, __, ___) {
                   return Image.asset(
@@ -41,7 +70,7 @@ class GuthiTopWidget extends StatelessWidget {
             ),
           ),
 
-        if (showSupportIcon)
+        if (widget.showSupportIcon)
           Container(
             child: Row(
               children: [
@@ -145,7 +174,7 @@ class GuthiTopWidget extends StatelessWidget {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios,
-                                // color: config.primaryColor,
+                                color: config!.primaryColor,
                               ),
                             ],
                           ),

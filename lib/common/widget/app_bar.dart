@@ -45,8 +45,8 @@ AppBar myAppbar({bool showBackButton = false, bool showChatBot = false}) {
             child: Padding(
               padding: const EdgeInsets.all(0),
               // child: Image.asset("config.bannerImage", height: 50),
-              child: Image.network(
-                config!.bannerImage, // dynamic url
+              child: config!.bannerImage.isEmpty ? Image.asset('assets/images/ismart_banner.png', height: 60.hp,) : Image.network(
+                config.bannerImage, // dynamic url
                 height: 60.hp,
                 errorBuilder: (_, __, ___) {
                   return Image.asset(
