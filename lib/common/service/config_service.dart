@@ -24,7 +24,7 @@ class ConfigService {
     //   coopName = pathSegments.first;
     // }
 
-    // _currentConfig = await _loadConfigForCoop(coopName);
+    _currentConfig = await _loadConfigForCoop('sadasyasewa');
 
     return config;
   }
@@ -59,13 +59,41 @@ class ConfigService {
           clientSecret: '219548',
           primaryColor: Color(0xFFF44336),
         );
-        case 'pacific':
+      case 'pacific':
         return CoOperative(
           coOperativeName: 'pacific',
           bannerImage: 'assets/images/pacific/pacific_banner.png',
           clientCode: 'M66VVYESH8',
-         clientSecret: "126072",
+          clientSecret: "126072",
           primaryColor: const Color(0xFF1A9640),
+        );
+      case 'abhyudaya':
+        return CoOperative(
+          coOperativeName: 'Abhyudaya',
+          baseUrl: 'https://ismart.devanasoft.com.np/',
+          bannerImage: "assets/images/abhyudaya/abhyudaya_banner.png",
+          backgroundImage: "assets/images/abhyudaya/abhyudaya_background.png",
+          clientCode: 'QQ2D2C09VY',
+          clientSecret: "112055",
+          coOperativeLogo: 'assets/images/abhyudaya/abhyudaya_logo.png',
+          splashImage: "assets/images/abhyudaya/abhyudaya_splash.png",
+          primaryColor: const Color(0xFF1A9640),
+          appTitle: 'Abhyudaya',
+        );
+      case 'sadasyasewa':
+        return CoOperative(
+          coOperativeName: 'Sadasya Sewa',
+          baseUrl: 'https://ismart.devanasoft.com.np/',
+          bannerImage: "assets/images/sadasya_sewa/sadasyasewa_banner.png",
+          backgroundImage:
+              "assets/images/sadasya_sewa/sadasyasewa_background.png",
+          clientCode: 'JY2BVRD208',
+          clientSecret: "164786",
+          coOperativeLogo: 'assets/images/sadasya_sewa/sadasyasewa_logo.png',
+          splashImage: "assets/images/sadasya_sewa/sadasyasewa_splash.png",
+          primaryColor: const Color(0xFF1A9640),
+
+          appTitle: 'Sadasya Sewa',
         );
       default:
         return CoOperative.defaultConfig();
