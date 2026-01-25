@@ -63,19 +63,30 @@ class CoOperative {
     //   splashImage: '',
     //   channelPartner: '',
     // );
-     return CoOperative(
-    coOperativeName: 'Sadasya Sewa',
-    baseUrl: 'https://ismart.devanasoft.com.np/',
-    bannerImage: "assets/images/sadasya_sewa/sadasyasewa_banner.png",
-    backgroundImage: "assets/images/sadasya_sewa/sadasyasewa_background.png",
-    clientCode: 'JY2BVRD208',
-    clientSecret: "164786",
-    coOperativeLogo: 'assets/images/sadasya_sewa/sadasyasewa_logo.png',
-    splashImage: "assets/images/sadasya_sewa/sadasyasewa_splash.png",
-    primaryColor: const Color(0xFF1A9640),
-    
-    appTitle: 'Sadasya Sewa',
-  );
+    return CoOperative(
+      coOperativeName: 'Abhyudaya',
+      baseUrl: 'https://ismart.devanasoft.com.np/',
+      bannerImage: "assets/images/abhyudaya/abhyudaya_banner.png",
+      backgroundImage: "assets/images/abhyudaya/abhyudaya_background.png",
+      clientCode: 'QQ2D2C09VY',
+      clientSecret: "112055",
+      coOperativeLogo: 'assets/images/abhyudaya/abhyudaya_logo.png',
+      splashImage: "assets/images/abhyudaya/abhyudaya_splash.png",
+      primaryColor: const Color(0xFF1A9640),
+
+      appTitle: 'Abhyudaya',
+      // coOperativeName: 'Sadasya Sewa',
+      // baseUrl: 'https://ismart.devanasoft.com.np/',
+      // bannerImage: "assets/images/sadasya_sewa/sadasyasewa_banner.png",
+      // backgroundImage: "assets/images/sadasya_sewa/sadasyasewa_background.png",
+      // clientCode: 'JY2BVRD208',
+      // clientSecret: "164786",
+      // coOperativeLogo: 'assets/images/sadasya_sewa/sadasyasewa_logo.png',
+      // splashImage: "assets/images/sadasya_sewa/sadasyasewa_splash.png",
+      // primaryColor: const Color(0xFF1A9640),
+
+      // appTitle: 'Sadasya Sewa',
+    );
   }
 
   CoOperative copyWith({
