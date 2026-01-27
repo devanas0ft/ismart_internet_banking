@@ -56,17 +56,17 @@ Future<Detail?> fetchDynamicIcons() async {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               // child: Image.asset("assets/Newa_banner.png", height: 60.hp),
-              child: Image.asset(config!.bannerImage, height: 60.hp),
-              // child: config!.bannerImage.isEmpty ?Image.asset('assets/images/ismart_banner.png', height: 60.hp,):Image.network(
-              //   config.bannerImage, // dynamic url
-              //   height: 60.hp,
-              //   errorBuilder: (_, __, ___) {
-              //     return Image.asset(
-              //       'assets/default_banner.png',
-              //       height: 60.hp,
-              //     );
-              //   },
-              // ),
+              // child: Image.asset(config!.bannerImage, height: 60.hp),
+              child: config!.bannerImage.isEmpty ?Image.asset('assets/images/ismart_banner.png', height: 60.hp,):Image.network(
+                config.bannerImage, // dynamic url
+                height: 60.hp,
+                errorBuilder: (_, __, ___) {
+                  return Image.asset(
+                    'assets/default_banner.png',
+                    height: 60.hp,
+                  );
+                },
+              ),
             ),
           ),
 

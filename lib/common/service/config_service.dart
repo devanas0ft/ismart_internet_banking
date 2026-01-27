@@ -6,7 +6,12 @@ import 'package:ismart_web/common/models/coop_model_response.dart';
 import 'package:ismart_web/common/shared_pref.dart';
 import 'package:ismart_web/features/splash/resource/startup_repository.dart';
 
-enum ConfigLoadingState { uninitialized, loading, success, error }
+enum ConfigLoadingState {
+  uninitialized,
+  loading,
+  success,
+  error,
+}
 
 class ConfigService {
   // static final ConfigService _instance = ConfigService._internal();
@@ -19,9 +24,9 @@ class ConfigService {
 
   // bool _isInitialized = false;
 
-  CoOperative get config1 => _currentConfig ?? CoOperative.defaultConfig();
+  // CoOperative get config => _currentConfig ?? CoOperative.defaultConfig();
   // bool get isInitialized => _isInitialized;
-  static final ConfigService _instance = ConfigService._internal();
+   static final ConfigService _instance = ConfigService._internal();
 
   factory ConfigService() => _instance;
 
@@ -31,18 +36,18 @@ class ConfigService {
   ConfigLoadingState _state = ConfigLoadingState.uninitialized;
   String? _errorMessage;
 
-  CoOperative? get config =>_currentConfig ?? CoOperative.defaultConfig() ;
+  CoOperative? get config => _currentConfig ?? getDynamicCatchCoopConfig() as CoOperative?;
   bool get isInitialized => _state == ConfigLoadingState.success;
   ConfigLoadingState get state => _state;
   String? get errorMessage => _errorMessage;
 
-  void setConfig(CoOperative config) {
+void setConfig(CoOperative config) {
     _currentConfig = config;
     _state = ConfigLoadingState.success;
     _errorMessage = null;
   }
 
-  void setLoading() {
+ void setLoading() {
     _state = ConfigLoadingState.loading;
     _errorMessage = null;
   }
@@ -62,19 +67,18 @@ class ConfigService {
   bool hasConfig() {
     return _currentConfig != null && _state == ConfigLoadingState.success;
   }
-
   Future<CoOperative?> getDynamicCatchCoopConfig() async {
     Detail? detail = await SharedPref.getDynamicCoopDetails();
     if (detail != null) {
       return CoOperative(
         coOperativeName: detail.name!.toLowerCase(),
-        baseUrl: 'https://ismart.devanasoft.com.np/',
-        bannerImage: "https://ismart.devanasoft.com.np/${detail.bannerUrl}",
-        backgroundImage: "https://ismart.devanasoft.com.np/${detail.iconUrl}",
-        clientCode: detail.clientID!,
-        clientSecret: detail.clientSecret!,
-        coOperativeLogo: "https://ismart.devanasoft.com.np/${detail.logoUrl}",
-        primaryColor: Color(int.parse(detail.themeColorPrimary!)),
+      baseUrl: 'https://ismart.devanasoft.com.np/',
+      bannerImage: "https://ismart.devanasoft.com.np/${detail.bannerUrl}",
+      backgroundImage: "https://ismart.devanasoft.com.np/${detail.iconUrl}",
+      clientCode: detail.clientID!,
+      clientSecret: detail.clientSecret!,
+      coOperativeLogo: "https://ismart.devanasoft.com.np/${detail.logoUrl}",
+      primaryColor:  Color(int.parse(detail.themeColorPrimary!)),
       );
     } else {
       throw Exception("No cooperative configuration found in cache.");
@@ -85,12 +89,12 @@ class ConfigService {
   //   _currentConfig = config;
   //   _isInitialized = true;
   // }
-  Future<CoOperative> initialize() async {
-    if (_currentConfig != null) {
-      return _currentConfig!;
-    }
-    return config1;
-  }
+  // Future<CoOperative> initialize() async {
+  //   if (_isInitialized && _currentConfig != null) {
+  //     return _currentConfig!;
+  //   }
+  //   return config;
+  // }
   // Future<CoOperative> initialize() async {
   //   if (_isInitialized && _currentConfig != null) {
   //     return _currentConfig!;
@@ -102,6 +106,7 @@ class ConfigService {
   //   _currentConfig = null;
   //   _isInitialized = false;
   // }
+
 
   // Future<CoOperative> _loadConfigForCoop(String? coopName) async {
   //   if (coopName == null || coopName.isEmpty) {
