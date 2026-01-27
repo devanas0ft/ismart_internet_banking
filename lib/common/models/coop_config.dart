@@ -75,17 +75,6 @@ class CoOperative {
       primaryColor: const Color(0xFF1A9640),
 
       appTitle: 'Abhyudaya',
-      // coOperativeName: 'Sadasya Sewa',
-      // baseUrl: 'https://ismart.devanasoft.com.np/',
-      // bannerImage: "assets/images/sadasya_sewa/sadasyasewa_banner.png",
-      // backgroundImage: "assets/images/sadasya_sewa/sadasyasewa_background.png",
-      // clientCode: 'JY2BVRD208',
-      // clientSecret: "164786",
-      // coOperativeLogo: 'assets/images/sadasya_sewa/sadasyasewa_logo.png',
-      // splashImage: "assets/images/sadasya_sewa/sadasyasewa_splash.png",
-      // primaryColor: const Color(0xFF1A9640),
-
-      // appTitle: 'Sadasya Sewa',
     );
   }
 
