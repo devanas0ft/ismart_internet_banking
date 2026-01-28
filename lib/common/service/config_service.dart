@@ -24,7 +24,7 @@ class ConfigService {
     //   coopName = pathSegments.first;
     // }
 
-    _currentConfig = await _loadConfigForCoop('sadasyasewa');
+    // _currentConfig = await _loadConfigForCoop('sadasyasewa');
 
     return config;
   }
